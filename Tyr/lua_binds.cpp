@@ -8,6 +8,7 @@ int lua_bind( LuaBinds* binds )
 
 	// bind subsystem here:
 	lua_rendering::bind( binds->lua );
+	lua_interface::bind( binds->lua );
 
 	// run main script
 	if( luaL_loadfile( binds->lua, "./scripts/main.lua" ) == 0 )

@@ -159,6 +159,7 @@
     <ClCompile Include="..\include\Lua\lzio.c" />
     <ClCompile Include="d2_interface.cpp" />
     <ClCompile Include="lua_binds.cpp" />
+    <ClCompile Include="lua_interface.cpp" />
     <ClCompile Include="lua_rendering.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="reroute.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="..\include\Lua\lzio.h" />
     <ClInclude Include="d2_interface.h" />
     <ClInclude Include="lua_binds.h" />
+    <ClInclude Include="lua_interface.h" />
     <ClInclude Include="lua_rendering.h" />
     <ClInclude Include="reroute.h" />
   </ItemGroup>

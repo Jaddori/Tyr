@@ -130,6 +130,9 @@
     <ClCompile Include="..\include\Lua\lzio.c">
       <Filter>Lua</Filter>
     </ClCompile>
+    <ClCompile Include="lua_interface.cpp">
+      <Filter>Source Files\Lua</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="reroute.h">
@@ -218,6 +221,9 @@
     </ClInclude>
     <ClInclude Include="..\include\Lua\lzio.h">
       <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_interface.h">
+      <Filter>Source Files\Lua</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

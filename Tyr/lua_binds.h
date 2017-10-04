@@ -2,6 +2,7 @@
 
 #include "lua.hpp"
 #include "lua_rendering.h"
+#include "lua_interface.h"
 
 struct LuaBinds
 {
