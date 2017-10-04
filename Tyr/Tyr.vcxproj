@@ -80,8 +80,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_WINDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\dev\Lua\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include\Lua</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\libs\Lua</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -98,11 +102,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_WINDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\dev\Lua\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include\Lua</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\libs\Lua</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -119,38 +125,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Lua\src\lapi.c" />
-    <ClCompile Include="..\..\..\Lua\src\lauxlib.c" />
-    <ClCompile Include="..\..\..\Lua\src\lbaselib.c" />
-    <ClCompile Include="..\..\..\Lua\src\lbitlib.c" />
-    <ClCompile Include="..\..\..\Lua\src\lcode.c" />
-    <ClCompile Include="..\..\..\Lua\src\lcorolib.c" />
-    <ClCompile Include="..\..\..\Lua\src\lctype.c" />
-    <ClCompile Include="..\..\..\Lua\src\ldblib.c" />
-    <ClCompile Include="..\..\..\Lua\src\ldebug.c" />
-    <ClCompile Include="..\..\..\Lua\src\ldo.c" />
-    <ClCompile Include="..\..\..\Lua\src\ldump.c" />
-    <ClCompile Include="..\..\..\Lua\src\lfunc.c" />
-    <ClCompile Include="..\..\..\Lua\src\lgc.c" />
-    <ClCompile Include="..\..\..\Lua\src\linit.c" />
-    <ClCompile Include="..\..\..\Lua\src\liolib.c" />
-    <ClCompile Include="..\..\..\Lua\src\llex.c" />
-    <ClCompile Include="..\..\..\Lua\src\lmathlib.c" />
-    <ClCompile Include="..\..\..\Lua\src\lmem.c" />
-    <ClCompile Include="..\..\..\Lua\src\loadlib.c" />
-    <ClCompile Include="..\..\..\Lua\src\lobject.c" />
-    <ClCompile Include="..\..\..\Lua\src\lopcodes.c" />
-    <ClCompile Include="..\..\..\Lua\src\loslib.c" />
-    <ClCompile Include="..\..\..\Lua\src\lparser.c" />
-    <ClCompile Include="..\..\..\Lua\src\lstate.c" />
-    <ClCompile Include="..\..\..\Lua\src\lstring.c" />
-    <ClCompile Include="..\..\..\Lua\src\lstrlib.c" />
-    <ClCompile Include="..\..\..\Lua\src\ltable.c" />
-    <ClCompile Include="..\..\..\Lua\src\ltablib.c" />
-    <ClCompile Include="..\..\..\Lua\src\ltm.c" />
-    <ClCompile Include="..\..\..\Lua\src\lundump.c" />
-    <ClCompile Include="..\..\..\Lua\src\lvm.c" />
-    <ClCompile Include="..\..\..\Lua\src\lzio.c" />
+    <ClCompile Include="..\include\Lua\lapi.c" />
+    <ClCompile Include="..\include\Lua\lauxlib.c" />
+    <ClCompile Include="..\include\Lua\lbaselib.c" />
+    <ClCompile Include="..\include\Lua\lbitlib.c" />
+    <ClCompile Include="..\include\Lua\lcode.c" />
+    <ClCompile Include="..\include\Lua\lcorolib.c" />
+    <ClCompile Include="..\include\Lua\lctype.c" />
+    <ClCompile Include="..\include\Lua\ldblib.c" />
+    <ClCompile Include="..\include\Lua\ldebug.c" />
+    <ClCompile Include="..\include\Lua\ldo.c" />
+    <ClCompile Include="..\include\Lua\ldump.c" />
+    <ClCompile Include="..\include\Lua\lfunc.c" />
+    <ClCompile Include="..\include\Lua\lgc.c" />
+    <ClCompile Include="..\include\Lua\linit.c" />
+    <ClCompile Include="..\include\Lua\liolib.c" />
+    <ClCompile Include="..\include\Lua\llex.c" />
+    <ClCompile Include="..\include\Lua\lmathlib.c" />
+    <ClCompile Include="..\include\Lua\lmem.c" />
+    <ClCompile Include="..\include\Lua\loadlib.c" />
+    <ClCompile Include="..\include\Lua\lobject.c" />
+    <ClCompile Include="..\include\Lua\lopcodes.c" />
+    <ClCompile Include="..\include\Lua\loslib.c" />
+    <ClCompile Include="..\include\Lua\lparser.c" />
+    <ClCompile Include="..\include\Lua\lstate.c" />
+    <ClCompile Include="..\include\Lua\lstring.c" />
+    <ClCompile Include="..\include\Lua\lstrlib.c" />
+    <ClCompile Include="..\include\Lua\ltable.c" />
+    <ClCompile Include="..\include\Lua\ltablib.c" />
+    <ClCompile Include="..\include\Lua\ltm.c" />
+    <ClCompile Include="..\include\Lua\lundump.c" />
+    <ClCompile Include="..\include\Lua\lvm.c" />
+    <ClCompile Include="..\include\Lua\lzio.c" />
     <ClCompile Include="d2_interface.cpp" />
     <ClCompile Include="lua_binds.cpp" />
     <ClCompile Include="lua_rendering.cpp" />
@@ -158,31 +164,31 @@
     <ClCompile Include="reroute.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Lua\src\lapi.h" />
-    <ClInclude Include="..\..\..\Lua\src\lauxlib.h" />
-    <ClInclude Include="..\..\..\Lua\src\lcode.h" />
-    <ClInclude Include="..\..\..\Lua\src\lctype.h" />
-    <ClInclude Include="..\..\..\Lua\src\ldebug.h" />
-    <ClInclude Include="..\..\..\Lua\src\ldo.h" />
-    <ClInclude Include="..\..\..\Lua\src\lfunc.h" />
-    <ClInclude Include="..\..\..\Lua\src\lgc.h" />
-    <ClInclude Include="..\..\..\Lua\src\llex.h" />
-    <ClInclude Include="..\..\..\Lua\src\llimits.h" />
-    <ClInclude Include="..\..\..\Lua\src\lmem.h" />
-    <ClInclude Include="..\..\..\Lua\src\lobject.h" />
-    <ClInclude Include="..\..\..\Lua\src\lopcodes.h" />
-    <ClInclude Include="..\..\..\Lua\src\lparser.h" />
-    <ClInclude Include="..\..\..\Lua\src\lstate.h" />
-    <ClInclude Include="..\..\..\Lua\src\lstring.h" />
-    <ClInclude Include="..\..\..\Lua\src\ltable.h" />
-    <ClInclude Include="..\..\..\Lua\src\ltm.h" />
-    <ClInclude Include="..\..\..\Lua\src\lua.h" />
-    <ClInclude Include="..\..\..\Lua\src\lua.hpp" />
-    <ClInclude Include="..\..\..\Lua\src\luaconf.h" />
-    <ClInclude Include="..\..\..\Lua\src\lualib.h" />
-    <ClInclude Include="..\..\..\Lua\src\lundump.h" />
-    <ClInclude Include="..\..\..\Lua\src\lvm.h" />
-    <ClInclude Include="..\..\..\Lua\src\lzio.h" />
+    <ClInclude Include="..\include\Lua\lapi.h" />
+    <ClInclude Include="..\include\Lua\lauxlib.h" />
+    <ClInclude Include="..\include\Lua\lcode.h" />
+    <ClInclude Include="..\include\Lua\lctype.h" />
+    <ClInclude Include="..\include\Lua\ldebug.h" />
+    <ClInclude Include="..\include\Lua\ldo.h" />
+    <ClInclude Include="..\include\Lua\lfunc.h" />
+    <ClInclude Include="..\include\Lua\lgc.h" />
+    <ClInclude Include="..\include\Lua\llex.h" />
+    <ClInclude Include="..\include\Lua\llimits.h" />
+    <ClInclude Include="..\include\Lua\lmem.h" />
+    <ClInclude Include="..\include\Lua\lobject.h" />
+    <ClInclude Include="..\include\Lua\lopcodes.h" />
+    <ClInclude Include="..\include\Lua\lparser.h" />
+    <ClInclude Include="..\include\Lua\lstate.h" />
+    <ClInclude Include="..\include\Lua\lstring.h" />
+    <ClInclude Include="..\include\Lua\ltable.h" />
+    <ClInclude Include="..\include\Lua\ltm.h" />
+    <ClInclude Include="..\include\Lua\lua.h" />
+    <ClInclude Include="..\include\Lua\lua.hpp" />
+    <ClInclude Include="..\include\Lua\luaconf.h" />
+    <ClInclude Include="..\include\Lua\lualib.h" />
+    <ClInclude Include="..\include\Lua\lundump.h" />
+    <ClInclude Include="..\include\Lua\lvm.h" />
+    <ClInclude Include="..\include\Lua\lzio.h" />
     <ClInclude Include="d2_interface.h" />
     <ClInclude Include="lua_binds.h" />
     <ClInclude Include="lua_rendering.h" />
