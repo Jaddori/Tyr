@@ -17,8 +17,8 @@
 #define d2MouseOffsetYOffset	0x3A5208
 #define d2MouseOffsetXOffset	0x3A5214
 #define d2MouseOffsetZOffset	0x3A520C
-#define d2GameInfoOffset		0x3A0438
 
+// functions
 typedef void (__stdcall d2DrawRectangle_t)( int x1, int y1, int x2, int y2, DWORD color, DWORD transparency );
 typedef void (__stdcall d2DrawLine_t)( int x1, int y1, int x2, int y2, DWORD color, DWORD unknown );
 
@@ -33,6 +33,7 @@ extern d2DrawText_t* d2DrawText;
 extern d2GetTextSize_t* d2GetTextSize;
 extern d2SetTextSize_t* d2SetTextSize;
 
+//  variables
 extern DWORD* d2ScreenSizeX;
 extern DWORD* d2ScreenSizeY;
 extern DWORD* d2MouseX;
