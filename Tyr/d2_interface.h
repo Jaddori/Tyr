@@ -79,7 +79,7 @@
 
 #define d2GetItemLevelRequirement_Offset	0x22BA60
 #define d2GetItemPrice_Offset				0x22FDC0
-#define d2RepairCost_Offset					0x22FE60
+#define d2GetRepairCost_Offset				0x22FE60
 #define d2GetItemMagicalMods_Offset			0x233EE0
 #define d2GetItemFromInventory_Offset		0x23B2C0
 #define d2GetNextItemFromInventory_Offset	0x23DFA0
@@ -107,6 +107,7 @@
 
 #define d2DrawRectangle_Offset				0xF6300
 #define d2DrawLine_Offset					0xF6380
+#define d2DrawAutomapCell2_Offset			0x0
 #define d2GetHwnd_Offset					0xF59A0
 #define d2GetScreenSize_Offset				0xF5160
 
@@ -115,7 +116,7 @@
 
 #define d2InitCellFile_Offset				0x201340
 #define d2DeleteCellFile_Offset				0x201A50
-#define d2GetLocaleTest_Offset				0x124A30
+#define d2GetLocaleText_Offset				0x124A30
 
 #define d2SetControlText_Offset				0xFF5A0
 #define d2DrawSprites_Offset				0xF9870
@@ -139,8 +140,8 @@
 #define d2Exit0_Offset						0x576F
 
 // variable offsets
-#define d2ScreenSizeXOffset					0x31146C
-#define d2ScreenSizeYOffset					0x311470
+#define d2ScreenSizeX_Offset				0x31146C
+#define d2ScreenSizeY_Offset				0x311470
 #define d2CursorHoverX_Offset				0x321E4C						
 #define d2CursorHoverY_Offset				0x321E50
 #define d2MouseX_Offset						0x3A6AB0
@@ -276,7 +277,7 @@ typedef void								(__stdcall	d2TradeOK_t)(void);
 
 typedef BYTE								(__stdcall	d2GetDifficulty_t)();
 typedef void								(__fastcall d2ExitGame_t)(void);
-typedef DWORD								(__fastcall d2GetUIVariable_t)(DWORD variableNumber);
+typedef DWORD								(__fastcall d2GetUIVariable_I_t)(DWORD variableNumber);
 typedef VOID								(__fastcall d2DrawRectFrame_t)(DWORD rect);
 typedef void								(__fastcall d2PerformGoldDialogAction_t)(void);
 typedef UnitAny*							(__stdcall	d2GetPlayerUnit_t)();
@@ -418,7 +419,7 @@ extern d2TradeOK_t*							d2TradeOK;
 
 extern d2GetDifficulty_t*					d2GetDifficulty;
 extern d2ExitGame_t*						d2ExitGame;
-extern d2GetUIVariable_t*					d2GetUIVariable;
+extern d2GetUIVariable_I_t*					d2GetUIVariable_I;
 extern d2DrawRectFrame_t*					d2DrawRectFrame;
 extern d2PerformGoldDialogAction_t*			d2PerformGoldDialogAction;
 extern d2GetPlayerUnit_t*					d2GetPlayerUnit;
@@ -505,7 +506,7 @@ extern d2DestroyControl_t*					d2DestroyControl;
 
 extern d2SetEditBoxCallback_t*				d2SetEditBoxCallback;
 extern d2SetEditBoxProcedure_t*				d2SetEditBoxProcedure;
-extern d2SelectEditBoxText_t*				d2SelecEditBoxText;
+extern d2SelectEditBoxText_t*				d2SelectEditBoxText;
 extern d2InitMPQ_t*							d2InitMPQ;
 
 extern d2Rand_t*							d2Rand;
@@ -584,7 +585,7 @@ extern DWORD*								d2MapId;
 extern DWORD*								d2AlwaysRun;
 extern DWORD*								d2NoPickup;
 
-extern wchar_t*								d2ChatMessage;
+extern wchar_t**							d2ChatMessage;
 extern DWORD*								d2OrificeId;
 extern DWORD*								d2CursorItemMode;
 

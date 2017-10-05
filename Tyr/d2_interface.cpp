@@ -46,7 +46,7 @@ d2TradeOK_t*						d2TradeOK = NULL;
 
 d2GetDifficulty_t*					d2GetDifficulty = NULL;
 d2ExitGame_t*						d2ExitGame = NULL;
-d2GetUIVariable_t*					d2GetUIVariable = NULL;
+d2GetUIVariable_I_t*				d2GetUIVariable_I = NULL;
 d2DrawRectFrame_t*					d2DrawRectFrame = NULL;
 d2PerformGoldDialogAction_t*		d2PerformGoldDialogAction = NULL;
 d2GetPlayerUnit_t*					d2GetPlayerUnit = NULL;
@@ -133,7 +133,7 @@ d2DestroyControl_t*					d2DestroyControl = NULL;
 
 d2SetEditBoxCallback_t*				d2SetEditBoxCallback = NULL;
 d2SetEditBoxProcedure_t*			d2SetEditBoxProcedure = NULL;
-d2SelectEditBoxText_t*				d2SelecEditBoxText = NULL;
+d2SelectEditBoxText_t*				d2SelectEditBoxText = NULL;
 d2InitMPQ_t*						d2InitMPQ = NULL;
 
 d2Rand_t*							d2Rand = NULL;
@@ -232,24 +232,241 @@ char**								d2ExpansionKey = NULL;
 char**								d2KeyOwner = NULL;
 WindowHandlersHashTable*			d2WindowHandlers = NULL;
 
+#define FUNC( name ) name = ( name ## _t* )( baseAddress + name ## _Offset )
+#define VAR( name, type ) name = ( type* )( baseAddress + name ## _Offset )
+
 void initializeInterface(DWORD baseAddress )
 {
 	// functions
+	FUNC( d2GetQuestInfo );
+	FUNC( d2SubmitItem );
+	FUNC( d2Transmute );
 
+	FUNC( d2FindClientSideUnit );
+	FUNC( d2FindServerSideUnit );
+	FUNC( d2GetCurrentInteractingNPC );
+	FUNC( d2GetSelectedUnit );
+	FUNC( d2GetCursorItem );
+	FUNC( d2GetItemName );
+	FUNC( d2LoadItemDescription );
+	FUNC( d2GetMonsterOwner );
+	FUNC( d2GetUnitHPPercent );
+	FUNC( d2InitInventory );
+	FUNC( d2SetUIVariable );
+	FUNC( d2GetUnitX );
+	FUNC( d2GetUnitY );
 
-	d2DrawRectangle	= (d2DrawRectangle_t*)(baseAddress +d2DrawRectangleOffset);
-	d2DrawLine		= (d2DrawLine_t*)(baseAddress +d2DrawLineOffset);
+	FUNC( d2ShopAction );
 
-	d2DrawText		= (d2DrawText_t*)(baseAddress +d2DrawTextOffset);
-	d2GetTextSize	= (d2GetTextSize_t*)(baseAddress +d2GetTextSizeOffset);
-	d2SetTextSize	= (d2SetTextSize_t*)(baseAddress +d2SetTextSizeOffset);
+	FUNC( d2CloseNPCInteract );
+	FUNC( d2CloseInteract );
+
+	FUNC( d2GetAutomapSize );
+	FUNC( d2NewAutomapCell );
+	FUNC( d2AddAutomapCell );
+	FUNC( d2RevealAutomapRoom );
+	FUNC( d2InitAutomapLayer_I );
+
+	FUNC( d2ClickMap );
+	FUNC( d2LeftClickItem_I );
+
+	FUNC( d2GetMouseXOffset );
+	FUNC( d2GetMouseYOffset );
+
+	FUNC( d2PrintGameString );
+	FUNC( d2PrintPartyString );
+
+	FUNC( d2LeaveParty );
+
+	FUNC( d2AcceptTrade );
+	FUNC( d2CancelTrade );
+	FUNC( d2TradeOK );
+
+	FUNC( d2GetDifficulty );
+	FUNC( d2ExitGame );
+	FUNC( d2GetUIVariable_I );
+	FUNC( d2DrawRectFrame );
+	FUNC( d2PerformGoldDialogAction );
+	FUNC( d2GetPlayerUnit );
+	FUNC( d2ClearScreen );
+	FUNC( d2CloseNPCTalk );
+	FUNC( d2TestPvpFlag );
+
+	FUNC( d2InitLevel );
+	FUNC( d2UnloadAct );
+	FUNC( d2GetObjectText );
+	FUNC( d2LoadAct );
+
+	FUNC( d2GetLevelText );
+	FUNC( d2GetObjectText );
+	FUNC( d2GetItemText );
+
+	FUNC( d2GetLayer );
+	FUNC( d2GetLevel );
+
+	FUNC( d2GetStatList );
+	FUNC( d2CopyStatList );
+	FUNC( d2GetUnitStat );
+	FUNC( d2GetUnitState );
+
+	FUNC( d2CheckUnitCollision );
+	FUNC( d2GetRoomFromUnit );
+	FUNC( d2GetTargetUnitType );
+
+	FUNC( d2GetSkillLevel );
+
+	FUNC( d2GetItemLevelRequirement );
+
+	FUNC( d2GetItemPrice );
+	FUNC( d2GetRepairCost );
+	FUNC( d2GetItemMagicalMods );
+	FUNC( d2GetItemFromInventory );
+
+	FUNC( d2GenerateOverheadMessage );
+	FUNC( d2FixOverheadMessage );
+
+	FUNC( d2AddRoomData );
+	FUNC( d2RemoveRoomData );
+
+	FUNC( d2GetQuestFlag );
+
+	FUNC( d2MapToAbsScreen );
+	FUNC( d2AbsScreenToMap );
+
+	FUNC( d2CheckWaypoint );
+
+	FUNC( d2IsTownByLevelNumber );
+	FUNC( d2GetLevelNumberFromRoom );
+	FUNC( d2FindRoom1 );
+	FUNC( d2GetItemPalette );
+
+	FUNC( d2SendPacket );
+	FUNC( d2ReceivePacket );
+	FUNC( d2ReceivePacket_I );
+
+	FUNC( d2DrawRectangle );
+	FUNC( d2DrawLine );
+	FUNC( d2DrawAutomapCell2 );
+	FUNC( d2GetHwnd );
+	FUNC( d2GetScreenSize );
+
+	FUNC( d2DoChat );
+	FUNC( d2PrintChannelText );
+
+	FUNC( d2InitCellFile );
+	FUNC( d2DeleteCellFile );
+	FUNC( d2GetLocaleText );
+
+	FUNC( d2SetControlText );
+	FUNC( d2DrawSprites );
+	FUNC( d2LoadCellFile );
+
+	FUNC( d2TakeScreenshot );
+	FUNC( d2DrawText );
+	FUNC( d2GetTextSize );
+	FUNC( d2SetTextSize );
+	FUNC( d2GetTextWidthFileNumber );
+	FUNC( d2DestroyEditBox );
+	FUNC( d2DestroyControl );
+
+	FUNC( d2SetEditBoxCallback );
+	FUNC( d2SetEditBoxProcedure );
+	FUNC( d2SelectEditBoxText );
+	FUNC( d2InitMPQ );
+
+	FUNC( d2Rand );
+	FUNC( d2Exit0 );
 
 	// variables
-	d2ScreenSizeX	= (DWORD*)(baseAddress +d2ScreenSizeXOffset);
-	d2ScreenSizeY	= (DWORD*)(baseAddress +d2ScreenSizeYOffset);
-	d2MouseX		= (DWORD*)(baseAddress +d2MouseXOffset);
-	d2MouseY		= (DWORD*)(baseAddress +d2MouseYOffset);
-	d2MouseOffsetY	= (DWORD*)(baseAddress +d2MouseOffsetYOffset);
-	d2MouseOffsetX	= (DWORD*)(baseAddress +d2MouseOffsetXOffset);
-	d2MouseOffsetZ	= (DWORD*)(baseAddress +d2MouseOffsetZOffset);
+	VAR( d2ScreenSizeX, DWORD );
+	VAR( d2ScreenSizeY, DWORD );
+	VAR( d2CursorHoverX, DWORD );
+	VAR( d2CursorHoverY, DWORD );
+	VAR( d2MouseX, DWORD );
+	VAR( d2MouseY, DWORD );
+	VAR( d2MouseOffsetY, DWORD );
+	VAR( d2MouseOffsetX, DWORD );
+	VAR( d2MouseOffsetZ, DWORD );
+
+	VAR( d2AutomapOn, DWORD );
+	VAR( d2AutomapMode, int );
+	VAR( d2Offsetm, POINT );
+	VAR( d2AutomapLayer, AutomapLayer* );
+
+	VAR( d2MercenaryReviveCost, DWORD );
+
+	VAR( d2ServerSideUnitHashTables, UnitHashTable );
+	VAR( d2ClientSideUnitHashTables, UnitHashTable );
+
+	VAR( d2ViewportX, int );
+	VAR( d2ViewportY, int );
+
+	VAR( d2GoldDialogAction, DWORD );
+	VAR( d2GoldDialogAmount, DWORD );
+
+	VAR( d2NPCMenu, NPCMenu* );
+	VAR( d2NPCMenuAmount, DWORD );
+
+	VAR( d2TradeLayout, InventoryLayout* );
+	VAR( d2StashLayout, InventoryLayout* );
+	VAR( d2StoreLayout, InventoryLayout* );
+	VAR( d2CubeLayout, InventoryLayout* );
+	VAR( d2InventoryLayout, InventoryLayout* );
+	VAR( d2MercenaryLayout, InventoryLayout* );
+
+	VAR( d2RegularCursorType, DWORD );
+	VAR( d2ShopCursorType, DWORD );
+
+	VAR( d2Ping, DWORD );
+	VAR( d2Skip, DWORD );
+	VAR( d2FPS, DWORD );
+	VAR( d2Divisor, DWORD );
+
+	VAR( d2OverheadTrigger, DWORD* );
+	VAR( d2RecentInteractId, DWORD );
+	VAR( d2ItemPriceList, DWORD );
+
+	VAR( d2TransactionDialog, void* );
+	VAR( d2TransactionDialogs, DWORD );
+	VAR( d2TransactionDialogs_2, DWORD );
+	VAR( d2TransactionDialogsInfo, TransactionDialogsInfo_t* );
+
+	VAR( d2GameInfo, GameInfo* );
+	VAR( d2WaypointTable, DWORD );
+
+	VAR( d2PlayerUnit, UnitAny* );
+	VAR( d2SelectedInventoryItem, UnitAny* );
+	VAR( d2PlayerUnitList, RosterUnit* );
+
+	VAR( d2WeaponSwitch, DWORD );
+
+	VAR( d2TradeAccepted, DWORD );
+	VAR( d2TradeBlock, DWORD );
+	VAR( d2RecentTradeId, DWORD );
+
+	VAR( d2ExpansionCharacterFlag, DWORD );
+	VAR( d2MapId, DWORD );
+
+	VAR( d2AlwaysRun, DWORD );
+	VAR( d2NoPickup, DWORD );
+
+	VAR( d2ChatMessage, wchar_t* );
+	VAR( d2OrificeId, DWORD );
+	VAR( d2CursorItemMode, DWORD );
+
+	VAR( d2SGPTDataTable, DWORD );
+
+	VAR( d2ChatBoxMessage, char* );
+	VAR( d2GameListControl, Control* );
+
+	VAR( d2BattleNetData, BattleNetData* );
+
+	VAR( d2FirstControl, Control* );
+	VAR( d2FocusedControl, Control* );
+	VAR( d2ChatInputBox, DWORD* );
+
+	VAR( d2ClassicKey, char* );
+	VAR( d2ExpansionKey, char* );
+	VAR( d2KeyOwner, char* );
+	VAR( d2WindowHandlers, WindowHandlersHashTable );
 }
