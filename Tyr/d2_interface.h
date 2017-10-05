@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Windows.h>
+#include "d2_structures.h"
 
 // function offsets
 #define d2GetQuestInfo_Offset				0xB32D0
@@ -173,7 +174,7 @@
 #define d2StoreLayout_Offset				0x3BCB58
 #define d2CubeLayout_Offset					0x3BCB70
 #define d2InventoryLayout_Offset			0x3BCB88
-#define d2MercLayout_Offset					0x3BCD4C
+#define d2MercenaryLayout_Offset			0x3BCD4C
 
 #define d2RegularCursorType_Offset			0x3A6AF0
 #define d2ShopCursorType_Offset				0x3BCBF0
@@ -189,13 +190,13 @@
 
 #define d2TransactionDialog_Offset			0x3C0D63
 #define d2TransactionDialogs_Offset			0x3C0E5C
-#define d2TransactionDuakigs_2_Offset		0x3C0E58
-#define d2TransactionDialogInfo_Offset		0x3C0E54
+#define d2TransactionDialogs_2_Offset		0x3C0E58
+#define d2TransactionDialogsInfo_Offset		0x3C0E54
 
 #define d2GameInfo_Offset					0x3A0438
 #define d2WaypointTable_Offset				0x3BF081
 #define d2PlayerUnit_Offset					0x3A6A70
-#define d2SelectedInvItem_Offset			0x3BCBF4
+#define d2SelectedInventoryItem_Offset		0x3BCBF4
 #define d2PlayerUnitList_Offset				0x3BB5C0
 #define d2WeaponSwitch_Offset				0x3BCC4C
 
@@ -287,10 +288,9 @@ typedef DWORD								(__fastcall d2TestPvpFlag_t)(DWORD unitId1, DWORD unitId2, 
 
 typedef void								(__stdcall	d2InitLevel_t)(Level* level);
 typedef unsigned							(__stdcall	d2UnloadAct_t)(Act* act);
-typedef ObjectText*							(__stdcall	d2GetObjectText_t)(DWORD objectNumber);
 typedef Act*								(__stdcall	d2LoadAct_t)(DWORD actNumber, DWORD mapId, DWORD _1, DWORD _2, DWORD _3, DWORD _4, DWORD townLevelId, DWORD func1, DWORD func2);
 
-typedef LevelText*							(__stdcall	d2GetLevelText_t)(DWORD levelNumber),
+typedef LevelText*							(__stdcall	d2GetLevelText_t)(DWORD levelNumber);
 typedef ObjectText*							(__stdcall	d2GetObjectText_t)(DWORD objectNumber);
 typedef ItemText*							(__stdcall	d2GetItemText_t)(DWORD itemNumber);
 
@@ -310,13 +310,13 @@ typedef INT									(__stdcall	d2GetSkillLevel_t)(UnitAny* unit, Skill* skill, B
 
 typedef DWORD								(__stdcall	d2GetItemLevelRequirement_t)(UnitAny* item, UnitAny* player);
 
-typedef DWORD								(__stdcall	d2GetItemPrice_t)(UnitAny* myUnit, UnitAny* item, DWORD _1, DWORD _2, DWORD _3, DWORD_4);
+typedef DWORD								(__stdcall	d2GetItemPrice_t)(UnitAny* myUnit, UnitAny* item, DWORD _1, DWORD _2, DWORD _3, DWORD _4);
 typedef DWORD								(__stdcall	d2GetRepairCost_t)(DWORD _1, UnitAny* unit, DWORD npcId, DWORD difficulty, DWORD itemPriceList, DWORD _2);
 typedef char*								(__stdcall	d2GetItemMagicalMods_t)(DWORD prefixNumber);
 typedef UnitAny*							(__stdcall	d2GetItemFromInventory_t)(Inventory* inventory);
 typedef UnitAny*							(__stdcall	d2GetNextItemFromInventory_t)(UnitAny* item);
 
-typedef OverHeadMessage*					(__stdcall	d2GenerateOverheadMessage_t)(DWORD _1, CHAR* message, DWORD trigger);
+typedef OverheadMessage*					(__stdcall	d2GenerateOverheadMessage_t)(DWORD _1, CHAR* message, DWORD trigger);
 typedef VOID								(__stdcall	d2FixOverheadMessage_t)(OverheadMessage* message, DWORD _1);
 
 typedef void								(__stdcall	d2AddRoomData_t)(Act* act, int levelId, int x, int y, Room1* room);
@@ -330,7 +330,7 @@ typedef void								(__stdcall	d2AbsScreenToMap_t)(long* x, long* y);
 typedef DWORD								(__stdcall	d2CheckWaypoint_t)(DWORD waypointTable, DWORD levelId);
 
 typedef BOOL								(__stdcall	d2IsTownByLevelNumber_t)(DWORD levelNumber);
-typedef BOOL								(__stdcall	d2GetLevelNumberFromRoom_t)(ROom1* room);
+typedef BOOL								(__stdcall	d2GetLevelNumberFromRoom_t)(Room1* room);
 typedef Room1*								(__stdcall	d2FindRoom1_t)(Act* act, int x, int y);
 typedef int									(__stdcall	d2GetItemPalette_t)(UnitAny* player, UnitAny* item, BYTE* color, int transparencyType);
 
@@ -363,10 +363,10 @@ typedef DWORD								(__fastcall d2GetTextWidthFileNumber_t)(wchar_t* str, DWORD
 typedef DWORD								(__fastcall d2DestroyEditBox_t)(Control* control);
 typedef VOID								(__stdcall	d2DestroyControl_t)(Control* control);
 
-typedef BOOL								(__stdcall	d2EditBoxCallback_t)(Control* control, DWORD inputType, char* char);
+typedef BOOL								(__stdcall	d2EditBoxCallback_t)(Control* control, DWORD inputType, char* character);
 typedef BOOL								(__stdcall	d2EditBoxProcedure_t)(Control* control, DWORD _1, DWORD _2);
 typedef VOID								(__fastcall d2SetEditBoxCallback_t)(Control* control, d2EditBoxCallback_t* callback);
-typedef void								(__fastcall d2SetEditBoxProcedure_t)(Cotnrol* control, d2EditBoxProcedure_t* procedure);
+typedef void								(__fastcall d2SetEditBoxProcedure_t)(Control* control, d2EditBoxProcedure_t* procedure);
 typedef void								(__fastcall d2SelectEditBoxText_t)(Control* control);
 typedef DWORD								(__fastcall d2InitMPQ_t)(const char* mpqFile, char* mpqName, int v4, int v5);
 
@@ -429,7 +429,6 @@ extern d2TestPvpFlag_t*						d2TestPvpFlag;
 
 extern d2InitLevel_t*						d2InitLevel;
 extern d2UnloadAct_t*						d2UnloadAct;
-extern d2GetObjectText_t*					d2GetObjectText;
 extern d2LoadAct_t*							d2LoadAct;
 
 extern d2GetLevelText_t*					d2GetLevelText;
@@ -531,7 +530,7 @@ extern AutomapLayer**						d2AutomapLayer;
 extern DWORD*								d2MercenaryReviveCost;
 
 extern UnitHashTable*						d2ServerSideUnitHashTables;
-extern UnitHashtable*						d2ClientSideUnitHashTables;
+extern UnitHashTable*						d2ClientSideUnitHashTables;
 
 extern int*									d2ViewportX;
 extern int*									d2ViewportY;
@@ -564,7 +563,7 @@ extern DWORD*								d2ItemPriceList;
 extern void**								d2TransactionDialog;
 extern DWORD*								d2TransactionDialogs;
 extern DWORD*								d2TransactionDialogs_2;
-extern TransactionDialogsInfo_t*			d2TransactionDialogsInfo;
+extern TransactionDialogsInfo**				d2TransactionDialogsInfo;
 
 extern GameInfo**							d2GameInfo;
 extern DWORD*								d2WaypointTable;
@@ -603,6 +602,6 @@ extern DWORD**								d2ChatInputBox;
 extern char**								d2ClassicKey;
 extern char**								d2ExpansionKey;
 extern char**								d2KeyOwner;
-extern WindowHandlersHashTable*				d2WindowHandlers;
+extern WindowHandlerHashTable*				d2WindowHandlers;
 
 void initializeInterface(DWORD baseAddress);

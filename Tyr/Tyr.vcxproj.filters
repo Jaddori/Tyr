@@ -225,5 +225,8 @@
     <ClInclude Include="lua_interface.h">
       <Filter>Source Files\Lua</Filter>
     </ClInclude>
+    <ClInclude Include="d2_structures.h">
+      <Filter>Source Files\Diablo II</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

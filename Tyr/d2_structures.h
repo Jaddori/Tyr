@@ -183,33 +183,33 @@ struct BattleNetData
 {
 	DWORD id;
 	DWORD id2;
-	BYTE _1[0x10];
+	BYTE _1[16];
 	DWORD id3;
 	WORD _2;
 	BYTE _3;
-	char gameName[0x16];
+	char gameName[22];
 	WORD _4;
-	char gameIp[0x10];
-	BYTE _5[0x42];
+	char gameIp[13];
+	BYTE _5[66];
 	DWORD id4;
-	char accountName[0x30];
-	char playerName[0x18];
-	char realmName[0x8];
-	BYTE _6[0x111];
+	char accountName[48];
+	char playerName[24];
+	char realmName[8];
+	BYTE _6[273];
 	BYTE characterClass;
 	BYTE characterFlags;
 	BYTE maxDifference;
-	BYTE _7[0x1F];
+	BYTE _7[31];
 	BYTE createdGameDifficulty;
 	void* _8;
-	BYTE _9[0x15];
+	BYTE _9[21];
 	WORD _12;
 	BYTE _13;
-	char realmName2[0x18];
-	char gamePassword[0x18];
-	char gameDescription[0x104];
-	char channelName[0x20];
-	BYTE _14[0x40];
+	char realmName2[24];
+	char gamePassword[24];
+	char gameDescription[260];
+	char channelName[32];
+	BYTE _14[64];
 	BYTE characterLevel;
 	BYTE ladderFlag;
 	DWORD passwordHash;
@@ -259,7 +259,7 @@ struct Waypoint
 
 struct PlayerData
 {
-	char name[0x10];
+	char name[16];
 	QuestInfo* normalQuest;
 	QuestInfo* nightmareQuest;
 	QuestInfo* hellQuest;
@@ -358,7 +358,7 @@ struct Room1
 	Room2* room2;
 	DWORD _2[3];
 	CollisionMap* collision;
-	DWORD roomsNear;
+	DWORD roomsNearCount;
 	DWORD _3[9];
 	DWORD x;
 	DWORD y;
@@ -542,29 +542,29 @@ struct ItemData
 
 struct ItemText
 {
-	wchar_t namew[0x40];
+	wchar_t namew[64];
 	union
 	{
-		DWORD code;
+		DWORD codeId;
 		char code[4];
 	};
-	BYTE _2[0x70];
+	BYTE _2[112];
 	WORD localTextNumber;
-	BYTE _3[0x19];
+	BYTE _3[25];
 	BYTE width;
 	BYTE height;
 	BYTE _4[13];
 	BYTE type;
-	BYTE _5[0xD];
+	BYTE _5[13];
 	BYTE quest;
 };
 
 struct MonsterText
 {
-	BYTE _1[0x6];
+	BYTE _1[6];
 	WORD localTextNumber;
 	WORD flag;
-	WORD _1;
+	WORD _2;
 	union
 	{
 		DWORD flag2;
@@ -575,13 +575,13 @@ struct MonsterText
 			BYTE flag3c[2];
 		};
 	};
-	BYTE _2[0x22];
+	BYTE _3[34];
 	WORD velocity;
-	BYTE _3[0x52];
+	BYTE _4[82];
 	WORD tcs[3][4];
-	BYTE _4[0x52];
-	wchar_t descriptor[0x3c];
-	BYTE _5[0x1a0];
+	BYTE _5[82];
+	wchar_t descriptor[60];
+	BYTE _6[416];
 };
 
 struct MonsterData
@@ -607,20 +607,20 @@ struct MonsterData
 
 struct ObjectText
 {
-	char name[0x40];
-	wchar_t namew[0x40];
+	char name[64];
+	wchar_t namew[64];
 	BYTE _1[4];
 	BYTE selectable;
-	BYTE _2[0x87];
+	BYTE _2[135];
 	BYTE orientation;
-	BYTE _3[0x19];
+	BYTE _3[25];
 	BYTE subClass;
-	BYTE _4[0x11];
+	BYTE _4[17];
 	BYTE parm0;
-	BYTE _4[0x39];
+	BYTE _5[57];
 	BYTE populateFunction;
 	BYTE operateFunction;
-	BYTE _5[8];
+	BYTE _6[8];
 	DWORD automap;
 };
 
@@ -637,7 +637,7 @@ struct ObjectData
 		};
 	};
 	DWORD _2[8];
-	char owner[0x10];
+	char owner[16];
 };
 
 struct ObjectPath
@@ -827,12 +827,6 @@ struct MessageHandlerHashTable
 	DWORD length;
 };
 
-struct WindowHandlerHashTable
-{
-	WindowHandlerList** table;
-	DWORD length;
-};
-
 struct WindowHandlerList
 {
 	DWORD _1;
@@ -840,6 +834,12 @@ struct WindowHandlerList
 	DWORD _2;
 	MessageHandlerHashTable* messageHandlers;
 	WindowHandlerList* next;
+};
+
+struct WindowHandlerHashTable
+{
+	WindowHandlerList** table;
+	DWORD length;
 };
 
 struct TransactionDialogsLine
@@ -852,9 +852,9 @@ struct TransactionDialogsLine
 
 struct TransactionDialogsInfo
 {
-	DWORD _1[0x14];
+	DWORD _1[20];
 	DWORD numLines;
-	DWORD _2[0x5];
+	DWORD _2[5];
 	TransactionDialogsLine dialogLines[10];
 	void* _3;
 };

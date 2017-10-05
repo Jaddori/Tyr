@@ -56,7 +56,6 @@ d2TestPvpFlag_t*					d2TestPvpFlag = NULL;
 
 d2InitLevel_t*						d2InitLevel = NULL;
 d2UnloadAct_t*						d2UnloadAct = NULL;
-d2GetObjectText_t*					d2GetObjectText = NULL;
 d2LoadAct_t*						d2LoadAct = NULL;
 
 d2GetLevelText_t*					d2GetLevelText = NULL;
@@ -158,7 +157,7 @@ AutomapLayer**						d2AutomapLayer = NULL;
 DWORD*								d2MercenaryReviveCost = NULL;
 
 UnitHashTable*						d2ServerSideUnitHashTables = NULL;
-UnitHashtable*						d2ClientSideUnitHashTables = NULL;
+UnitHashTable*						d2ClientSideUnitHashTables = NULL;
 
 int*								d2ViewportX = NULL;
 int*								d2ViewportY = NULL;
@@ -191,7 +190,7 @@ DWORD*								d2ItemPriceList = NULL;
 void**								d2TransactionDialog = NULL;
 DWORD*								d2TransactionDialogs = NULL;
 DWORD*								d2TransactionDialogs_2 = NULL;
-TransactionDialogsInfo_t*			d2TransactionDialogsInfo = NULL;
+TransactionDialogsInfo**			d2TransactionDialogsInfo = NULL;
 
 GameInfo**							d2GameInfo = NULL;
 DWORD*								d2WaypointTable = NULL;
@@ -212,7 +211,7 @@ DWORD*								d2MapId = NULL;
 DWORD*								d2AlwaysRun = NULL;
 DWORD*								d2NoPickup = NULL;
 
-wchar_t*							d2ChatMessage = NULL;
+wchar_t**							d2ChatMessage = NULL;
 DWORD*								d2OrificeId = NULL;
 DWORD*								d2CursorItemMode = NULL;
 
@@ -230,7 +229,7 @@ DWORD**								d2ChatInputBox = NULL;
 char**								d2ClassicKey = NULL;
 char**								d2ExpansionKey = NULL;
 char**								d2KeyOwner = NULL;
-WindowHandlersHashTable*			d2WindowHandlers = NULL;
+WindowHandlerHashTable*				d2WindowHandlers = NULL;
 
 #define FUNC( name ) name = ( name ## _t* )( baseAddress + name ## _Offset )
 #define VAR( name, type ) name = ( type* )( baseAddress + name ## _Offset )
@@ -294,7 +293,6 @@ void initializeInterface(DWORD baseAddress )
 
 	FUNC( d2InitLevel );
 	FUNC( d2UnloadAct );
-	FUNC( d2GetObjectText );
 	FUNC( d2LoadAct );
 
 	FUNC( d2GetLevelText );
@@ -390,7 +388,7 @@ void initializeInterface(DWORD baseAddress )
 
 	VAR( d2AutomapOn, DWORD );
 	VAR( d2AutomapMode, int );
-	VAR( d2Offsetm, POINT );
+	VAR( d2Offset, POINT );
 	VAR( d2AutomapLayer, AutomapLayer* );
 
 	VAR( d2MercenaryReviveCost, DWORD );
@@ -420,16 +418,16 @@ void initializeInterface(DWORD baseAddress )
 	VAR( d2Ping, DWORD );
 	VAR( d2Skip, DWORD );
 	VAR( d2FPS, DWORD );
-	VAR( d2Divisor, DWORD );
+	VAR( d2Divisor, int );
 
-	VAR( d2OverheadTrigger, DWORD* );
+	VAR( d2OverheadTrigger, DWORD );
 	VAR( d2RecentInteractId, DWORD );
 	VAR( d2ItemPriceList, DWORD );
 
 	VAR( d2TransactionDialog, void* );
 	VAR( d2TransactionDialogs, DWORD );
 	VAR( d2TransactionDialogs_2, DWORD );
-	VAR( d2TransactionDialogsInfo, TransactionDialogsInfo_t* );
+	VAR( d2TransactionDialogsInfo, TransactionDialogsInfo* );
 
 	VAR( d2GameInfo, GameInfo* );
 	VAR( d2WaypointTable, DWORD );
@@ -468,5 +466,5 @@ void initializeInterface(DWORD baseAddress )
 	VAR( d2ClassicKey, char* );
 	VAR( d2ExpansionKey, char* );
 	VAR( d2KeyOwner, char* );
-	VAR( d2WindowHandlers, WindowHandlersHashTable );
+	VAR( d2WindowHandlers, WindowHandlerHashTable );
 }
