@@ -47,7 +47,7 @@
 
 #define d2GetDifficulty_Offset				0x4DCD0
 #define d2ExitGame_Offset					0x4DD60
-#define d2GetUiVariable_I_Offset			0x538D0
+#define d2GetUIVariable_I_Offset			0x538D0
 #define d2DrawRectFrame_Offset				0x52E50
 #define d2PerformGoldDialogAction_Offset	0x54080
 #define d2GetPlayerUnit_Offset				0x63DD0
@@ -229,261 +229,379 @@
 #define d2WindowHandlers_Offset				0x379300
 
 // functions
-typedef void* (__stdcall d2GetQuestInfo_t)(void);
-typedef void(__fastcall d2SubmitItem_t)(DWORD itemID);
-typedef void(__fastcall d2Transmute_t)(void);
+typedef void*								(__stdcall d2GetQuestInfo_t)(void);
+typedef void								(__fastcall d2SubmitItem_t)(DWORD itemID);
+typedef void								(__fastcall d2Transmute_t)(void);
 
-typedef UnitAny* (__fastcall d2FindClientSideUnit_t)(DWORD id, DWORD type);
-typedef UnitAny* (__fastcall d2FindServerSideUnit_t)(DWORD id, DWORD type);
-typedef UnitAny* (__fastcall d2GetCurrentInteractingNPC_t)(void);
-typedef UnitAny* (__stdcall d2GetSelectedUnit_t)();
-typedef UnitAny* (__fastcall d2GetCursorItem_t)(void);
-typedef void(__fastcall d2GetSelectedUnit_I_t)(UnitAny* unit);
-typedef BOOL(__fastcall d2GetItemName_t)(UnitAny* item, wchar_t* buffer, DWORD size);
-typedef BOOL(__stdcall d2LoadItemDescription_t)(UnitAny* item, int type);
-typedef DWORD(__fastcall d2GetMonsterOwner_t)(DWORD monsterID);
-typedef DWORD(__fastcall d2GetUnitHPPercent_t)(DWORD unitID);
-typedef void(__fastcall d2InitInventory_t)(void);
-typedef DWORD(__fastcall d2SetUIVariable_t)(DWORD variableNumber, DWORD howSet, DWORD unknown);
-typedef int(__fastcall d2GetUnitX)(UnitAny* unit);
-typedef int(__fastcall d2getUnitY)(UnitAny* unit);
+typedef UnitAny*							(__fastcall d2FindClientSideUnit_t)(DWORD id, DWORD type);
+typedef UnitAny*							(__fastcall d2FindServerSideUnit_t)(DWORD id, DWORD type);
+typedef UnitAny*							(__fastcall d2GetCurrentInteractingNPC_t)(void);
+typedef UnitAny*							(__stdcall	d2GetSelectedUnit_t)();
+typedef UnitAny*							(__fastcall d2GetCursorItem_t)(void);
+typedef void								(__fastcall d2GetSelectedUnit_I_t)(UnitAny* unit);
+typedef BOOL								(__fastcall d2GetItemName_t)(UnitAny* item, wchar_t* buffer, DWORD size);
+typedef BOOL								(__stdcall	d2LoadItemDescription_t)(UnitAny* item, int type);
+typedef DWORD								(__fastcall d2GetMonsterOwner_t)(DWORD monsterID);
+typedef DWORD								(__fastcall d2GetUnitHPPercent_t)(DWORD unitID);
+typedef void								(__fastcall d2InitInventory_t)(void);
+typedef DWORD								(__fastcall d2SetUIVariable_t)(DWORD variableNumber, DWORD howSet, DWORD unknown);
+typedef int									(__fastcall d2GetUnitX_t)(UnitAny* unit);
+typedef int									(__fastcall d2GetUnitY_t)(UnitAny* unit);
 
-typedef void(__fastcall d2ShopAction_t)(UnitAny* npc, UnitAny* item, DWORD sell, DWORD unknown, DWORD itemCost, DWORD mode, DWORD _2, DWORD _3);
+typedef void								(__fastcall d2ShopAction_t)(UnitAny* npc, UnitAny* item, DWORD sell, DWORD unknown, DWORD itemCost, DWORD mode, DWORD _2, DWORD _3);
 
-typedef void(__fastcall d2CloesNPCInteract_t)(void);
-typedef void(__fastcall d2CloseInteract_t)(void);
+typedef void								(__fastcall d2CloseNPCInteract_t)(void);
+typedef void								(__fastcall d2CloseInteract_t)(void);
 
-typedef DWORD(__stdcall d2GetAutomapSize_t)(void);
-typedef AutomapCell* (__fastcall d2NewAutomapCell_t)();
-typedef void(__fastcall d2AddAutomapCell_t)(AutomapCell* cell, AutomapCell** node);
-typedef void(_stdcall d2RevealAutomapRoom_t)(Room1* room, DWORD clipFlag, AutomapLayer* layer);
-typedef AutomapLayer* (__fastcall d2InitAutompLayer_I_t)(DWORD layerNumber);
+typedef DWORD								(__stdcall	d2GetAutomapSize_t)(void);
+typedef AutomapCell*						(__fastcall d2NewAutomapCell_t)();
+typedef void								(__fastcall d2AddAutomapCell_t)(AutomapCell* cell, AutomapCell** node);
+typedef void								(_stdcall	d2RevealAutomapRoom_t)(Room1* room, DWORD clipFlag, AutomapLayer* layer);
+typedef AutomapLayer*						(__fastcall d2InitAutomapLayer_I_t)(DWORD layerNumber);
 
-typedef void(__fastcall d2ClickMap_t)(DWORD mouseFlag, DWORD x, DWORD y, DWORD type);
-typedef void(__stdcall d2LeftClickItem_I_t)(UnitAny* player, Inventory* inventory, int x, int y, DWORD clickType, InventoryLayout* layout, DWORD location);
+typedef void								(__fastcall d2ClickMap_t)(DWORD mouseFlag, DWORD x, DWORD y, DWORD type);
+typedef void								(__stdcall	d2LeftClickItem_I_t)(UnitAny* player, Inventory* inventory, int x, int y, DWORD clickType, InventoryLayout* layout, DWORD location);
 
-typedef DWORD(__fastcall d2GetMouseXOffset_t)(VOID);
-typedef DWORD(__fastcall d2GetMouesYOffset_t)(VOID);
+typedef DWORD								(__fastcall d2GetMouseXOffset_t)(VOID);
+typedef DWORD								(__fastcall d2GetMouseYOffset_t)(VOID);
 
-typedef void(__fastcall d2PrintGameString_t)(wchar_t* message, int color);
-typedef void(__fastcall d2PrintPartyString_t)(wchar_t* message, int color);
+typedef void								(__fastcall d2PrintGameString_t)(wchar_t* message, int color);
+typedef void								(__fastcall d2PrintPartyString_t)(wchar_t* message, int color);
 
-typedef void(__fastcall d2LeaveParty_t)(void);
+typedef void								(__fastcall d2LeaveParty_t)(void);
 
-typedef void(__fastcall d2AcceptTrade_t)(void);
-typedef void(__fastcall d2CancelTrade_t)(void);
-typedef void(__stdcall d2TradeOK_t)(void);
+typedef void								(__fastcall d2AcceptTrade_t)(void);
+typedef void								(__fastcall d2CancelTrade_t)(void);
+typedef void								(__stdcall	d2TradeOK_t)(void);
 
-typedef BYTE(__stdcall d2GetDifficulty_t)();
-typedef void(__fastcall d2ExitGame_t)(void);
-typedef DWORD(__fastcall d2GetUiVariable_t)(DWORD variableNumber);
-typedef VOID(__fastcall d2DrawRectFrame_t)(DWORD rect);
-typedef void(__fastcall d2PerformGoldDialogAction_t)(void);
-typedef UnitAny* (__stdcall d2GetPlayerUnit_t)();
-typedef void(__fastcall d2ClearScreen)(void);
-typedef DWORD(__stdcall d2CloseNPCTalk_t)(void* unknown);
-typedef DWORD(__fastcall d2TestPvpFlag_t)(DWORD unitId1, DWORD unitId2, DWORD flag);
+typedef BYTE								(__stdcall	d2GetDifficulty_t)();
+typedef void								(__fastcall d2ExitGame_t)(void);
+typedef DWORD								(__fastcall d2GetUIVariable_t)(DWORD variableNumber);
+typedef VOID								(__fastcall d2DrawRectFrame_t)(DWORD rect);
+typedef void								(__fastcall d2PerformGoldDialogAction_t)(void);
+typedef UnitAny*							(__stdcall	d2GetPlayerUnit_t)();
+typedef void								(__fastcall d2ClearScreen_t)(void);
+typedef DWORD								(__stdcall	d2CloseNPCTalk_t)(void* unknown);
+typedef DWORD								(__fastcall d2TestPvpFlag_t)(DWORD unitId1, DWORD unitId2, DWORD flag);
 
-typedef void(__stdcall d2InitLevel_t)(Level* level);
-typedef unsigned(__stdcall d2UnloadAct_t)(Act* act);
-typedef ObjectText* (__stdcall d2GetObjectText_t)(DWORD objectNumber);
-typedef Act* (__stdcall d2LoadAct)(DWORD actNumber, DWORD mapId, DWORD _1, DWORD _2, DWORD _3, DWORD _4, DWORD townLevelId, DWORD func1, DWORD func2);
+typedef void								(__stdcall	d2InitLevel_t)(Level* level);
+typedef unsigned							(__stdcall	d2UnloadAct_t)(Act* act);
+typedef ObjectText*							(__stdcall	d2GetObjectText_t)(DWORD objectNumber);
+typedef Act*								(__stdcall	d2LoadAct_t)(DWORD actNumber, DWORD mapId, DWORD _1, DWORD _2, DWORD _3, DWORD _4, DWORD townLevelId, DWORD func1, DWORD func2);
 
-typedef LevelText*(__stdcall d2GetLevelText_t)(DWORD levelNumber),
-typedef ObjectText*(__stdcall d2GetObjectText_t)(DWORD objectNumber);
-typedef ItemText*(__stdcall d2GetItemText_t)(DWORD itemNumber);
+typedef LevelText*							(__stdcall	d2GetLevelText_t)(DWORD levelNumber),
+typedef ObjectText*							(__stdcall	d2GetObjectText_t)(DWORD objectNumber);
+typedef ItemText*							(__stdcall	d2GetItemText_t)(DWORD itemNumber);
 
-typedef AutomapLayer2*(__fastcall d2GetLayer_t)(DWORD levelNumber);
-typedef Level*(__fastcall d2GetLevel_t)(ActMisc* misc, DWORD levelNumber);
+typedef AutomapLayer2*						(__fastcall d2GetLayer_t)(DWORD levelNumber);
+typedef Level*								(__fastcall d2GetLevel_t)(ActMisc* misc, DWORD levelNumber);
 
-typedef StatList*(__stdcall d2GetStatList_t)(UnitAny* unit, DWORD unknown, DWORD maxEntries);
-typedef DWORD(__stdcall d2CopyStatList_t)(StatList* statList, Stat* stats, DWORD maxEntries);
-typedef DWORD(__stdcall d2GetUnitStat_t)(UnitAny* unit, DWORD stat, DWORD state2);
-typedef int(__stdcall d2GetUnitState_t)(UnitAny* unit, DWORD stateNumber);
+typedef StatList*							(__stdcall	d2GetStatList_t)(UnitAny* unit, DWORD unknown, DWORD maxEntries);
+typedef DWORD								(__stdcall	d2CopyStatList_t)(StatList* statList, Stat* stats, DWORD maxEntries);
+typedef DWORD								(__stdcall	d2GetUnitStat_t)(UnitAny* unit, DWORD stat, DWORD state2);
+typedef int									(__stdcall	d2GetUnitState_t)(UnitAny* unit, DWORD stateNumber);
 
-typedef DWORD(__stdcall d2CheckUnitCollision_t)(UnitAny* a, UnitAny* b, DWORD bitMask);
-typedef Room1*(__stdcall d2GetRoomFromUnit_t)(UnitAny* unit);
-typedef Path*(__stdcall d2GetTargetUnitType_t)(Path* path);
+typedef DWORD								(__stdcall	d2CheckUnitCollision_t)(UnitAny* a, UnitAny* b, DWORD bitMask);
+typedef Room1*								(__stdcall	d2GetRoomFromUnit_t)(UnitAny* unit);
+typedef Path*								(__stdcall	d2GetTargetUnitType_t)(Path* path);
 
-typedef INT(__stdcall d2GetSkillLevel)(UnitAny* unit, Skill* skill, BOOL total);
+typedef INT									(__stdcall	d2GetSkillLevel_t)(UnitAny* unit, Skill* skill, BOOL total);
 
-typedef DWORD(__stdcall d2GetItemLevelRequirement_t)(UnitAny* item, UnitAny* player);
+typedef DWORD								(__stdcall	d2GetItemLevelRequirement_t)(UnitAny* item, UnitAny* player);
 
-typedef DWORD(__stdcall d2GetItemPrice_t)(UnitAny* myUnit, UnitAny* item, DWORD _1, DWORD _2, DWORD _3, DWORD_4);
-typedef DWORD(__stdcall d2GetRepairCost_t)(DWORD _1, UnitAny* unit, DWORD npcId, DWORD difficulty, DWORD itemPriceList, DWORD _2);
-typedef char*(__stdcall d2GetItemMagicalMods_t)(DWORD prefixNumber)
-typedef UnitAny*(__stdcall d2GetItemFromInventory_t)(Inventory* inventory)
-typedef UnitAny*(__stdcall d2GetNextItemFromInventory_t)(UnitAny* item)
+typedef DWORD								(__stdcall	d2GetItemPrice_t)(UnitAny* myUnit, UnitAny* item, DWORD _1, DWORD _2, DWORD _3, DWORD_4);
+typedef DWORD								(__stdcall	d2GetRepairCost_t)(DWORD _1, UnitAny* unit, DWORD npcId, DWORD difficulty, DWORD itemPriceList, DWORD _2);
+typedef char*								(__stdcall	d2GetItemMagicalMods_t)(DWORD prefixNumber);
+typedef UnitAny*							(__stdcall	d2GetItemFromInventory_t)(Inventory* inventory);
+typedef UnitAny*							(__stdcall	d2GetNextItemFromInventory_t)(UnitAny* item);
 
-typedef OverHeadMessage*(__stdcall d2GenerateOverheadMessage_t)(DWORD _1, CHAR* message, DWORD trigger);
-typedef VOID(__stdcall d2FixOverheadMessage_t)(OverheadMessage* message, DWORD _1);
+typedef OverHeadMessage*					(__stdcall	d2GenerateOverheadMessage_t)(DWORD _1, CHAR* message, DWORD trigger);
+typedef VOID								(__stdcall	d2FixOverheadMessage_t)(OverheadMessage* message, DWORD _1);
 
-typedef void(__stdcall d2AddRoomData_t)(Act* act, int levelId, int x, int y, Room1* room);
-typedef void(__stdcall d2RemoveRoomData_t)(Act* act, int levelId, int x, int y, Room1* room);
+typedef void								(__stdcall	d2AddRoomData_t)(Act* act, int levelId, int x, int y, Room1* room);
+typedef void								(__stdcall	d2RemoveRoomData_t)(Act* act, int levelId, int x, int y, Room1* room);
 
-typedef int(__stdcall d2GetQuestFlag_t)(void* questInfo, DWORD act, DWORD quest);
+typedef int									(__stdcall	d2GetQuestFlag_t)(void* questInfo, DWORD act, DWORD quest);
 
-typedef void(__stdcall d2MapToAbsScreen_t)(long* x, long* y);
-typedef void(__stdcall d2AbsScreenToMap_t)(long* x, long* y);
+typedef void								(__stdcall	d2MapToAbsScreen_t)(long* x, long* y);
+typedef void								(__stdcall	d2AbsScreenToMap_t)(long* x, long* y);
 
-typedef DWORD(__stdcall d2CheckWaypoint_t)(DWORD waypointTable, DWORD levelId);
+typedef DWORD								(__stdcall	d2CheckWaypoint_t)(DWORD waypointTable, DWORD levelId);
 
-typedef BOOL(__stdcall d2IsTownByLevelNumber_t)(DWORD levelNumber);
-typedef BOOL(__stdcall d2GetLevelNumberFromRoom_t)(ROom1* room);
-typedef Room1*(__stdcall d2FindRoom1_t)(Act* act, int x, int y);
-typedef int(__stdcall d2GetItemPalette_t)(UnitAny* player, UnitAny* item, BYTE* color, int transparencyType);
+typedef BOOL								(__stdcall	d2IsTownByLevelNumber_t)(DWORD levelNumber);
+typedef BOOL								(__stdcall	d2GetLevelNumberFromRoom_t)(ROom1* room);
+typedef Room1*								(__stdcall	d2FindRoom1_t)(Act* act, int x, int y);
+typedef int									(__stdcall	d2GetItemPalette_t)(UnitAny* player, UnitAny* item, BYTE* color, int transparencyType);
 
-typedef void(__stdcall d2SendPacket_t)(size_t len, DWORD arg1, BYTE* packet);
-typedef void(__fastcall d2ReceivePacket_t)(BYTE* packet, DWORD len);
-typedef void(__fastcall d2ReceivePacket_I_t)(BYTE* packet, DWORD len);
+typedef void								(__stdcall	d2SendPacket_t)(size_t len, DWORD arg1, BYTE* packet);
+typedef void								(__fastcall d2ReceivePacket_t)(BYTE* packet, DWORD len);
+typedef void								(__fastcall d2ReceivePacket_I_t)(BYTE* packet, DWORD len);
 
-typedef void(__stdcall d2DrawRectangle_t)(int x1, int y1, int x2, int y2, DWORD color, DWORD transparency);
-typedef void(__stdcall d2DrawLine_t)(int x1, int y1, int x2, int y2, DWORD color, DWORD unknown);
-typedef void(__stdcall d2DrawAutomapCell2_t)(CellContext* context, DWORD x, DWORD y, DWORD bright2, DWORD bright, BYTE* coltab);
-typedef HWND(__stdcall d2GetHwnd_t)(void);
-typedef DWORD(__stdcall d2GetScreenSize_t)();
+typedef void								(__stdcall	d2DrawRectangle_t)(int x1, int y1, int x2, int y2, DWORD color, DWORD transparency);
+typedef void								(__stdcall	d2DrawLine_t)(int x1, int y1, int x2, int y2, DWORD color, DWORD unknown);
+typedef void								(__stdcall	d2DrawAutomapCell2_t)(CellContext* context, DWORD x, DWORD y, DWORD bright2, DWORD bright, BYTE* coltab);
+typedef HWND								(__stdcall	d2GetHwnd_t)(void);
+typedef DWORD								(__stdcall	d2GetScreenSize_t)();
 
-typedef void(__fastcall d2DoChat_t)(void);
-typedef void(__fastcall d2PrintChannelText_t)(int _1, char* text, DWORD color);
+typedef void								(__fastcall d2DoChat_t)(void);
+typedef void								(__fastcall d2PrintChannelText_t)(int _1, char* text, DWORD color);
 
-typedef VOID(__stdcall d2InitCellFile_t)(LPVOID file, CellFile** out, LPSTR sourceFile, DWORD line, DWORD fileVersion, LPSTR filename);
-typedef void(__stdcall d2DeleteCellFile_t)(CellFile* file);
-typedef wchar_t*(__fastcall d2GetLocaleText_t)(WORD localeTextNumber);
+typedef VOID								(__stdcall	d2InitCellFile_t)(LPVOID file, CellFile** out, LPSTR sourceFile, DWORD line, DWORD fileVersion, LPSTR filename);
+typedef void								(__stdcall	d2DeleteCellFile_t)(CellFile* file);
+typedef wchar_t*							(__fastcall d2GetLocaleText_t)(WORD localeTextNumber);
 
-typedef void*(__fastcall d2SetControlText_t)(Control* box, wchar_t* text);
-typedef void(__fastcall d2DrawSprites_t)(void);
-typedef CellFile*(__fastcall d2LoadCellFile_t)(const char* file, int type);
+typedef void*								(__fastcall d2SetControlText_t)(Control* box, wchar_t* text);
+typedef void								(__fastcall d2DrawSprites_t)(void);
+typedef CellFile*							(__fastcall d2LoadCellFile_t)(const char* file, int type);
 
-typedef void(__fastcall d2TakeScreenshot_t)();
-typedef void(__fastcall d2DrawText_t)(const wchar_t* str, int x, int y, DWORD color, DWORD unknown);
-typedef DWORD(__fastcall d2GetTextSize_t)(wchar_t* str, DWORD* width, DWORD* fileNo);
-typedef DWORD(__fastcall d2SetTextSize_t)(DWORD size);
-typedef DWORD(__fastcall d2GetTextWidthFileNumber_t)(wchar_t* str, DWORD* width, DWORD* fileNumber);
-typedef DWORD(__fastcall d2DestroyEditBox_t)(Control* control);
-typedef VOID(__stdcall d2DestroyControl_T)(Control* control);
+typedef void								(__fastcall d2TakeScreenshot_t)();
+typedef void								(__fastcall d2DrawText_t)(const wchar_t* str, int x, int y, DWORD color, DWORD unknown);
+typedef DWORD								(__fastcall d2GetTextSize_t)(wchar_t* str, DWORD* width, DWORD* fileNo);
+typedef DWORD								(__fastcall d2SetTextSize_t)(DWORD size);
+typedef DWORD								(__fastcall d2GetTextWidthFileNumber_t)(wchar_t* str, DWORD* width, DWORD* fileNumber);
+typedef DWORD								(__fastcall d2DestroyEditBox_t)(Control* control);
+typedef VOID								(__stdcall	d2DestroyControl_t)(Control* control);
 
-typedef BOOL(__stdcall d2EditBoxCallback_t)(Control* control, DWORD inputType, char* char);
-typedef BOOL(__stdcall d2EditBoxProcedure_t)(Control* control, DWORD _1, DWORD _2);
-typedef VOID(_fastcall d2SetEditBoxCallback_t)(Control* control, d2EditBoxCallback_t* callback);
-typedef void(__fastcall d2SetEditBoxProcedure_t)(Cotnrol* control, d2EditBoxProcedure_t* procedure);
-typedef void(__fastcall d2SelectEditBoxText_t)(Control* control);
-typedef DWORD(__fastcall d2InitMPQ_t)(const char* mpqFile, char* mpqName, int v4, int v5);
+typedef BOOL								(__stdcall	d2EditBoxCallback_t)(Control* control, DWORD inputType, char* char);
+typedef BOOL								(__stdcall	d2EditBoxProcedure_t)(Control* control, DWORD _1, DWORD _2);
+typedef VOID								(__fastcall d2SetEditBoxCallback_t)(Control* control, d2EditBoxCallback_t* callback);
+typedef void								(__fastcall d2SetEditBoxProcedure_t)(Cotnrol* control, d2EditBoxProcedure_t* procedure);
+typedef void								(__fastcall d2SelectEditBoxText_t)(Control* control);
+typedef DWORD								(__fastcall d2InitMPQ_t)(const char* mpqFile, char* mpqName, int v4, int v5);
 
-typedef DWORD(__fastcall d2Rand_t)(DWORD* seed);
-typedef DWORD(__fastcall d2Exit0_t)();
+typedef DWORD								(__fastcall d2Rand_t)(DWORD* seed);
+typedef DWORD								(__fastcall d2Exit0_t)();
 
-extern d2GetQuestInfo_t*			d2GetQuestInfo;
-extern d2SubmitItem_t*				d2SubmitItem;
-extern d2Transmute_t*				d2Transmute;
+extern d2GetQuestInfo_t*					d2GetQuestInfo;
+extern d2SubmitItem_t*						d2SubmitItem;
+extern d2Transmute_t*						d2Transmute;
 
-extern d2FindClientSideUnit_t*		d2FindClientSideUnit;
-extern d2FindServerSideUnit_t*		d2FindServerSideUnit;
-extern d2GetCurrentInteractingNPC_t* d2GetCurrentInteractingNPC;
-extern d2GetSelectedUnit_t*			d2GetSelectedUnit;
-extern d2GetCursorItem_t*			d2GetCursorItem;
-extern d2GetItemName_t*				d2GetItemName;
-extern d2LoadItemDescription_t*		d2LoadItemDescription;
-extern d2GetMonsterOwner_t*			d2GetMonsterOwner;
-extern d2GetUnitHPPercent_t*		d2GetUnitHPPercent;
+extern d2FindClientSideUnit_t*				d2FindClientSideUnit;
+extern d2FindServerSideUnit_t*				d2FindServerSideUnit;
+extern d2GetCurrentInteractingNPC_t*		d2GetCurrentInteractingNPC;
+extern d2GetSelectedUnit_t*					d2GetSelectedUnit;
+extern d2GetCursorItem_t*					d2GetCursorItem;
+extern d2GetItemName_t*						d2GetItemName;
+extern d2LoadItemDescription_t*				d2LoadItemDescription;
+extern d2GetMonsterOwner_t*					d2GetMonsterOwner;
+extern d2GetUnitHPPercent_t*				d2GetUnitHPPercent;
+extern d2InitInventory_t*					d2InitInventory;
+extern d2SetUIVariable_t*					d2SetUIVariable;
+extern d2GetUnitX_t*						d2GetUnitX;
+extern d2GetUnitY_t*						d2GetUnitY;
 
-extern d2DrawRectangle_t*			d2DrawRectangle;
-extern d2DrawLine_t*				d2DrawLine;
+extern d2ShopAction_t*						d2ShopAction;
 
-extern d2DrawText_t*				d2DrawText;
-extern d2GetTextSize_t*				d2GetTextSize;
-extern d2SetTextSize_t*				d2SetTextSize;
+extern d2CloseNPCInteract_t*				d2CloseNPCInteract;
+extern d2CloseInteract_t*					d2CloseInteract;
+
+extern d2GetAutomapSize_t*					d2GetAutomapSize;
+extern d2NewAutomapCell_t*					d2NewAutomapCell;
+extern d2AddAutomapCell_t*					d2AddAutomapCell;
+extern d2RevealAutomapRoom_t*				d2RevealAutomapRoom;
+extern d2InitAutomapLayer_I_t*				d2InitAutomapLayer_I;
+
+extern d2ClickMap_t*						d2ClickMap;
+extern d2LeftClickItem_I_t*					d2LeftClickItem_I;
+
+extern d2GetMouseXOffset_t*					d2GetMouseXOffset;
+extern d2GetMouseYOffset_t*					d2GetMouseYOffset;
+
+extern d2PrintGameString_t*					d2PrintGameString;
+extern d2PrintPartyString_t*				d2PrintPartyString;
+
+extern d2LeaveParty_t*						d2LeaveParty;
+
+extern d2AcceptTrade_t*						d2AcceptTrade;
+extern d2CancelTrade_t*						d2CancelTrade;
+extern d2TradeOK_t*							d2TradeOK;
+
+extern d2GetDifficulty_t*					d2GetDifficulty;
+extern d2ExitGame_t*						d2ExitGame;
+extern d2GetUIVariable_t*					d2GetUIVariable;
+extern d2DrawRectFrame_t*					d2DrawRectFrame;
+extern d2PerformGoldDialogAction_t*			d2PerformGoldDialogAction;
+extern d2GetPlayerUnit_t*					d2GetPlayerUnit;
+extern d2ClearScreen_t*						d2ClearScreen;
+extern d2CloseNPCTalk_t*					d2CloseNPCTalk;
+extern d2TestPvpFlag_t*						d2TestPvpFlag;
+
+extern d2InitLevel_t*						d2InitLevel;
+extern d2UnloadAct_t*						d2UnloadAct;
+extern d2GetObjectText_t*					d2GetObjectText;
+extern d2LoadAct_t*							d2LoadAct;
+
+extern d2GetLevelText_t*					d2GetLevelText;
+extern d2GetObjectText_t*					d2GetObjectText;
+extern d2GetItemText_t*						d2GetItemText;
+
+extern d2GetLayer_t*						d2GetLayer;
+extern d2GetLevel_t*						d2GetLevel;
+
+extern d2GetStatList_t*						d2GetStatList;
+extern d2CopyStatList_t*					d2CopyStatList;
+extern d2GetUnitStat_t*						d2GetUnitStat;
+extern d2GetUnitState_t*					d2GetUnitState;
+
+extern d2CheckUnitCollision_t*				d2CheckUnitCollision;
+extern d2GetRoomFromUnit_t*					d2GetRoomFromUnit;
+extern d2GetTargetUnitType_t*				d2GetTargetUnitType;
+
+extern d2GetSkillLevel_t*					d2GetSkillLevel;
+
+extern d2GetItemLevelRequirement_t*			d2GetItemLevelRequirement;
+
+extern d2GetItemPrice_t*					d2GetItemPrice;
+extern d2GetRepairCost_t*					d2GetRepairCost;
+extern d2GetItemMagicalMods_t*				d2GetItemMagicalMods;
+extern d2GetItemFromInventory_t*			d2GetItemFromInventory;
+
+extern d2GenerateOverheadMessage_t*			d2GenerateOverheadMessage;
+extern d2FixOverheadMessage_t*				d2FixOverheadMessage;
+
+extern d2AddRoomData_t*						d2AddRoomData;
+extern d2RemoveRoomData_t*					d2RemoveRoomData;
+
+extern d2GetQuestFlag_t*					d2GetQuestFlag;
+
+extern d2MapToAbsScreen_t*					d2MapToAbsScreen;
+extern d2AbsScreenToMap_t*					d2AbsScreenToMap;
+
+extern d2CheckWaypoint_t*					d2CheckWaypoint;
+
+extern d2IsTownByLevelNumber_t*				d2IsTownByLevelNumber;
+extern d2GetLevelNumberFromRoom_t*			d2GetLevelNumberFromRoom;
+extern d2FindRoom1_t*						d2FindRoom1;
+extern d2GetItemPalette_t*					d2GetItemPalette;
+
+extern d2SendPacket_t*						d2SendPacket;
+extern d2ReceivePacket_t*					d2ReceivePacket;
+extern d2ReceivePacket_I_t*					d2ReceivePacket_I;
+
+extern d2DrawRectangle_t*					d2DrawRectangle;
+extern d2DrawLine_t*						d2DrawLine;
+extern d2DrawAutomapCell2_t*				d2DrawAutomapCell2;
+extern d2GetHwnd_t*							d2GetHwnd;
+extern d2GetScreenSize_t*					d2GetScreenSize;
+
+extern d2DoChat_t*							d2DoChat;
+extern d2PrintChannelText_t*				d2PrintChannelText;
+
+extern d2InitCellFile_t*					d2InitCellFile;
+extern d2DeleteCellFile_t*					d2DeleteCellFile;
+extern d2GetLocaleText_t*					d2GetLocaleText;
+
+extern d2SetControlText_t*					d2SetControlText;
+extern d2DrawSprites_t*						d2DrawSprites;
+extern d2LoadCellFile_t*					d2LoadCellFile;
+
+extern d2TakeScreenshot_t*					d2TakeScreenshot;
+extern d2DrawText_t*						d2DrawText;
+extern d2GetTextSize_t*						d2GetTextSize;
+extern d2SetTextSize_t*						d2SetTextSize;
+extern d2GetTextWidthFileNumber_t*			d2GetTextWidthFileNumber;
+extern d2DestroyEditBox_t*					d2DestroyEditBox;
+extern d2DestroyControl_t*					d2DestroyControl;
+
+extern d2SetEditBoxCallback_t*				d2SetEditBoxCallback;
+extern d2SetEditBoxProcedure_t*				d2SetEditBoxProcedure;
+extern d2SelectEditBoxText_t*				d2SelecEditBoxText;
+extern d2InitMPQ_t*							d2InitMPQ;
+
+extern d2Rand_t*							d2Rand;
+extern d2Exit0_t*							d2Exit0;
 
 //  variables
-extern DWORD*						d2ScreenSizeX;
-extern DWORD*						d2ScreenSizeY;
-extern DWORD*						d2CursorHoverX;
-extern DWORD*						d2CursorHoverY;
-extern DWORD*						d2MouseX;
-extern DWORD*						d2MouseY;
-extern DWORD*						d2MouseOffsetY;
-extern DWORD*						d2MouseOffsetX;
-extern DWORD*						d2MouseOffsetZ;
+extern DWORD*								d2ScreenSizeX;
+extern DWORD*								d2ScreenSizeY;
+extern DWORD*								d2CursorHoverX;
+extern DWORD*								d2CursorHoverY;
+extern DWORD*								d2MouseX;
+extern DWORD*								d2MouseY;
+extern DWORD*								d2MouseOffsetY;
+extern DWORD*								d2MouseOffsetX;
+extern DWORD*								d2MouseOffsetZ;
 
-extern DWORD*						d2AutomapOn;
-extern int*							d2AutomapMode;
-extern POINT*						d2Offset;
-extern AutomapLayer**				d2AutomapLayer;
+extern DWORD*								d2AutomapOn;
+extern int*									d2AutomapMode;
+extern POINT*								d2Offset;
+extern AutomapLayer**						d2AutomapLayer;
 
-extern DWORD*						d2MercenaryReviveCost;
+extern DWORD*								d2MercenaryReviveCost;
 
-extern UnitHashTable*				d2ServerSideUnitHashTables;
-extern UnitHashtable*				d2ClientSideUnitHashTables;
+extern UnitHashTable*						d2ServerSideUnitHashTables;
+extern UnitHashtable*						d2ClientSideUnitHashTables;
 
-extern int*							d2ViewportX;
-extern int*							d2ViewportY;
+extern int*									d2ViewportX;
+extern int*									d2ViewportY;
 
-extern DWORD*						d2GoldDialogAction;
-extern DWORD*						d2GoldDialogAmount;
+extern DWORD*								d2GoldDialogAction;
+extern DWORD*								d2GoldDialogAmount;
 
-extern NPCMenu**					d2NPCMenu;
-extern DWORD*						d2NPCMenuAmount;
+extern NPCMenu**							d2NPCMenu;
+extern DWORD*								d2NPCMenuAmount;
 
-extern InventoryLayout**			d2TradeLayout;
-extern InventoryLayout**			d2StashLayout;
-extern InventoryLayout**			d2StoreLayout;
-extern InventoryLayout**			d2CubeLayout;
-extern InventoryLayout**			d2InventoryLayout;
-extern InventoryLayout**			d2MercenaryLayout;
+extern InventoryLayout**					d2TradeLayout;
+extern InventoryLayout**					d2StashLayout;
+extern InventoryLayout**					d2StoreLayout;
+extern InventoryLayout**					d2CubeLayout;
+extern InventoryLayout**					d2InventoryLayout;
+extern InventoryLayout**					d2MercenaryLayout;
 
-extern DWORD*						d2RegularCursorType;
-extern DWORD*						d2ShopCursorType;
+extern DWORD*								d2RegularCursorType;
+extern DWORD*								d2ShopCursorType;
 
-extern DWORD*						d2Ping;
-extern DWORD*						d2Skip;
-extern DWORD*						d2FPS;
-extern int*							d2Divisor;
+extern DWORD*								d2Ping;
+extern DWORD*								d2Skip;
+extern DWORD*								d2FPS;
+extern int*									d2Divisor;
 
-extern DWORD*						d2OverheadTrigger;
-extern DWORD*						d2RecentInteractId;
-extern DWORD*						d2ItemPriceList;
+extern DWORD*								d2OverheadTrigger;
+extern DWORD*								d2RecentInteractId;
+extern DWORD*								d2ItemPriceList;
 
-extern void**						d2TransactionDialog;
-extern DWORD*						d2TransactionDialogs;
-extern DWORD*						d2TransactionDialogs_2;
-extern TransactionDialogsInfo_t*	d2TransactionDialogsInfo;
+extern void**								d2TransactionDialog;
+extern DWORD*								d2TransactionDialogs;
+extern DWORD*								d2TransactionDialogs_2;
+extern TransactionDialogsInfo_t*			d2TransactionDialogsInfo;
 
-extern GameInfo**					d2GameInfo;
-extern DWORD*						d2WaypointTable;
+extern GameInfo**							d2GameInfo;
+extern DWORD*								d2WaypointTable;
 
-extern UnitAny**					d2PlayerUnit;
-extern UnitAny**					d2SelectedInventoryItem;
-extern RosterUnit**					d2PlayerUnitList;
+extern UnitAny**							d2PlayerUnit;
+extern UnitAny**							d2SelectedInventoryItem;
+extern RosterUnit**							d2PlayerUnitList;
 
-extern DWORD*						d2WeaponSwitch;
+extern DWORD*								d2WeaponSwitch;
 
-extern DWORD*						d2TradeAccepted;
-extern DWORD*						d2TradeBlock;
-extern DWORD*						d2RecentTradeId;
+extern DWORD*								d2TradeAccepted;
+extern DWORD*								d2TradeBlock;
+extern DWORD*								d2RecentTradeId;
 
-extern DWORD*						d2ExpansionCharacterFlag;
-extern DWORD*						d2MapId;
+extern DWORD*								d2ExpansionCharacterFlag;
+extern DWORD*								d2MapId;
 
-extern DWORD*						d2AlwaysRun;
-extern DWORD*						d2NoPickup;
+extern DWORD*								d2AlwaysRun;
+extern DWORD*								d2NoPickup;
 
-extern wchar_t*						d2ChatMessage;
-extern DWORD*						d2OrificeId;
-extern DWORD*						d2CursorItemMode;
+extern wchar_t*								d2ChatMessage;
+extern DWORD*								d2OrificeId;
+extern DWORD*								d2CursorItemMode;
 
-extern DWORD*						d2SGPTDataTable;
+extern DWORD*								d2SGPTDataTable;
 
-extern char**						d2ChatBoxMessage;
-extern Control**					d2GameListControl;
+extern char**								d2ChatBoxMessage;
+extern Control**							d2GameListControl;
 
-extern BattleNetData**				d2BattleNetData;
+extern BattleNetData**						d2BattleNetData;
 
-extern Control**					d2FirstControl;
-extern Control**					d2FocusedControl;
-extern DWORD**						d2ChatInputBox;
+extern Control**							d2FirstControl;
+extern Control**							d2FocusedControl;
+extern DWORD**								d2ChatInputBox;
 
-extern char**						d2ClassicKey;
-extern char**						d2ExpansionKey;
-extern char**						d2KeyOwner;
-extern WindowHandlersHashTable*		d2WindowHandlers;
+extern char**								d2ClassicKey;
+extern char**								d2ExpansionKey;
+extern char**								d2KeyOwner;
+extern WindowHandlersHashTable*				d2WindowHandlers;
 
 void initializeInterface(DWORD baseAddress);
