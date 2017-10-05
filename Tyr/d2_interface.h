@@ -241,8 +241,8 @@ typedef UnitAny* (__fastcall d2GetCursorItem_t)(void);
 typedef void(__fastcall d2GetSelectedUnit_I_t)(UnitAny* unit);
 typedef BOOL(__fastcall d2GetItemName_t)(UnitAny* item, wchar_t* buffer, DWORD size);
 typedef BOOL(__stdcall d2LoadItemDescription_t)(UnitAny* item, int type);
-typedef DWORD(__fastcall d2GetMonsterOwner)(DWORD monsterID);
-typedef DWORD(__fastcall d2GetUnitHPPercent)(DWORD unitID);
+typedef DWORD(__fastcall d2GetMonsterOwner_t)(DWORD monsterID);
+typedef DWORD(__fastcall d2GetUnitHPPercent_t)(DWORD unitID);
 typedef void(__fastcall d2InitInventory_t)(void);
 typedef DWORD(__fastcall d2SetUIVariable_t)(DWORD variableNumber, DWORD howSet, DWORD unknown);
 typedef int(__fastcall d2GetUnitX)(UnitAny* unit);
@@ -372,20 +372,118 @@ typedef DWORD(__fastcall d2InitMPQ_t)(const char* mpqFile, char* mpqName, int v4
 typedef DWORD(__fastcall d2Rand_t)(DWORD* seed);
 typedef DWORD(__fastcall d2Exit0_t)();
 
-extern d2DrawRectangle_t* d2DrawRectangle;
-extern d2DrawLine_t* d2DrawLine;
+extern d2GetQuestInfo_t*			d2GetQuestInfo;
+extern d2SubmitItem_t*				d2SubmitItem;
+extern d2Transmute_t*				d2Transmute;
 
-extern d2DrawText_t* d2DrawText;
-extern d2GetTextSize_t* d2GetTextSize;
-extern d2SetTextSize_t* d2SetTextSize;
+extern d2FindClientSideUnit_t*		d2FindClientSideUnit;
+extern d2FindServerSideUnit_t*		d2FindServerSideUnit;
+extern d2GetCurrentInteractingNPC_t* d2GetCurrentInteractingNPC;
+extern d2GetSelectedUnit_t*			d2GetSelectedUnit;
+extern d2GetCursorItem_t*			d2GetCursorItem;
+extern d2GetItemName_t*				d2GetItemName;
+extern d2LoadItemDescription_t*		d2LoadItemDescription;
+extern d2GetMonsterOwner_t*			d2GetMonsterOwner;
+extern d2GetUnitHPPercent_t*		d2GetUnitHPPercent;
+
+extern d2DrawRectangle_t*			d2DrawRectangle;
+extern d2DrawLine_t*				d2DrawLine;
+
+extern d2DrawText_t*				d2DrawText;
+extern d2GetTextSize_t*				d2GetTextSize;
+extern d2SetTextSize_t*				d2SetTextSize;
 
 //  variables
-extern DWORD* d2ScreenSizeX;
-extern DWORD* d2ScreenSizeY;
-extern DWORD* d2MouseX;
-extern DWORD* d2MouseY;
-extern DWORD* d2MouseOffsetY;
-extern DWORD* d2MouseOffsetX;
-extern DWORD* d2MouseOffsetZ;
+extern DWORD*						d2ScreenSizeX;
+extern DWORD*						d2ScreenSizeY;
+extern DWORD*						d2CursorHoverX;
+extern DWORD*						d2CursorHoverY;
+extern DWORD*						d2MouseX;
+extern DWORD*						d2MouseY;
+extern DWORD*						d2MouseOffsetY;
+extern DWORD*						d2MouseOffsetX;
+extern DWORD*						d2MouseOffsetZ;
+
+extern DWORD*						d2AutomapOn;
+extern int*							d2AutomapMode;
+extern POINT*						d2Offset;
+extern AutomapLayer**				d2AutomapLayer;
+
+extern DWORD*						d2MercenaryReviveCost;
+
+extern UnitHashTable*				d2ServerSideUnitHashTables;
+extern UnitHashtable*				d2ClientSideUnitHashTables;
+
+extern int*							d2ViewportX;
+extern int*							d2ViewportY;
+
+extern DWORD*						d2GoldDialogAction;
+extern DWORD*						d2GoldDialogAmount;
+
+extern NPCMenu**					d2NPCMenu;
+extern DWORD*						d2NPCMenuAmount;
+
+extern InventoryLayout**			d2TradeLayout;
+extern InventoryLayout**			d2StashLayout;
+extern InventoryLayout**			d2StoreLayout;
+extern InventoryLayout**			d2CubeLayout;
+extern InventoryLayout**			d2InventoryLayout;
+extern InventoryLayout**			d2MercenaryLayout;
+
+extern DWORD*						d2RegularCursorType;
+extern DWORD*						d2ShopCursorType;
+
+extern DWORD*						d2Ping;
+extern DWORD*						d2Skip;
+extern DWORD*						d2FPS;
+extern int*							d2Divisor;
+
+extern DWORD*						d2OverheadTrigger;
+extern DWORD*						d2RecentInteractId;
+extern DWORD*						d2ItemPriceList;
+
+extern void**						d2TransactionDialog;
+extern DWORD*						d2TransactionDialogs;
+extern DWORD*						d2TransactionDialogs_2;
+extern TransactionDialogsInfo_t*	d2TransactionDialogsInfo;
+
+extern GameInfo**					d2GameInfo;
+extern DWORD*						d2WaypointTable;
+
+extern UnitAny**					d2PlayerUnit;
+extern UnitAny**					d2SelectedInventoryItem;
+extern RosterUnit**					d2PlayerUnitList;
+
+extern DWORD*						d2WeaponSwitch;
+
+extern DWORD*						d2TradeAccepted;
+extern DWORD*						d2TradeBlock;
+extern DWORD*						d2RecentTradeId;
+
+extern DWORD*						d2ExpansionCharacterFlag;
+extern DWORD*						d2MapId;
+
+extern DWORD*						d2AlwaysRun;
+extern DWORD*						d2NoPickup;
+
+extern wchar_t*						d2ChatMessage;
+extern DWORD*						d2OrificeId;
+extern DWORD*						d2CursorItemMode;
+
+extern DWORD*						d2SGPTDataTable;
+
+extern char**						d2ChatBoxMessage;
+extern Control**					d2GameListControl;
+
+extern BattleNetData**				d2BattleNetData;
+
+extern Control**					d2FirstControl;
+extern Control**					d2FocusedControl;
+extern DWORD**						d2ChatInputBox;
+
+extern char**						d2ClassicKey;
+extern char**						d2ExpansionKey;
+extern char**						d2KeyOwner;
+extern WindowHandlersHashTable*		d2WindowHandlers;
 
 void initializeInterface(DWORD baseAddress);
