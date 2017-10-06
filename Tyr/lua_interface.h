@@ -118,7 +118,6 @@ namespace lua_interface
 	LDEC( drawLine );
 	LDEC( drawAutomapCell2 );
 	LDEC( getHwnd );
-	LDEC( getScreenSize );
 
 	LDEC( doChat );
 	LDEC( printChannelText );
@@ -148,6 +147,7 @@ namespace lua_interface
 	LDEC( exit0 );
 
 	// variables
+	LDEC( getScreenSize );
 	LDEC( getCursorHoverPosition );
 	LDEC( getMousePosition );
 	LDEC( getMouseOffset );

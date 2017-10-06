@@ -133,6 +133,9 @@
     <ClCompile Include="lua_interface.cpp">
       <Filter>Source Files\Lua</Filter>
     </ClCompile>
+    <ClCompile Include="lua_filesystem.cpp">
+      <Filter>Source Files\Lua</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="reroute.h">
@@ -230,6 +233,9 @@
     </ClInclude>
     <ClInclude Include="d2_constants.h">
       <Filter>Source Files\Diablo II</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_filesystem.h">
+      <Filter>Source Files\Lua</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -110,7 +110,7 @@ d2DrawRectangle_t*					d2DrawRectangle = NULL;
 d2DrawLine_t*						d2DrawLine = NULL;
 d2DrawAutomapCell2_t*				d2DrawAutomapCell2 = NULL;
 d2GetHwnd_t*						d2GetHwnd = NULL;
-d2GetScreenSize_t*					d2GetScreenSize = NULL;
+//d2GetScreenSize_t*					d2GetScreenSize = NULL;
 
 d2DoChat_t*							d2DoChat = NULL;
 d2PrintChannelText_t*				d2PrintChannelText = NULL;
@@ -348,7 +348,7 @@ void initializeInterface(DWORD baseAddress )
 	FUNC( d2DrawLine );
 	FUNC( d2DrawAutomapCell2 );
 	FUNC( d2GetHwnd );
-	FUNC( d2GetScreenSize );
+	//FUNC( d2GetScreenSize );
 
 	FUNC( d2DoChat );
 	FUNC( d2PrintChannelText );

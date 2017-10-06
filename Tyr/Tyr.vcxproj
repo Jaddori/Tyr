@@ -160,6 +160,7 @@
     <ClCompile Include="d2_interface.cpp" />
     <ClCompile Include="lua_binds.cpp" />
     <ClCompile Include="lua_interface.cpp" />
+    <ClCompile Include="lua_filesystem.cpp" />
     <ClCompile Include="lua_rendering.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="reroute.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="d2_structures.h" />
     <ClInclude Include="lua_binds.h" />
     <ClInclude Include="lua_interface.h" />
+    <ClInclude Include="lua_filesystem.h" />
     <ClInclude Include="lua_rendering.h" />
     <ClInclude Include="reroute.h" />
   </ItemGroup>

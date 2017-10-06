@@ -25,8 +25,8 @@ INT APIENTRY DllMain( HINSTANCE handle, DWORD reason, LPVOID reserved )
 
 void DrawIntercept(void)
 {
-	if( g_binds.initialized )
-		lua_render( &g_binds );
+	lua_update( &g_binds );
+	lua_render( &g_binds );
 }
 
 void Startup()
@@ -37,10 +37,12 @@ void Startup()
 	initializeInterface( baseAddress );
 
 	lua_bind( &g_binds );
+	lua_start( &g_binds );
 }
 
 void Shutdown()
 {
+	lua_stop( &g_binds );
 }
 
 extern "C" __declspec(dllexport) int hookProc( int code, WPARAM wparam, LPARAM lparam )

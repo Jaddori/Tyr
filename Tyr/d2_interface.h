@@ -110,7 +110,7 @@
 #define d2DrawLine_Offset					0xF6380
 #define d2DrawAutomapCell2_Offset			0x0
 #define d2GetHwnd_Offset					0xF59A0
-#define d2GetScreenSize_Offset				0xF5160
+//#define d2GetScreenSize_Offset				0xF5160
 
 #define d2DoChat_Offset						0x42810
 #define d2PrintChannelText_Offset			0x47AB0
@@ -342,7 +342,7 @@ typedef void								(__stdcall	d2DrawRectangle_t)(int x1, int y1, int x2, int y2
 typedef void								(__stdcall	d2DrawLine_t)(int x1, int y1, int x2, int y2, DWORD color, DWORD unknown);
 typedef void								(__stdcall	d2DrawAutomapCell2_t)(d2CellContext_t* context, DWORD x, DWORD y, DWORD bright2, DWORD bright, BYTE* coltab);
 typedef HWND								(__stdcall	d2GetHwnd_t)(void);
-typedef DWORD								(__stdcall	d2GetScreenSize_t)();
+//typedef DWORD								(__stdcall	d2GetScreenSize_t)();
 
 typedef void								(__fastcall d2DoChat_t)(void);
 typedef void								(__fastcall d2PrintChannelText_t)(int _1, const char* text, DWORD color);
@@ -483,7 +483,7 @@ extern d2DrawRectangle_t*					d2DrawRectangle;
 extern d2DrawLine_t*						d2DrawLine;
 extern d2DrawAutomapCell2_t*				d2DrawAutomapCell2;
 extern d2GetHwnd_t*							d2GetHwnd;
-extern d2GetScreenSize_t*					d2GetScreenSize;
+//extern d2GetScreenSize_t*					d2GetScreenSize;
 
 extern d2DoChat_t*							d2DoChat;
 extern d2PrintChannelText_t*				d2PrintChannelText;

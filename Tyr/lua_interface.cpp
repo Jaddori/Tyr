@@ -142,6 +142,7 @@ namespace lua_interface
 		LREG( exit0 );
 
 		// variables
+		LREG( getScreenSize );
 		LREG( getCursorHoverPosition );
 		LREG( getMousePosition );
 		LREG( getMouseOffset );
@@ -359,7 +360,7 @@ namespace lua_interface
 				if( retval )
 				{
 					char cbuffer[1024] = {};
-					WideCharToMultiByte( CP_UTF8, WC_COMPOSITECHECK, buffer, -1, cbuffer, 1024, NULL, NULL );
+					wcstombs( cbuffer, buffer, 1024 );
 					lua_pushstring( lua, cbuffer );
 					result = 2;
 				}
@@ -651,7 +652,7 @@ namespace lua_interface
 			int color = (int)lua_tointeger( lua, 2 );
 
 			wchar_t message[1024] = {};
-			MultiByteToWideChar( CP_UTF8, WC_COMPOSITECHECK, str, strlen( str ), message, 1024 );
+			mbstowcs( message, str, 1024 );
 
 			d2PrintGameString( message, color );
 		}
@@ -670,7 +671,7 @@ namespace lua_interface
 			int color = (int)lua_tointeger( lua, 2 );
 
 			wchar_t message[1024] = {};
-			MultiByteToWideChar( CP_UTF8, WC_COMPOSITECHECK, str, strlen( str ), message, 1024 );
+			mbstowcs( message, str, 1024 );
 
 			d2PrintPartyString( message, color );
 		}
@@ -1523,7 +1524,7 @@ namespace lua_interface
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 3 )
+		if( nargs >= 2 )
 		{
 			lua_rawgeti( lua, 1, 1 );
 			int x1 = (int)lua_tointeger( lua, -1 );
@@ -1535,7 +1536,9 @@ namespace lua_interface
 			lua_rawgeti( lua, 2, 2 );
 			int y2 = (int)lua_tointeger( lua, -1 );
 
-			DWORD color = (DWORD)lua_tointeger( lua, 3 );
+			DWORD color = 0xFF;
+			if( nargs == 3 )
+				color = (DWORD)lua_tointeger( lua, 3 );
 			
 			d2DrawLine( x1, y1, x2, y2, color, 0 );
 		}
@@ -1559,13 +1562,6 @@ namespace lua_interface
 	{
 		HWND hwnd = d2GetHwnd();
 		lua_pushlightuserdata( lua, hwnd );
-		return 1;
-	}
-
-	LDEC( getScreenSize )
-	{
-		DWORD screenSize = d2GetScreenSize();
-		lua_pushnumber( lua, screenSize );
 		return 1;
 	}
 
@@ -1637,7 +1633,7 @@ namespace lua_interface
 			const char* buf = lua_tostring( lua, 2 );
 
 			wchar_t text[1024] = {};
-			MultiByteToWideChar( CP_UTF8, WC_COMPOSITECHECK, buf, strlen( buf ), text, 1024 );
+			mbstowcs( text, buf, 1024 );
 
 			void* retval = d2SetControlText( box, text );
 			if( retval )
@@ -1688,7 +1684,7 @@ namespace lua_interface
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 3 )
+		if( nargs >= 2 )
 		{
 			const char* buf = lua_tostring( lua, 1 );
 
@@ -1697,10 +1693,12 @@ namespace lua_interface
 			lua_rawgeti( lua, 2, 2 );
 			int y = (int)lua_tointeger( lua, -1 );
 
-			DWORD color = (DWORD)lua_tointeger( lua, 3 );
+			DWORD color = 0xFF;
+			if( nargs == 3 )
+				color = (DWORD)lua_tointeger( lua, 3 );
 			
 			wchar_t str[1024] = {};
-			MultiByteToWideChar( CP_UTF8, WC_COMPOSITECHECK, buf, strlen( buf ), str, 1024 );
+			mbstowcs( str, buf, 1024 );
 
 			d2DrawText( str, x, y, color, 0 );
 		}
@@ -1846,6 +1844,25 @@ namespace lua_interface
 	}
 
 	// variables
+	LDEC( getScreenSize )
+	{
+		int result = 0;
+
+		int nargs = lua_gettop( lua );
+		if( nargs == 0 || !lua_istable( lua, 1 ) )
+		{
+			result = 1;
+			lua_newtable( lua );
+		}
+
+		lua_pushnumber( lua, *d2ScreenSizeX );
+		lua_rawseti( lua, -2, 1 );
+		lua_pushnumber( lua, *d2ScreenSizeY );
+		lua_rawseti( lua, -2, 2 );
+
+		return result;
+	}
+
 	LDEC( getCursorHoverPosition )
 	{
 		int result = 0;
@@ -2198,7 +2215,7 @@ namespace lua_interface
 	LDEC( chatMessage )
 	{
 		char buffer[1024] = {};
-		WideCharToMultiByte( CP_UTF8, WC_COMPOSITECHECK, *d2ChatMessage, -1, buffer, 1024, NULL, NULL );
+		wcstombs( buffer, *d2ChatMessage, 1024 );
 
 		lua_pushstring( lua, buffer );
 		return 1;
