@@ -353,7 +353,7 @@ typedef wchar_t*							(__fastcall d2GetLocaleText_t)(WORD localeTextNumber);
 
 typedef void*								(__fastcall d2SetControlText_t)(d2Control_t* box, wchar_t* text);
 typedef void								(__fastcall d2DrawSprites_t)(void);
-typedef d2CellFile_t*							(__fastcall d2LoadCellFile_t)(const char* file, int type);
+typedef d2CellFile_t*						(__fastcall d2LoadCellFile_t)(const char* file, int type);
 
 typedef void								(__fastcall d2TakeScreenshot_t)();
 typedef void								(__fastcall d2DrawText_t)(const wchar_t* str, int x, int y, DWORD color, DWORD unknown);
