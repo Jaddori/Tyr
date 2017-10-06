@@ -2,30 +2,30 @@
 
 #include <Windows.h>
 
-struct UnitAny;
-struct Room1;
-struct Room2;
-struct Level;
-struct Act;
-struct ActMisc;
-struct RosterUnit;
-struct OverheadMessage;
-struct Skill;
+struct d2UnitAny_t;
+struct d2Room1_t;
+struct d2Room2_t;
+struct d2Level_t;
+struct d2Act_t;
+struct d2ActMisc_t;
+struct d2RosterUnit_t;
+struct d2OverheadMessage_t;
+struct d2Skill_t;
 
-struct SplitText
+struct d2SplitText_t
 {
 	wchar_t* text;
-	SplitText* next;
+	d2SplitText_t* next;
 };
 
-struct InventoryInfo
+struct d2InventoryInfo_t
 {
 	int location;
 	int maxCellsX;
 	int maxCellsY;
 };
 
-struct GameInfo
+struct d2GameInfo_t
 {
 	BYTE _1[31];
 	char gameName[24];
@@ -37,18 +37,18 @@ struct GameInfo
 	char gamePassword[24];
 };
 
-struct AutomapCell
+struct d2AutomapCell_t
 {
 	DWORD saved;
 	WORD cellNumber;
 	WORD pixelX;
 	WORD pixelY;
 	WORD weight;
-	AutomapCell* less;
-	AutomapCell* more;
+	d2AutomapCell_t* more;
+	d2AutomapCell_t* less;
 };
 
-struct GfxCell
+struct d2GfxCell_t
 {
 	DWORD flags;
 	DWORD width;
@@ -61,19 +61,19 @@ struct GfxCell
 	BYTE columns;
 };
 
-struct UnitInteraction
+struct d2UnitInteraction_t
 {
 	DWORD moveType;
-	UnitAny* playerUnit;
-	UnitAny* targetUnit;
+	d2UnitAny_t* playerUnit;
+	d2UnitAny_t* targetUnit;
 	DWORD targetX;
 	DWORD targetY;
 	DWORD _1;
 	DWORD _2;
-	Skill* skill;
+	d2Skill_t* skill;
 };
 
-struct CellFile
+struct d2CellFile_t
 {
 	DWORD version;
 	struct 
@@ -86,34 +86,34 @@ struct CellFile
 	DWORD termination;
 	DWORD directionCount;
 	DWORD cellCount;
-	GfxCell* cells[255];
+	d2GfxCell_t* cells[255];
 };
 
-struct CellContext
+struct d2CellContext_t
 {
 	DWORD _1[13];
-	CellFile* cellFile;
+	d2CellFile_t* cellFile;
 	DWORD _2[4];
 };
 
-struct AutomapLayer
+struct d2AutomapLayer_t
 {
 	DWORD layerNumber;
 	DWORD saved;
-	AutomapCell* floors;
-	AutomapCell* walls;
-	AutomapCell* objects;
-	AutomapCell* extras;
-	AutomapCell* nextLayer;
+	d2AutomapCell_t* floors;
+	d2AutomapCell_t* walls;
+	d2AutomapCell_t* objects;
+	d2AutomapCell_t* extras;
+	d2AutomapCell_t* nextLayer;
 };
 
-struct AutomapLayer2
+struct d2AutomapLayer2_t
 {
 	DWORD _1[2];
 	DWORD layerNumber;
 };
 
-struct LevelText
+struct d2LevelText_t
 {
 	DWORD levelNumber;
 	DWORD _1[60];
@@ -127,15 +127,15 @@ struct LevelText
 	BYTE objectProbe[8];
 };
 
-struct ControlText
+struct d2ControlText_t
 {
 	wchar_t* textw[5];
 	DWORD color;
 	DWORD align;
-	ControlText* next;
+	d2ControlText_t* next;
 };
 
-struct Control
+struct d2Control_t
 {
 	DWORD type;
 	DWORD* _1;
@@ -152,12 +152,12 @@ struct Control
 	DWORD *_7;
 	DWORD *_8;
 	DWORD _9;
-	Control* next;
+	d2Control_t* next;
 	DWORD _10;
 	DWORD unknownState;
-	ControlText* firstText;
-	ControlText* lastText;
-	ControlText* selectedText;
+	d2ControlText_t* firstText;
+	d2ControlText_t* lastText;
+	d2ControlText_t* selectedText;
 	DWORD selectEnd;
 	DWORD selectStart;
 	union
@@ -179,7 +179,7 @@ struct Control
 #pragma pack(push)
 #pragma pack(1)
 
-struct BattleNetData
+struct d2BattleNetData_t
 {
 	DWORD id;
 	DWORD id2;
@@ -216,15 +216,15 @@ struct BattleNetData
 	BYTE passwordLength;
 };
 
-struct RoomTile
+struct d2RoomTile_t
 {
-	Room2* room2;
-	RoomTile* next;
+	d2Room2_t* room2;
+	d2RoomTile_t* next;
 	DWORD _2[2];
 	DWORD* number;
 };
 
-struct RosterUnit
+struct d2RosterUnit_t
 {
 	char name[16];
 	DWORD unitId;
@@ -243,32 +243,32 @@ struct RosterUnit
 	char name2[16];
 	WORD _5;
 	DWORD _6;
-	RosterUnit* next;
+	d2RosterUnit_t* next;
 };
 
-struct QuestInfo
+struct d2QuestInfo_t
 {
 	void* buffer;
 	DWORD _1;
 };
 
-struct Waypoint
+struct d2Waypoint_t
 {
 	BYTE flags;
 };
 
-struct PlayerData
+struct d2PlayerData_t
 {
 	char name[16];
-	QuestInfo* normalQuest;
-	QuestInfo* nightmareQuest;
-	QuestInfo* hellQuest;
-	Waypoint* normalWaypoint;
-	Waypoint* nightmareWaypoint;
-	Waypoint* hellWaypoint;
+	d2QuestInfo_t* normalQuest;
+	d2QuestInfo_t* nightmareQuest;
+	d2QuestInfo_t* hellQuest;
+	d2Waypoint_t* normalWaypoint;
+	d2Waypoint_t* nightmareWaypoint;
+	d2Waypoint_t* hellWaypoint;
 };
 
-struct CollisionMap
+struct d2CollisionMap_t
 {
 	DWORD gameX;
 	DWORD gameY;
@@ -282,30 +282,30 @@ struct CollisionMap
 	WORD* mapEnd;
 };
 
-struct PresetUnit
+struct d2PresetUnit_t
 {
 	DWORD _1;
 	DWORD textFileNumber;
 	DWORD x;
-	PresetUnit* next;
+	d2PresetUnit_t* next;
 	DWORD _2;
 	DWORD type;
 	DWORD y;
 };
 
-struct Level
+struct d2Level_t
 {
 	DWORD _1[4];
-	Room2* room2First;
+	d2Room2_t* room2First;
 	DWORD _2[2];
 	DWORD x;
 	DWORD y;
 	DWORD width;
 	DWORD height;
 	DWORD _3[96];
-	Level* next;
+	d2Level_t* next;
 	DWORD _4;
-	ActMisc* misc;
+	d2ActMisc_t* misc;
 	DWORD _5[6];
 	DWORD levelNumber;
 	DWORD _6[3];
@@ -322,42 +322,42 @@ struct Level
 	DWORD roomEntries;
 };
 
-struct Room2
+struct d2Room2_t
 {
 	DWORD _1[2];
-	Room2** room2Near;
+	d2Room2_t** room2Near;
 	DWORD _2[5];
 	struct
 	{
 		DWORD roomNumber;
 		DWORD _1;
 		DWORD* subNumber;
-	} *type2Info;
-	Room2* next;
+	} *type2Info_t;
+	d2Room2_t* next;
 	DWORD roomFlags;
 	DWORD roomsNear;
-	Room1* room1;
+	d2Room1_t* room1;
 	DWORD x;
 	DWORD y;
 	DWORD width;
 	DWORD height;
 	DWORD _3;
 	DWORD presetType;
-	RoomTile* roomTiles;
+	d2RoomTile_t* roomTiles;
 	DWORD _4[2];
-	Level* level;
-	PresetUnit* preset;
+	d2Level_t* level;
+	d2PresetUnit_t* preset;
 };
 
 #pragma pack(pop)
 
-struct Room1
+struct d2Room1_t
 {
-	Room1** roomsNear;
+	d2Room1_t** roomsNear;
 	DWORD _1[3];
-	Room2* room2;
+	d2Room2_t* room2;
 	DWORD _2[3];
-	CollisionMap* collision;
+	d2CollisionMap_t* collision;
 	DWORD roomsNearCount;
 	DWORD _3[9];
 	DWORD x;
@@ -365,32 +365,32 @@ struct Room1
 	DWORD width;
 	DWORD height;
 	DWORD _4[6];
-	UnitAny* unitFirst;
+	d2UnitAny_t* unitFirst;
 	DWORD _5;
-	Room1* next;
+	d2Room1_t* next;
 };
 
-struct ActMisc
+struct d2ActMisc_t
 {
 	DWORD _1[37];
 	DWORD staffTombLevel;
 	DWORD _2[245];
-	Act* act;
+	d2Act_t* act;
 	DWORD _3[3];
-	Level* levelFirst;
+	d2Level_t* levelFirst;
 };
 
-struct Act
+struct d2Act_t
 {
 	DWORD _1[3];
 	DWORD mapSeed;
-	Room1* room1;
+	d2Room1_t* room1;
 	DWORD act;
 	DWORD _2[12];
-	ActMisc* misc;
+	d2ActMisc_t* misc;
 };
 
-struct Path
+struct d2Path_t
 {
 	WORD xoffset;
 	WORD x;
@@ -400,79 +400,79 @@ struct Path
 	WORD xtarget;
 	WORD ytarget;
 	DWORD _2[2];
-	Room1* room1;
-	Room1* room1Unknown;
+	d2Room1_t* room1;
+	d2Room1_t* room1Unknown;
 	DWORD _3[3];
-	UnitAny* unit;
+	d2UnitAny_t* unit;
 	DWORD flags;
 	DWORD _4;
 	DWORD pathType;
 	DWORD prevPathType;
 	DWORD unitSize;
 	DWORD _5[4];
-	UnitAny* targetUnit;
+	d2UnitAny_t* targetUnit;
 	DWORD targetType;
 	DWORD targetId;
 	BYTE direction;
 };
 
-struct ItemPath
+struct d2ItemPath_t
 {
 	DWORD _1[3];
 	DWORD x;
 	DWORD y;
 };
 
-struct Stat
+struct d2Stat_t
 {
 	WORD subIndex;
 	WORD statIndex;
 	DWORD statValue;
 };
 
-struct StatVector
+struct d2StatVector_t
 {
-	Stat* stats;
+	d2Stat_t* stats;
 	WORD count;
 	WORD size;
 };
 
-struct StatList
+struct d2StatList_t
 {
 	DWORD _1;
-	UnitAny* unit;
+	d2UnitAny_t* unit;
 	DWORD unitType;
 	DWORD unitId;
 	DWORD flags;
 	DWORD _2[4];
-	StatVector statVector;
-	StatList* prevLink;
+	d2StatVector_t statVector;
+	d2StatList_t* prevLink;
 	DWORD _3;
-	StatList* prev;
+	d2StatList_t* prev;
 	DWORD _4;
-	StatList* next;
-	StatList* setList;
+	d2StatList_t* next;
+	d2StatList_t* setList;
 	DWORD _5;
-	StatVector setStatVector;
+	d2StatVector_t setStatVector;
 	DWORD _6[2];
 	DWORD stateBits[6];
 };
 
-struct Inventory
+struct d2Inventory_t
 {
 	DWORD signature;
 	BYTE* game1C;
-	UnitAny* owner;
-	UnitAny* firstItem;
-	UnitAny* lastItem;
+	d2UnitAny_t* owner;
+	d2UnitAny_t* firstItem;
+	d2UnitAny_t* lastItem;
 	DWORD _1[2];
 	DWORD leftItemUid;
-	UnitAny* cursorItem;
+	d2UnitAny_t* cursorItem;
 	DWORD ownerId;
 	DWORD itemCount;
 };
 
-struct Light
+struct d2Light_t
 {
 	DWORD _1[3];
 	DWORD type;
@@ -481,15 +481,15 @@ struct Light
 	int* staticMap;
 };
 
-struct SkillInfo
+struct d2SkillInfo_t
 {
 	WORD skillId;
 };
 
-struct Skill
+struct d2Skill_t
 {
-	SkillInfo* info;
-	Skill* next;
+	d2SkillInfo_t* info;
+	d2Skill_t* next;
 	DWORD _1[8];
 	DWORD skillLevel;
 	DWORD _2[2];
@@ -498,15 +498,15 @@ struct Skill
 	DWORD isCharge;
 };
 
-struct Info
+struct d2Info_t
 {
 	BYTE* game1C;
-	Skill* firstSkill;
-	Skill* leftSkill;
-	Skill* rightSkill;
+	d2Skill_t* firstSkill;
+	d2Skill_t* leftSkill;
+	d2Skill_t* rightSkill;
 };
 
-struct ItemData
+struct d2ItemData_t
 {
 	DWORD quality;
 	DWORD seed[2];
@@ -530,17 +530,17 @@ struct ItemData
 	BYTE earLevel;
 	BYTE inverseGfxIdx;
 	char playerName[16]; // Personalized / ear name
-	Inventory* ownerInventory;
+	d2Inventory_t* ownerInventory;
 	DWORD _10;
-	UnitAny* nextInventoryItem; // next item in socketed item if OwnerInventory is set
+	d2UnitAny_t* nextInventoryItem; // next item in socketed item if OwnerInventory is set
 	BYTE gameLocation;
 	BYTE nodePage;
 	WORD _12;
 	WORD _13[12];
-	UnitAny* owner;
+	d2UnitAny_t* owner;
 };
 
-struct ItemText
+struct d2ItemText_t
 {
 	wchar_t namew[64];
 	union
@@ -559,7 +559,7 @@ struct ItemText
 	BYTE quest;
 };
 
-struct MonsterText
+struct d2MonsterText_t
 {
 	BYTE _1[6];
 	WORD localTextNumber;
@@ -584,7 +584,7 @@ struct MonsterText
 	BYTE _6[416];
 };
 
-struct MonsterData
+struct d2MonsterData_t
 {
 	BYTE _1[22];
 	struct
@@ -605,7 +605,7 @@ struct MonsterData
 	};
 };
 
-struct ObjectText
+struct d2ObjectText_t
 {
 	char name[64];
 	wchar_t namew[64];
@@ -624,9 +624,9 @@ struct ObjectText
 	DWORD automap;
 };
 
-struct ObjectData
+struct d2ObjectData_t
 {
-	ObjectText* text;
+	d2ObjectText_t* text;
 	union
 	{
 		BYTE type;
@@ -640,16 +640,16 @@ struct ObjectData
 	char owner[16];
 };
 
-struct ObjectPath
+struct d2ObjectPath_t
 {
-	Room1* room1;
+	d2Room1_t* room1;
 	DWORD _1[2];
 	DWORD x;
 	DWORD y;
 	// INCOMPLETE
 };
 
-struct UnitAny
+struct d2UnitAny_t
 {
 	DWORD type;
 	DWORD textFileNumber;
@@ -658,20 +658,20 @@ struct UnitAny
 	DWORD mode;
 	union
 	{
-		PlayerData* playerData;
-		ItemData* itemData;
-		MonsterData* monsterData;
-		ObjectData* objectData;
+		d2PlayerData_t* playerData;
+		d2ItemData_t* itemData;
+		d2MonsterData_t* monsterData;
+		d2ObjectData_t* objectData;
 	};
 	DWORD actId;
-	Act* act;
+	d2Act_t* act;
 	DWORD seed[2];
 	DWORD _2;
 	union
 	{
-		Path* path;
-		ItemPath* itemPath;
-		ObjectPath* objectPath;
+		d2Path_t* path;
+		d2ItemPath_t* itemPath;
+		d2ObjectPath_t* objectPath;
 	};
 	DWORD _3[5];
 	DWORD gfxFrame;
@@ -681,13 +681,13 @@ struct UnitAny
 	BYTE* gfxUnknown;
 	DWORD* gfxInfo;
 	DWORD _5;
-	StatList* stats;
-	Inventory* inventory;
-	Light* light;
+	d2StatList_t* stats;
+	d2Inventory_t* inventory;
+	d2Light_t* light;
 	DWORD startLightRadius;
 	WORD pl2ShiftIndex;
 	WORD updateType;
-	UnitAny* updateUnit;
+	d2UnitAny_t* updateUnit;
 	DWORD* questRecord;
 	DWORD sparklyChest;
 	DWORD* timerArguments;
@@ -699,23 +699,23 @@ struct UnitAny
 	DWORD ownerType;
 	DWORD ownerId;
 	DWORD _8[2];
-	OverheadMessage* overheadMessage;
-	Info* info;
+	d2OverheadMessage_t* overheadMessage;
+	d2Info_t* info;
 	DWORD _9[6];
 	DWORD flags;
 	DWORD flags2;
 	DWORD _10[5];
-	UnitAny* changedNext;
-	UnitAny* listNext;
-	UnitAny* roomNext;
+	d2UnitAny_t* changedNext;
+	d2UnitAny_t* listNext;
+	d2UnitAny_t* roomNext;
 };
 
-struct UnitHashTable
+struct d2UnitHashTable_t
 {
-	UnitAny* table[128];
+	d2UnitAny_t* table[128];
 };
 
-struct WardenClientRegion
+struct d2WardenClientRegion_t
 {
 	DWORD allocSize;
 	DWORD offsetFunction;
@@ -728,7 +728,7 @@ struct WardenClientRegion
 	DWORD sectionCount;
 };
 
-struct SMemBlock
+struct d2SMemBlock_t
 {
 	DWORD _1[6];
 	DWORD size;
@@ -736,16 +736,16 @@ struct SMemBlock
 	BYTE data[1];
 };
 
-struct WardenClient
+struct d2WardenClient_t
 {
-	WardenClientRegion* wardenRegion;
+	d2WardenClientRegion_t* wardenRegion;
 	DWORD size;
 	DWORD moduleCount;
 	DWORD parameters;
 	DWORD setupWardenFunction;
 };
 
-struct WardenIATInfo
+struct d2WardenIATInfo_t
 {
 	DWORD offsetModuleName;
 	DWORD offsetImportTable;
@@ -754,7 +754,7 @@ struct WardenIATInfo
 #pragma pack(push)
 #pragma pack(1)
 
-struct NPCMenu
+struct d2NPCMenu_t
 {
 	DWORD classId;
 	DWORD entryAmount;
@@ -770,7 +770,7 @@ struct NPCMenu
 	BYTE _2[5];
 };
 
-struct OverheadMessage
+struct d2OverheadMessage_t
 {
 	DWORD _1;
 	DWORD trigger;
@@ -780,13 +780,13 @@ struct OverheadMessage
 
 #pragma pack(pop)
 
-struct d2Message
+struct d2d2Message_t
 {
 	HWND hwnd;
 	char buffer[256];
 };
 
-struct InventoryLayout
+struct d2InventoryLayout_t
 {
 	BYTE slotWidth;
 	BYTE slotHeight;
@@ -800,49 +800,49 @@ struct InventoryLayout
 	BYTE slotPixelHeight;
 };
 
-struct MPQTable;
+struct d2MPQTable_t;
 
-struct sqgpDataTable
+struct d2sqgpDataTable_t
 {
-	MPQTable*	playerClass;
-	DWORD		playerClassRecords;
-	MPQTable*	bodyLocations;
-	DWORD		bodyLocationRecords;
-	MPQTable*	storePage;
-	DWORD		storePageRecords;
-	MPQTable*	elementTypes;
+	d2MPQTable_t*	playerClass;
+	DWORD			playerClassRecords;
+	d2MPQTable_t*	bodyLocations;
+	DWORD			bodyLocationRecords;
+	d2MPQTable_t*	storePage;
+	DWORD			storePageRecords;
+	d2MPQTable_t*	elementTypes;
 };
 
-struct MessageHandlerList
+struct d2MessageHandlerList_t
 {
 	DWORD message;
 	DWORD _1;
 	DWORD (__stdcall *handler)(void*);
-	MessageHandlerList* next;
+	d2MessageHandlerList_t* next;
 };
 
-struct MessageHandlerHashTable
+struct d2MessageHandlerHashTable_t
 {
-	MessageHandlerList** table;
+	d2MessageHandlerList_t** table;
 	DWORD length;
 };
 
-struct WindowHandlerList
+struct d2WindowHandlerList_t
 {
 	DWORD _1;
 	HWND hwnd;
 	DWORD _2;
-	MessageHandlerHashTable* messageHandlers;
-	WindowHandlerList* next;
+	d2MessageHandlerHashTable_t* messageHandlers;
+	d2WindowHandlerList_t* next;
 };
 
-struct WindowHandlerHashTable
+struct d2WindowHandlerHashTable_t
 {
-	WindowHandlerList** table;
+	d2WindowHandlerList_t** table;
 	DWORD length;
 };
 
-struct TransactionDialogsLine
+struct d2TransactionDialogsLine_t
 {
 	wchar_t textw[120];
 	DWORD _1[6];
@@ -850,11 +850,11 @@ struct TransactionDialogsLine
 	DWORD maybeSelectable;
 };
 
-struct TransactionDialogsInfo
+struct d2TransactionDialogsInfo_t
 {
 	DWORD _1[20];
 	DWORD numLines;
 	DWORD _2[5];
-	TransactionDialogsLine dialogLines[10];
+	d2TransactionDialogsLine_t dialogLines[10];
 	void* _3;
 };
