@@ -360,7 +360,7 @@ namespace lua_interface
 		if( nargs == 3 )
 		{
 			DWORD mouseFlag = (DWORD)lua_tointeger( lua, 1 );
-			
+
 			lua_rawgeti( lua, 2, 1 );
 			DWORD x = (DWORD)lua_tointeger( lua, -1 );
 			lua_rawgeti( lua, 2, 2 );
@@ -880,6 +880,12 @@ namespace lua_interface
 		int nargs = lua_gettop( lua );
 		if( nargs == 0 )
 		{
+			d2UnitAny_t* item = (d2UnitAny_t*)lua_touserdata( lua, 1 );
+			d2UnitAny_t* player = (d2UnitAny_t*)lua_touserdata( lua, 2 );
+
+			DWORD retval = d2GetItemLevelRequirement( item, player );
+			lua_pushnumber( lua, retval );
+			result = 1;
 		}
 
 		return result;
@@ -890,41 +896,94 @@ namespace lua_interface
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 2 )
 		{
+			d2UnitAny_t* unit = (d2UnitAny_t*)lua_touserdata( lua, 1 );
+			d2UnitAny_t* item = (d2UnitAny_t*)lua_touserdata( lua, 2 );
+
+			DWORD retval = d2GetItemPrice( unit, item, 0, 0, 0, 0 );
+			lua_pushnumber( lua, retval );
+			result = 1;
 		}
 
 		return result;
 	}
+
 	LDEC( getRepairCost )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 4 )
 		{
+			d2UnitAny_t* unit = (d2UnitAny_t*)lua_touserdata( lua, 1 );
+			DWORD npcId = (DWORD)lua_tointeger( lua, 2 );
+			DWORD difficulty = (DWORD)lua_tointeger( lua, 3 );
+			DWORD itemPriceList = (DWORD)lua_tointeger( lua, 4 );
+
+			DWORD retval = d2GetRepairCost( 0, unit, npcId, difficulty, itemPriceList, 0 );
+			lua_pushnumber( lua, retval );
+			result = 1;
 		}
 
 		return result;
 	}
+
 	LDEC( getItemMagicalMods )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 1 )
 		{
+			DWORD prefixNumber = (DWORD)lua_tointeger( lua, 1 );
+
+			char* retval = d2GetItemMagicalMods( prefixNumber );
+			if( retval )
+			{
+				lua_pushlightuserdata( lua, retval );
+				result = 1;
+			}
 		}
 
 		return result;
 	}
+
 	LDEC( getItemFromInventory )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 1 )
 		{
+			d2Inventory_t* inventory = (d2Inventory_t*)lua_touserdata( lua, 1 );
+
+			d2UnitAny_t* retval = d2GetItemFromInventory( inventory );
+			if( retval )
+			{
+				lua_pushlightuserdata( lua, retval );
+				result = 1;
+			}
+		}
+
+		return result;
+	}
+
+	LDEC( getNextItemFromInventory )
+	{
+		int result = 0;
+
+		int nargs = lua_gettop( lua );
+		if( nargs == 1 )
+		{
+			d2UnitAny_t* item = (d2UnitAny_t*)lua_touserdata( lua, 1 );
+
+			d2UnitAny_t* retval = d2GetNextItemFromInventory( item );
+			if( retval )
+			{
+				lua_pushlightuserdata( lua, retval );
+				result = 1;
+			}
 		}
 
 		return result;
@@ -935,8 +994,17 @@ namespace lua_interface
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 2 )
 		{
+			const char* message = lua_tostring( lua, 1 );
+			DWORD trigger = (DWORD)lua_tointeger( lua, 2 );
+
+			d2OverheadMessage_t* retval = d2GenerateOverheadMessage( 0, message, trigger );
+			if( retval )
+			{
+				lua_pushlightuserdata( lua, retval );
+				result = 1;
+			}
 		}
 
 		return result;

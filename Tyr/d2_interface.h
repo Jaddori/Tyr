@@ -455,6 +455,7 @@ extern d2GetItemPrice_t*					d2GetItemPrice;
 extern d2GetRepairCost_t*					d2GetRepairCost;
 extern d2GetItemMagicalMods_t*				d2GetItemMagicalMods;
 extern d2GetItemFromInventory_t*			d2GetItemFromInventory;
+extern d2GetNextItemFromInventory_t*		d2GetNextItemFromInventory;
 
 extern d2GenerateOverheadMessage_t*			d2GenerateOverheadMessage;
 extern d2FixOverheadMessage_t*				d2FixOverheadMessage;
