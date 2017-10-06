@@ -999,7 +999,7 @@ namespace lua_interface
 			const char* message = lua_tostring( lua, 1 );
 			DWORD trigger = (DWORD)lua_tointeger( lua, 2 );
 
-			d2OverheadMessage_t* retval = d2GenerateOverheadMessage( 0, message, trigger );
+			d2OverheadMessage_t* retval = d2GenerateOverheadMessage( 0,(CHAR*)message, trigger );
 			if( retval )
 			{
 				lua_pushlightuserdata( lua, retval );
@@ -1009,13 +1009,17 @@ namespace lua_interface
 
 		return result;
 	}
+
 	LDEC( fixOverheadMessage )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 1 )
 		{
+			d2OverheadMessage_t* message = (d2OverheadMessage_t*)lua_touserdata( lua, 1 );
+
+			d2FixOverheadMessage( message, 0 );
 		}
 
 		return result;
@@ -1026,19 +1030,42 @@ namespace lua_interface
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 4 )
 		{
+			d2Act_t* act = (d2Act_t*)lua_touserdata( lua, 1 );
+			int levelId = (int)lua_tointeger( lua, 2 );
+
+			lua_rawgeti( lua, 3, 1 );
+			int x = (int)lua_tointeger( lua, -1 );
+			lua_rawgeti( lua, 3, 2 );
+			int y = (int)lua_tointeger( lua, -1 );
+
+			d2Room1_t* room = (d2Room1_t*)lua_touserdata( lua, 4 );
+
+			d2AddRoomData( act, levelId, x, y, room );
 		}
 
 		return result;
 	}
+
 	LDEC( removeRoomData )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 4 )
 		{
+			d2Act_t* act = (d2Act_t*)lua_touserdata( lua, 1 );
+			int levelId = (int)lua_tointeger( lua, 2 );
+
+			lua_rawgeti( lua, 3, 1 );
+			int x = (int)lua_tointeger( lua, -1 );
+			lua_rawgeti( lua, 3, 2 );
+			int  y = (int)lua_tointeger( lua, -1 );
+
+			d2Room1_t* room = (d2Room1_t*)lua_touserdata( lua, 4 );
+
+			d2RemoveRoomData( act, levelId, x, y, room );
 		}
 
 		return result;
@@ -1049,8 +1076,15 @@ namespace lua_interface
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 3 )
 		{
+			void* questInfo = lua_touserdata( lua, 1 );
+			DWORD act = (DWORD)lua_tointeger( lua, 2 );
+			DWORD quest = (DWORD)lua_tointeger( lua, 3 );
+
+			int retval = d2GetQuestFlag( questInfo, act, quest );
+			lua_pushnumber( lua, retval );
+			result = 1;
 		}
 
 		return result;
@@ -1061,19 +1095,54 @@ namespace lua_interface
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs >= 1 )
 		{
+			lua_rawgeti( lua, 1, 1 );
+			long x = (int)lua_tointeger( lua, -1 );
+			lua_rawgeti( lua, 1, 2 );
+			long y = (int)lua_tointeger( lua, -1 );
+
+			d2MapToAbsScreen( &x, &y );
+
+			if( nargs == 1 || !lua_istable( lua, 2 ) )
+			{
+				result = 1;
+				lua_newtable( lua );
+			}
+
+			lua_pushnumber( lua, x );
+			lua_rawseti( lua, -2, 1 );
+			lua_pushnumber( lua, y );
+			lua_rawseti( lua, -2, 2 );
 		}
 
 		return result;
 	}
+
 	LDEC( absScreenToMap )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs >= 1 )
 		{
+			lua_rawgeti( lua, 1, 1 );
+			long x = (int)lua_tointeger( lua, -1 );
+			lua_rawgeti( lua, 1, 2 );
+			long y = (int)lua_tointeger( lua, -1 );
+
+			d2AbsScreenToMap( &x, &y );
+
+			if( nargs == 1 || !lua_istable( lua, 2 ) )
+			{
+				result = 1;
+				lua_newtable( lua );
+			}
+
+			lua_pushnumber( lua, x );
+			lua_rawseti( lua, -2, 1 );
+			lua_pushnumber( lua, y );
+			lua_rawseti( lua, -2, 2 );
 		}
 
 		return result;
@@ -1084,8 +1153,14 @@ namespace lua_interface
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 2 )
 		{
+			DWORD waypointTable = (DWORD)lua_tointeger( lua, 1 );
+			DWORD levelId = (DWORD)lua_tointeger( lua, 2 );
+
+			DWORD retval = d2CheckWaypoint( waypointTable, levelId );
+			lua_pushnumber( lua, retval );
+			result = 1;
 		}
 
 		return result;
@@ -1096,40 +1171,66 @@ namespace lua_interface
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 1 )
 		{
+			DWORD levelNumber = (DWORD)lua_tointeger( lua, 1 );
+
+			BOOL retval = d2IsTownByLevelNumber( levelNumber );
+			lua_pushboolean( lua, retval );
+			result = 1;
 		}
 
 		return result;
 	}
+
 	LDEC( getLevelNumberFromRoom )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 1 )
 		{
+			d2Room1_t* room = (d2Room1_t*)lua_touserdata( lua, 1 );
+
+			BOOL retval = d2GetLevelNumberFromRoom( room );
+			lua_pushboolean( lua, retval );
+			result = 1;
 		}
 
 		return result;
 	}
+
 	LDEC( findRoom1 )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 2 )
 		{
+			d2Act_t* act = (d2Act_t*)lua_touserdata( lua, 1 );
+
+			lua_rawgeti( lua, 2, 1 );
+			int x = (int)lua_tointeger( lua, -1 );
+			lua_rawgeti( lua, 2, 2 );
+			int y = (int)lua_tointeger( lua, -1 );
+
+			d2Room1_t* retval = d2FindRoom1( act, x, y );
+			if( retval )
+			{
+				lua_pushlightuserdata( lua, retval );
+				result = 1;
+			}
 		}
 
 		return result;
 	}
+
 	LDEC( getItemPalette )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 4 )
 		{
 		}
 
@@ -1141,29 +1242,31 @@ namespace lua_interface
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 3 )
 		{
 		}
 
 		return result;
 	}
+
 	LDEC( receivePacket )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 2 )
 		{
 		}
 
 		return result;
 	}
+
 	LDEC( receivePacket_I )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 2 )
 		{
 		}
 
@@ -1175,23 +1278,52 @@ namespace lua_interface
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 4 )
 		{
+			lua_rawgeti( lua, 1, 1 );
+			int x1 = (int)lua_tointeger( lua, -1 );
+			lua_rawgeti( lua, 1, 2 );
+			int y1 = (int)lua_tointeger( lua, -1 );
+
+			lua_rawgeti( lua, 2, 1 );
+			int x2 = (int)lua_tointeger( lua, -1 );
+			lua_rawgeti( lua, 2, 2 );
+			int y2 = (int)lua_tointeger( lua, -1 );
+
+			DWORD color = (DWORD)lua_tointeger( lua, 3 );
+			DWORD transparency = (DWORD)lua_tointeger( lua, 4 );
+
+			d2DrawRectangle( x1, y1, x2, y2, color, transparency );
 		}
 
 		return result;
 	}
+
 	LDEC( drawLine )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 3 )
 		{
+			lua_rawgeti( lua, 1, 1 );
+			int x1 = (int)lua_tointeger( lua, -1 );
+			lua_rawgeti( lua, 1, 2 );
+			int y1 = (int)lua_tointeger( lua, -1 );
+
+			lua_rawgeti( lua, 2, 1 );
+			int x2 = (int)lua_tointeger( lua, -1 );
+			lua_rawgeti( lua, 2, 2 );
+			int y2 = (int)lua_tointeger( lua, -1 );
+
+			DWORD color = (DWORD)lua_tointeger( lua, 3 );
+			
+			d2DrawLine( x1, y1, x2, y2, color, 0 );
 		}
 
 		return result;
 	}
+
 	LDEC( drawAutomapCell2 )
 	{
 		int result = 0;
@@ -1203,47 +1335,38 @@ namespace lua_interface
 
 		return result;
 	}
+
 	LDEC( getHwnd )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		HWND hwnd = d2GetHwnd();
+		lua_pushlightuserdata( lua, hwnd );
+		return 1;
 	}
+
 	LDEC( getScreenSize )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		DWORD screenSize = d2GetScreenSize();
+		lua_pushnumber( lua, screenSize );
+		return 1;
 	}
 
 	LDEC( doChat )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		d2DoChat();
+		return 0;
 	}
+
 	LDEC( printChannelText )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 2 )
 		{
+			const char* text = lua_tostring( lua, 1 );
+			DWORD color = (DWORD)lua_tointeger( lua, 2 );
+
+			d2PrintChannelText( 0, text, color );
 		}
 
 		return result;
@@ -1260,6 +1383,7 @@ namespace lua_interface
 
 		return result;
 	}
+
 	LDEC( deleteCellFile )
 	{
 		int result = 0;
@@ -1290,28 +1414,45 @@ namespace lua_interface
 		int nargs = lua_gettop( lua );
 		if( nargs == 0 )
 		{
+			d2Control_t* box = (d2Control_t*)lua_touserdata( lua, 1 );
+			const char* buf = lua_tostring( lua, 2 );
+
+			wchar_t text[1024] = {};
+			MultiByteToWideChar( CP_UTF8, WC_COMPOSITECHECK, buf, strlen( buf ), text, 1024 );
+
+			void* retval = d2SetControlText( box, text );
+			if( retval )
+			{
+				lua_pushlightuserdata( lua, retval );
+				result = 1;
+			}
 		}
 
 		return result;
 	}
+
 	LDEC( drawSprites )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		d2DrawSprites();
+		return 0;
 	}
+
 	LDEC( loadCellFile )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 2 )
 		{
+			const char* file = lua_tostring( lua, 1 );
+			int type = (int)lua_tointeger( lua, 2 );
+
+			d2CellFile_t* retval = d2LoadCellFile( file, type );
+			if( retval )
+			{
+				lua_pushlightuserdata( lua, retval );
+				result = 1;
+			}
 		}
 
 		return result;
@@ -1319,26 +1460,35 @@ namespace lua_interface
 
 	LDEC( takeScreenshot )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		d2TakeScreenshot();
+		return 0;
 	}
+
 	LDEC( drawText )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 3 )
 		{
+			const char* buf = lua_tostring( lua, 1 );
+
+			lua_rawgeti( lua, 2, 1 );
+			int x = (int)lua_tointeger( lua, -1 );
+			lua_rawgeti( lua, 2, 2 );
+			int y = (int)lua_tointeger( lua, -1 );
+
+			DWORD color = (DWORD)lua_tointeger( lua, 3 );
+			
+			wchar_t str[1024] = {};
+			MultiByteToWideChar( CP_UTF8, WC_COMPOSITECHECK, buf, strlen( buf ), str, 1024 );
+
+			d2DrawText( str, x, y, color, 0 );
 		}
 
 		return result;
 	}
+
 	LDEC( getTextSize )
 	{
 		int result = 0;
@@ -1350,17 +1500,24 @@ namespace lua_interface
 
 		return result;
 	}
+
 	LDEC( setTextSize )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 1 )
 		{
+			DWORD size = (DWORD)lua_tointeger( lua, 1 );
+
+			DWORD retval = d2SetTextSize( size );
+			lua_pushnumber( lua, retval );
+			result = 1;
 		}
 
 		return result;
 	}
+
 	LDEC( getTextWidthFileNumber )
 	{
 		int result = 0;
@@ -1372,24 +1529,34 @@ namespace lua_interface
 
 		return result;
 	}
+
 	LDEC( destroyEditBox )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 1 )
 		{
+			d2Control_t* control = (d2Control_t*)lua_touserdata( lua, 1 );
+
+			DWORD retval = d2DestroyEditBox( control );
+			lua_pushnumber( lua, retval );
+			result = 1;
 		}
 
 		return result;
 	}
+
 	LDEC( destroyControl )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 1 )
 		{
+			d2Control_t* control = (d2Control_t*)lua_touserdata( lua, 1 );
+
+			d2DestroyControl( control );
 		}
 
 		return result;
@@ -1428,12 +1595,13 @@ namespace lua_interface
 
 		return result;
 	}
+
 	LDEC( initMPQ )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 4 )
 		{
 		}
 
@@ -1451,16 +1619,11 @@ namespace lua_interface
 
 		return result;
 	}
+
 	LDEC( exit0 )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		d2Exit0();
+		return 0;
 	}
 
 	// variables
@@ -1469,113 +1632,113 @@ namespace lua_interface
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 0 || !lua_istable( lua, 1 ) )
 		{
+			result = 1;
+			lua_newtable( lua );
 		}
+
+		lua_pushnumber( lua, *d2CursorHoverX );
+		lua_rawseti( lua, -2, 1 );
+		lua_pushnumber( lua, *d2CursorHoverY );
+		lua_rawseti( lua, -2, 2 );
 
 		return result;
 	}
+
 	LDEC( getMousePosition )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 0 || !lua_istable( lua, 1 ) )
 		{
+			result = 1;
+			lua_newtable( lua );
 		}
+
+		lua_pushnumber( lua, *d2MouseX );
+		lua_rawseti( lua, -2, 1 );
+		lua_pushnumber( lua, *d2MouseY );
+		lua_rawseti( lua, -2, 2 );
 
 		return result;
 	}
+
 	LDEC( getMouseOffset )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 0 || !lua_istable( lua, 1 ) )
 		{
+			result = 1;
+			lua_newtable( lua );
 		}
+
+		lua_pushnumber( lua, *d2MouseOffsetX );
+		lua_rawseti( lua, -2, 1 );
+		lua_pushnumber( lua, *d2MouseOffsetY );
+		lua_rawseti( lua, -2, 2 );
+		lua_pushnumber( lua, *d2MouseOffsetZ );
+		lua_rawseti( lua, -2, 3 );
 
 		return result;
 	}
 
 	LDEC( getAutomapOn )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushboolean( lua, *d2AutomapOn );
+		return 1;
 	}
+
 	LDEC( getAutomapMode )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2AutomapMode );
+		return 1;
 	}
+
 	LDEC( getOffset )
 	{
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 0 || !lua_istable( lua, 1 ) )
 		{
+			result = 1;
+			lua_newtable( lua );
 		}
+
+		lua_pushnumber( lua, d2Offset->x );
+		lua_rawseti( lua, -2, 1 );
+		lua_pushnumber( lua, d2Offset->y );
+		lua_rawseti( lua, -2, 2 );
 
 		return result;
 	}
+
 	LDEC( getAutomapLayer )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2AutomapLayer );
+		return 1;
 	}
 
 	LDEC( getMercenaryReviveCost )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2MercenaryReviveCost );
+		return 1;
 	}
 
 	LDEC( getServerSideUnitHashTables )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, d2ServerSideUnitHashTables );
+		return 1;
 	}
+
 	LDEC( getClientSideUnitHashTables )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, d2ClientSideUnitHashTables );
+		return 1;
 	}
 
 	LDEC( getViewport )
@@ -1583,579 +1746,317 @@ namespace lua_interface
 		int result = 0;
 
 		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
+		if( nargs == 0 || !lua_istable( lua, 1 ) )
 		{
+			result = 1;
+			lua_newtable( lua );
 		}
+
+		lua_pushnumber( lua, *d2ViewportX );
+		lua_rawseti( lua, -2, 1 );
+		lua_pushnumber( lua, *d2ViewportY );
+		lua_rawseti( lua, -2, 2 );
 
 		return result;
 	}
 
 	LDEC( getGoldDialogAction )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2GoldDialogAction );
+		return 1;
 	}
+
 	LDEC( getGoldDialogAmount )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2GoldDialogAmount );
+		return 1;
 	}
 
 	LDEC( getNPCMenu )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2NPCMenu );
+		return 1;
 	}
+
 	LDEC( getNPCMenuAmount )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2NPCMenuAmount );
+		return 1;
 	}
 
 	LDEC( getTradeLayout )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2TradeLayout );
+		return 1;
 	}
+
 	LDEC( getStashLayout )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2StashLayout );
+		return 1;
 	}
+
 	LDEC( getStoreLayout )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2StoreLayout );
+		return 1;
 	}
+
 	LDEC( getCubeLayout )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2CubeLayout );
+		return 1;
 	}
+
 	LDEC( getInventoryLayout )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2InventoryLayout );
+		return 1;
 	}
+
 	LDEC( getMercenaryLayout )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2MercenaryLayout );
+		return 1;
 	}
 
 	LDEC( getRegularCursorType )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2RegularCursorType );
+		return 1;
 	}
+
 	LDEC( getShopCursorType )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2ShopCursorType );
+		return 1;
 	}
 
 	LDEC( getPing )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2Ping );
+		return 1;
 	}
+
 	LDEC( getSkip )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2Skip );
 	}
+
 	LDEC( getFPS )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2FPS );
+		return 1;
 	}
+
 	LDEC( getDivisor )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2Divisor );
+		return 1;
 	}
 
 	LDEC( getOverheadTrigger )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2OverheadTrigger );
+		return 1;
 	}
+
 	LDEC( getRecentInteractId )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2RecentInteractId );
+		return 1;
 	}
+
 	LDEC( getItemPriceList )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2ItemPriceList );
+		return 1;
 	}
 
 	LDEC( getTransactionDialog )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2TransactionDialog );
+		return 1;
 	}
+
 	LDEC( getTransactionDialogs )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2TransactionDialogs );
+		return 1;
 	}
+
 	LDEC( getTransactionDialogs_2 )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2TransactionDialogs_2 );
+		return 1;
 	}
+
 	LDEC( getTransactionDialogsInfo )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2TransactionDialogsInfo );
+		return 1;
 	}
 
 	LDEC( getGameInfo )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2GameInfo );
+		return 1;
 	}
+
 	LDEC( getWaypointTable )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2WaypointTable );
+		return 1;
 	}
 
 	LDEC( getPlayerUnit )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2PlayerUnit );
+		return 1;
 	}
+
 	LDEC( getSelectedInventoryItem )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2SelectedInventoryItem );
+		return 1;
 	}
+
 	LDEC( getPlayerUnitList )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2PlayerUnitList );
+		return 1;
 	}
 
 	LDEC( getWeaponSwitch )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushboolean( lua, *d2WeaponSwitch );
+		return 1;
 	}
 
 	LDEC( getTradeAccepted )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushboolean( lua, *d2TradeAccepted );
+		return 1;
 	}
+
 	LDEC( getTradeBlock )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushboolean( lua, *d2TradeBlock );
+		return 1;
 	}
+
 	LDEC( getRecentTradeId )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2RecentTradeId );
+		return 1;
 	}
 
 	LDEC( getExpansionCharacterFlag )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushboolean( lua, *d2ExpansionCharacterFlag );
+		return 1;
 	}
+
 	LDEC( getMapId )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2MapId );
+		return 1;
 	}
 
 	LDEC( getAlwaysRun )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushboolean( lua, *d2AlwaysRun );
+		return 1;
 	}
+
 	LDEC( getNoPickup )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushboolean( lua, *d2NoPickup );
+		return 1;
 	}
 
 	LDEC( getChatMessage )
 	{
-		int result = 0;
+		char buffer[1024] = {};
+		WideCharToMultiByte( CP_UTF8, WC_COMPOSITECHECK, *d2ChatMessage, -1, buffer, 1024, NULL, NULL );
 
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushstring( lua, buffer );
+		return 1;
 	}
+
 	LDEC( getOrificeId )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2OrificeId );
+		return 1;
 	}
+
 	LDEC( getCursorItemMode )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2CursorItemMode );
+		return 1;
 	}
 
 	LDEC( getSGPTDataTable )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushnumber( lua, *d2SGPTDataTable );
+		return 1;
 	}
 
 	LDEC( getChatBoxMessage )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushstring( lua, *d2ChatBoxMessage );
+		return 1;
 	}
+
 	LDEC( getGameListControl )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2GameListControl );
+		return 1;
 	}
 
 	LDEC( getBattleNetData )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2BattleNetData );
+		return 1;
 	}
 
 	LDEC( getFirstControl )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2FirstControl );
+		return 1;
 	}
+
 	LDEC( getFocusedControl )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushlightuserdata( lua, *d2FocusedControl );
+		return 1;
 	}
+
 	LDEC( getChatInputBox )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		return 0;
 	}
 
 	LDEC( getClassicKey )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushstring( lua, *d2ClassicKey );
+		return 1;
 	}
+
 	LDEC( getExpansionKey )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushstring( lua, *d2ExpansionKey );
+		return 1;
 	}
+
 	LDEC( getKeyOwner )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		lua_pushstring( lua, *d2KeyOwner );
+		return 1;
 	}
+
 	LDEC( getWindowHandlers )
 	{
-		int result = 0;
-
-		int nargs = lua_gettop( lua );
-		if( nargs == 0 )
-		{
-		}
-
-		return result;
+		return 0;
 	}
 }

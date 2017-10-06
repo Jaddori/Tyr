@@ -331,7 +331,7 @@ typedef DWORD								(__stdcall	d2CheckWaypoint_t)(DWORD waypointTable, DWORD le
 
 typedef BOOL								(__stdcall	d2IsTownByLevelNumber_t)(DWORD levelNumber);
 typedef BOOL								(__stdcall	d2GetLevelNumberFromRoom_t)(d2Room1_t* room);
-typedef d2Room1_t*								(__stdcall	d2FindRoom1_t)(d2Act_t* act, int x, int y);
+typedef d2Room1_t*							(__stdcall	d2FindRoom1_t)(d2Act_t* act, int x, int y);
 typedef int									(__stdcall	d2GetItemPalette_t)(d2UnitAny_t* player, d2UnitAny_t* item, BYTE* color, int transparencyType);
 
 typedef void								(__stdcall	d2SendPacket_t)(size_t len, DWORD arg1, BYTE* packet);
@@ -345,7 +345,7 @@ typedef HWND								(__stdcall	d2GetHwnd_t)(void);
 typedef DWORD								(__stdcall	d2GetScreenSize_t)();
 
 typedef void								(__fastcall d2DoChat_t)(void);
-typedef void								(__fastcall d2PrintChannelText_t)(int _1, char* text, DWORD color);
+typedef void								(__fastcall d2PrintChannelText_t)(int _1, const char* text, DWORD color);
 
 typedef VOID								(__stdcall	d2InitCellFile_t)(LPVOID file, d2CellFile_t** out, LPSTR sourceFile, DWORD line, DWORD fileVersion, LPSTR filename);
 typedef void								(__stdcall	d2DeleteCellFile_t)(d2CellFile_t* file);
