@@ -82,6 +82,7 @@ d2GetItemPrice_t*					d2GetItemPrice = NULL;
 d2GetRepairCost_t*					d2GetRepairCost = NULL;
 d2GetItemMagicalMods_t*				d2GetItemMagicalMods = NULL;
 d2GetItemFromInventory_t*			d2GetItemFromInventory = NULL;
+d2GetNextItemFromInventory_t*		d2GetNextItemFromInventory = NULL;
 
 d2GenerateOverheadMessage_t*		d2GenerateOverheadMessage = NULL;
 d2FixOverheadMessage_t*				d2FixOverheadMessage = NULL;
@@ -152,12 +153,12 @@ DWORD*								d2MouseOffsetZ = NULL;
 DWORD*								d2AutomapOn = NULL;
 int*								d2AutomapMode = NULL;
 POINT*								d2Offset = NULL;
-AutomapLayer**						d2AutomapLayer = NULL;
+d2AutomapLayer_t**					d2AutomapLayer = NULL;
 
 DWORD*								d2MercenaryReviveCost = NULL;
 
-UnitHashTable*						d2ServerSideUnitHashTables = NULL;
-UnitHashTable*						d2ClientSideUnitHashTables = NULL;
+d2UnitHashTable_t*					d2ServerSideUnitHashTables = NULL;
+d2UnitHashTable_t*					d2ClientSideUnitHashTables = NULL;
 
 int*								d2ViewportX = NULL;
 int*								d2ViewportY = NULL;
@@ -165,15 +166,15 @@ int*								d2ViewportY = NULL;
 DWORD*								d2GoldDialogAction = NULL;
 DWORD*								d2GoldDialogAmount = NULL;
 
-NPCMenu**							d2NPCMenu = NULL;
+d2NPCMenu_t**						d2NPCMenu = NULL;
 DWORD*								d2NPCMenuAmount = NULL;
 
-InventoryLayout**					d2TradeLayout = NULL;
-InventoryLayout**					d2StashLayout = NULL;
-InventoryLayout**					d2StoreLayout = NULL;
-InventoryLayout**					d2CubeLayout = NULL;
-InventoryLayout**					d2InventoryLayout = NULL;
-InventoryLayout**					d2MercenaryLayout = NULL;
+d2InventoryLayout_t**				d2TradeLayout = NULL;
+d2InventoryLayout_t**				d2StashLayout = NULL;
+d2InventoryLayout_t**				d2StoreLayout = NULL;
+d2InventoryLayout_t**				d2CubeLayout = NULL;
+d2InventoryLayout_t**				d2InventoryLayout = NULL;
+d2InventoryLayout_t**				d2MercenaryLayout = NULL;
 
 DWORD*								d2RegularCursorType = NULL;
 DWORD*								d2ShopCursorType = NULL;
@@ -190,14 +191,14 @@ DWORD*								d2ItemPriceList = NULL;
 void**								d2TransactionDialog = NULL;
 DWORD*								d2TransactionDialogs = NULL;
 DWORD*								d2TransactionDialogs_2 = NULL;
-TransactionDialogsInfo**			d2TransactionDialogsInfo = NULL;
+d2TransactionDialogsInfo_t**		d2TransactionDialogsInfo = NULL;
 
-GameInfo**							d2GameInfo = NULL;
+d2GameInfo_t**						d2GameInfo = NULL;
 DWORD*								d2WaypointTable = NULL;
 
-UnitAny**							d2PlayerUnit = NULL;
-UnitAny**							d2SelectedInventoryItem = NULL;
-RosterUnit**						d2PlayerUnitList = NULL;
+d2UnitAny_t**						d2PlayerUnit = NULL;
+d2UnitAny_t**						d2SelectedInventoryItem = NULL;
+d2RosterUnit_t**					d2PlayerUnitList = NULL;
 
 DWORD*								d2WeaponSwitch = NULL;
 
@@ -218,18 +219,18 @@ DWORD*								d2CursorItemMode = NULL;
 DWORD*								d2SGPTDataTable = NULL;
 
 char**								d2ChatBoxMessage = NULL;
-Control**							d2GameListControl = NULL;
+d2Control_t**						d2GameListControl = NULL;
 
-BattleNetData**						d2BattleNetData = NULL;
+d2BattleNetData_t**					d2BattleNetData = NULL;
 
-Control**							d2FirstControl = NULL;
-Control**							d2FocusedControl = NULL;
+d2Control_t**						d2FirstControl = NULL;
+d2Control_t**						d2FocusedControl = NULL;
 DWORD**								d2ChatInputBox = NULL;
 
 char**								d2ClassicKey = NULL;
 char**								d2ExpansionKey = NULL;
 char**								d2KeyOwner = NULL;
-WindowHandlerHashTable*				d2WindowHandlers = NULL;
+d2WindowHandlerHashTable_t*			d2WindowHandlers = NULL;
 
 #define FUNC( name ) name = ( name ## _t* )( baseAddress + name ## _Offset )
 #define VAR( name, type ) name = ( type* )( baseAddress + name ## _Offset )
@@ -319,6 +320,7 @@ void initializeInterface(DWORD baseAddress )
 	FUNC( d2GetRepairCost );
 	FUNC( d2GetItemMagicalMods );
 	FUNC( d2GetItemFromInventory );
+	FUNC( d2GetNextItemFromInventory );
 
 	FUNC( d2GenerateOverheadMessage );
 	FUNC( d2FixOverheadMessage );
@@ -389,12 +391,12 @@ void initializeInterface(DWORD baseAddress )
 	VAR( d2AutomapOn, DWORD );
 	VAR( d2AutomapMode, int );
 	VAR( d2Offset, POINT );
-	VAR( d2AutomapLayer, AutomapLayer* );
+	VAR( d2AutomapLayer, d2AutomapLayer_t* );
 
 	VAR( d2MercenaryReviveCost, DWORD );
 
-	VAR( d2ServerSideUnitHashTables, UnitHashTable );
-	VAR( d2ClientSideUnitHashTables, UnitHashTable );
+	VAR( d2ServerSideUnitHashTables, d2UnitHashTable_t );
+	VAR( d2ClientSideUnitHashTables, d2UnitHashTable_t );
 
 	VAR( d2ViewportX, int );
 	VAR( d2ViewportY, int );
@@ -402,15 +404,15 @@ void initializeInterface(DWORD baseAddress )
 	VAR( d2GoldDialogAction, DWORD );
 	VAR( d2GoldDialogAmount, DWORD );
 
-	VAR( d2NPCMenu, NPCMenu* );
+	VAR( d2NPCMenu, d2NPCMenu_t* );
 	VAR( d2NPCMenuAmount, DWORD );
 
-	VAR( d2TradeLayout, InventoryLayout* );
-	VAR( d2StashLayout, InventoryLayout* );
-	VAR( d2StoreLayout, InventoryLayout* );
-	VAR( d2CubeLayout, InventoryLayout* );
-	VAR( d2InventoryLayout, InventoryLayout* );
-	VAR( d2MercenaryLayout, InventoryLayout* );
+	VAR( d2TradeLayout, d2InventoryLayout_t* );
+	VAR( d2StashLayout, d2InventoryLayout_t* );
+	VAR( d2StoreLayout, d2InventoryLayout_t* );
+	VAR( d2CubeLayout, d2InventoryLayout_t* );
+	VAR( d2InventoryLayout, d2InventoryLayout_t* );
+	VAR( d2MercenaryLayout, d2InventoryLayout_t* );
 
 	VAR( d2RegularCursorType, DWORD );
 	VAR( d2ShopCursorType, DWORD );
@@ -427,14 +429,14 @@ void initializeInterface(DWORD baseAddress )
 	VAR( d2TransactionDialog, void* );
 	VAR( d2TransactionDialogs, DWORD );
 	VAR( d2TransactionDialogs_2, DWORD );
-	VAR( d2TransactionDialogsInfo, TransactionDialogsInfo* );
+	VAR( d2TransactionDialogsInfo, d2TransactionDialogsInfo_t* );
 
-	VAR( d2GameInfo, GameInfo* );
+	VAR( d2GameInfo, d2GameInfo_t* );
 	VAR( d2WaypointTable, DWORD );
 
-	VAR( d2PlayerUnit, UnitAny* );
-	VAR( d2SelectedInventoryItem, UnitAny* );
-	VAR( d2PlayerUnitList, RosterUnit* );
+	VAR( d2PlayerUnit, d2UnitAny_t* );
+	VAR( d2SelectedInventoryItem, d2UnitAny_t* );
+	VAR( d2PlayerUnitList, d2RosterUnit_t* );
 
 	VAR( d2WeaponSwitch, DWORD );
 
@@ -455,16 +457,16 @@ void initializeInterface(DWORD baseAddress )
 	VAR( d2SGPTDataTable, DWORD );
 
 	VAR( d2ChatBoxMessage, char* );
-	VAR( d2GameListControl, Control* );
+	VAR( d2GameListControl, d2Control_t* );
 
-	VAR( d2BattleNetData, BattleNetData* );
+	VAR( d2BattleNetData, d2BattleNetData_t* );
 
-	VAR( d2FirstControl, Control* );
-	VAR( d2FocusedControl, Control* );
+	VAR( d2FirstControl, d2Control_t* );
+	VAR( d2FocusedControl, d2Control_t* );
 	VAR( d2ChatInputBox, DWORD* );
 
 	VAR( d2ClassicKey, char* );
 	VAR( d2ExpansionKey, char* );
 	VAR( d2KeyOwner, char* );
-	VAR( d2WindowHandlers, WindowHandlerHashTable );
+	VAR( d2WindowHandlers, d2WindowHandlerHashTable_t );
 }

@@ -4,6 +4,7 @@
 #include "d2_interface.h"
 
 #define LDEC( name ) int name ( lua_State* lua )
+#define LREG( name ) lua_register( lua, #name, name )
 
 namespace lua_interface
 {
@@ -89,6 +90,7 @@ namespace lua_interface
 	LDEC( getRepairCost );
 	LDEC( getItemMagicalMods );
 	LDEC( getItemFromInventory );
+	LDEC( getNextItemFromInventory );
 
 	LDEC( generateOverheadMessage );
 	LDEC( fixOverheadMessage );
@@ -150,84 +152,84 @@ namespace lua_interface
 	LDEC( getMousePosition );
 	LDEC( getMouseOffset );
 
-	LDEC( getAutomapOn );
-	LDEC( getAutomapMode );
+	LDEC( automapOn );
+	LDEC( automapMode );
 	LDEC( getOffset );
-	LDEC( getAutomapLayer );
+	LDEC( automapLayer );
 
-	LDEC( getMercenaryReviveCost );
+	LDEC( mercenaryReviveCost );
 
-	LDEC( getServerSideUnitHashTables );
-	LDEC( getClientSideUnitHashTables );
+	LDEC( serverSideUnitHashTables );
+	LDEC( clientSideUnitHashTables );
 
 	LDEC( getViewport );
 
-	LDEC( getGoldDialogAction );
-	LDEC( getGoldDialogAmount );
+	LDEC( goldDialogAction );
+	LDEC( goldDialogAmount );
 
-	LDEC( getNPCMenu );
-	LDEC( getNPCMenuAmount );
+	LDEC( NPCMenu );
+	LDEC( NPCMenuAmount );
 
-	LDEC( getTradeLayout );
-	LDEC( getStashLayout );
-	LDEC( getStoreLayout );
-	LDEC( getCubeLayout );
-	LDEC( getInventoryLayout );
-	LDEC( getMercenaryLayout );
+	LDEC( tradeLayout );
+	LDEC( stashLayout );
+	LDEC( storeLayout );
+	LDEC( cubeLayout );
+	LDEC( inventoryLayout );
+	LDEC( mercenaryLayout );
 
-	LDEC( getRegularCursorType );
-	LDEC( getShopCursorType );
+	LDEC( regularCursorType );
+	LDEC( shopCursorType );
 
-	LDEC( getPing );
-	LDEC( getSkip );
-	LDEC( getFPS );
-	LDEC( getDivisor );
+	LDEC( ping );
+	LDEC( skip );
+	LDEC( FPS );
+	LDEC( divisor );
 
-	LDEC( getOverheadTrigger );
-	LDEC( getRecentInteractId );
-	LDEC( getItemPriceList );
+	LDEC( overheadTrigger );
+	LDEC( recentInteractId );
+	LDEC( itemPriceList );
 
-	LDEC( getTransactionDialog );
-	LDEC( getTransactionDialogs );
-	LDEC( getTransactionDialogs_2 );
-	LDEC( getTransactionDialogsInfo );
+	LDEC( transactionDialog );
+	LDEC( transactionDialogs );
+	LDEC( transactionDialogs_2 );
+	LDEC( transactionDialogsInfo );
 
-	LDEC( getGameInfo );
-	LDEC( getWaypointTable );
+	LDEC( gameInfo );
+	LDEC( waypointTable );
 
-	LDEC( getPlayerUnit );
-	LDEC( getSelectedInventoryItem );
-	LDEC( getPlayerUnitList );
+	LDEC( playerUnit );
+	LDEC( selectedInventoryItem );
+	LDEC( playerUnitList );
 
-	LDEC( getWeaponSwitch );
+	LDEC( weaponSwitch );
 
-	LDEC( getTradeAccepted );
-	LDEC( getTradeBlock );
-	LDEC( getRecentTradeId );
+	LDEC( tradeAccepted );
+	LDEC( tradeBlock );
+	LDEC( recentTradeId );
 
-	LDEC( getExpansionCharacterFlag );
-	LDEC( getMapId );
+	LDEC( expansionCharacterFlag );
+	LDEC( mapId );
 
-	LDEC( getAlwaysRun );
-	LDEC( getNoPickup );
+	LDEC( alwaysRun );
+	LDEC( noPickup );
 
-	LDEC( getChatMessage );
-	LDEC( getOrificeId );
-	LDEC( getCursorItemMode );
+	LDEC( chatMessage );
+	LDEC( orificeId );
+	LDEC( cursorItemMode );
 
-	LDEC( getSGPTDataTable );
+	LDEC( SGPTDataTable );
 
-	LDEC( getChatBoxMessage );
-	LDEC( getGameListControl );
+	LDEC( chatBoxMessage );
+	LDEC( gameListControl );
 
-	LDEC( getBattleNetData );
+	LDEC( battleNetData );
 
-	LDEC( getFirstControl );
-	LDEC( getFocusedControl );
-	LDEC( getChatInputBox );
+	LDEC( firstControl );
+	LDEC( focusedControl );
+	LDEC( chatInputBox );
 
-	LDEC( getClassicKey );
-	LDEC( getExpansionKey );
-	LDEC( getKeyOwner );
-	LDEC( getWindowHandlers );
+	LDEC( classicKey );
+	LDEC( expansionKey );
+	LDEC( keyOwner );
+	LDEC( windowHandlers );
 }

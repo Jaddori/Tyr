@@ -228,5 +228,8 @@
     <ClInclude Include="d2_structures.h">
       <Filter>Source Files\Diablo II</Filter>
     </ClInclude>
+    <ClInclude Include="d2_constants.h">
+      <Filter>Source Files\Diablo II</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

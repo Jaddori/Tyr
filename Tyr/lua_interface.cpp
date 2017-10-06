@@ -4,9 +4,228 @@ namespace lua_interface
 {
 	void bind( lua_State* lua )
 	{
-		lua_register( lua, "getScreenSize", getScreenSize );
-		lua_register( lua, "getMousePosition", getMousePosition );
-		lua_register( lua, "getMouseOffset", getMouseOffset );
+		LREG( getQuestInfo );
+		LREG( submitItem );
+		LREG( transmute );
+
+		LREG( findClientSideUnit );
+		LREG( findServerSideUnit );
+		LREG( getCurrentInteractingNPC );
+		LREG( getSelectedUnit );
+		LREG( getCursorItem );
+		LREG( getItemName );
+		LREG( loadItemDescription );
+		LREG( getMonsterOwner );
+		LREG( getUnitHPPercent );
+		LREG( initInventory );
+		LREG( setUIVariable );
+		LREG( getUnitPosition );
+
+		LREG( shopAction );
+
+		LREG( closeNPCInteract );
+		LREG( closeInteract );
+
+		LREG( getAutomapSize );
+		LREG( newAutomapCell );
+		LREG( addAutomapCell );
+		LREG( revealAutomapRoom );
+		LREG( initAutomapLayer_I );
+
+		LREG( clickMap );
+		LREG( leftClickItem_I );
+
+		LREG( getMouseOffset );
+
+		LREG( printGameString );
+		LREG( printPartyString );
+
+		LREG( leaveParty );
+
+		LREG( acceptTrade );
+		LREG( cancelTrade );
+		LREG( tradeOK );
+
+		LREG( getDifficulty );
+		LREG( exitGame );
+		LREG( getUIVariable_I );
+		LREG( drawRectFrame );
+		LREG( performGoldDialogAction );
+		LREG( getPlayerUnit );
+		LREG( clearScreen );
+		LREG( closeNPCTalk );
+		LREG( testPvpFlag );
+
+		LREG( initLevel );
+		LREG( unloadAct );
+		LREG( loadAct );
+
+		LREG( getLevelText );
+		LREG( getObjectText );
+		LREG( getItemText );
+
+		LREG( getLayer );
+		LREG( getLevel );
+
+		LREG( getStatList );
+		LREG( copyStatList );
+		LREG( getUnitStat );
+		LREG( getUnitState );
+
+		LREG( checkUnitCollision );
+		LREG( getRoomFromUnit );
+		LREG( getTargetUnitType );
+
+		LREG( getSkillLevel );
+
+		LREG( getItemLevelRequirement );
+
+		LREG( getItemPrice );
+		LREG( getRepairCost );
+		LREG( getItemMagicalMods );
+		LREG( getItemFromInventory );
+		LREG( getNextItemFromInventory );
+
+		LREG( generateOverheadMessage );
+		LREG( fixOverheadMessage );
+
+		LREG( addRoomData );
+		LREG( removeRoomData );
+
+		LREG( getQuestFlag );
+
+		LREG( mapToAbsScreen );
+		LREG( absScreenToMap );
+
+		LREG( checkWaypoint );
+
+		LREG( isTownByLevelNumber );
+		LREG( getLevelNumberFromRoom );
+		LREG( findRoom1 );
+		LREG( getItemPalette );
+
+		LREG( sendPacket );
+		LREG( receivePacket );
+		LREG( receivePacket_I );
+
+		LREG( drawRectangle );
+		LREG( drawLine );
+		LREG( drawAutomapCell2 );
+		LREG( getHwnd );
+		LREG( getScreenSize );
+
+		LREG( doChat );
+		LREG( printChannelText );
+
+		LREG( initCellFile );
+		LREG( deleteCellFile );
+		LREG( getLocaleText );
+
+		LREG( setControlText );
+		LREG( drawSprites );
+		LREG( loadCellFile );
+
+		LREG( takeScreenshot );
+		LREG( drawText );
+		LREG( getTextSize );
+		LREG( setTextSize );
+		LREG( getTextWidthFileNumber );
+		LREG( destroyEditBox );
+		LREG( destroyControl );
+
+		LREG( setEditBoxCallback );
+		LREG( setEditBoxProcedure );
+		LREG( selectEditBoxText );
+		LREG( initMPQ );
+
+		LREG( rand );
+		LREG( exit0 );
+
+		// variables
+		LREG( getCursorHoverPosition );
+		LREG( getMousePosition );
+		LREG( getMouseOffset );
+
+		LREG( automapOn );
+		LREG( automapMode );
+		LREG( getOffset );
+		LREG( automapLayer );
+
+		LREG( mercenaryReviveCost );
+
+		LREG( serverSideUnitHashTables );
+		LREG( clientSideUnitHashTables );
+
+		LREG( getViewport );
+
+		LREG( goldDialogAction );
+		LREG( goldDialogAmount );
+
+		LREG( NPCMenu );
+		LREG( NPCMenuAmount );
+
+		LREG( tradeLayout );
+		LREG( stashLayout );
+		LREG( storeLayout );
+		LREG( cubeLayout );
+		LREG( inventoryLayout );
+		LREG( mercenaryLayout );
+
+		LREG( regularCursorType );
+		LREG( shopCursorType );
+
+		LREG( ping );
+		LREG( skip );
+		LREG( FPS );
+		LREG( divisor );
+
+		LREG( overheadTrigger );
+		LREG( recentInteractId );
+		LREG( itemPriceList );
+
+		LREG( transactionDialog );
+		LREG( transactionDialogs );
+		LREG( transactionDialogs_2 );
+		LREG( transactionDialogsInfo );
+
+		LREG( gameInfo );
+		LREG( waypointTable );
+
+		LREG( playerUnit );
+		LREG( selectedInventoryItem );
+		LREG( playerUnitList );
+
+		LREG( weaponSwitch );
+
+		LREG( tradeAccepted );
+		LREG( tradeBlock );
+		LREG( recentTradeId );
+
+		LREG( expansionCharacterFlag );
+		LREG( mapId );
+
+		LREG( alwaysRun );
+		LREG( noPickup );
+
+		LREG( chatMessage );
+		LREG( orificeId );
+		LREG( cursorItemMode );
+
+		LREG( SGPTDataTable );
+
+		LREG( chatBoxMessage );
+		LREG( gameListControl );
+
+		LREG( battleNetData );
+
+		LREG( firstControl );
+		LREG( focusedControl );
+		LREG( chatInputBox );
+
+		LREG( classicKey );
+		LREG( expansionKey );
+		LREG( keyOwner );
+		LREG( windowHandlers );
 	}
 
 	LDEC( getQuestInfo )
@@ -1665,7 +1884,7 @@ namespace lua_interface
 		return result;
 	}
 
-	LDEC( getMouseOffset )
+	LDEC( getMouseXYZOffset )
 	{
 		int result = 0;
 
@@ -1686,13 +1905,13 @@ namespace lua_interface
 		return result;
 	}
 
-	LDEC( getAutomapOn )
+	LDEC( automapOn )
 	{
 		lua_pushboolean( lua, *d2AutomapOn );
 		return 1;
 	}
 
-	LDEC( getAutomapMode )
+	LDEC( automapMode )
 	{
 		lua_pushnumber( lua, *d2AutomapMode );
 		return 1;
@@ -1717,25 +1936,25 @@ namespace lua_interface
 		return result;
 	}
 
-	LDEC( getAutomapLayer )
+	LDEC( automapLayer )
 	{
 		lua_pushlightuserdata( lua, *d2AutomapLayer );
 		return 1;
 	}
 
-	LDEC( getMercenaryReviveCost )
+	LDEC( mercenaryReviveCost )
 	{
 		lua_pushnumber( lua, *d2MercenaryReviveCost );
 		return 1;
 	}
 
-	LDEC( getServerSideUnitHashTables )
+	LDEC( serverSideUnitHashTables )
 	{
 		lua_pushlightuserdata( lua, d2ServerSideUnitHashTables );
 		return 1;
 	}
 
-	LDEC( getClientSideUnitHashTables )
+	LDEC( clientSideUnitHashTables )
 	{
 		lua_pushlightuserdata( lua, d2ClientSideUnitHashTables );
 		return 1;
@@ -1760,222 +1979,223 @@ namespace lua_interface
 		return result;
 	}
 
-	LDEC( getGoldDialogAction )
+	LDEC( goldDialogAction )
 	{
 		lua_pushnumber( lua, *d2GoldDialogAction );
 		return 1;
 	}
 
-	LDEC( getGoldDialogAmount )
+	LDEC( goldDialogAmount )
 	{
 		lua_pushnumber( lua, *d2GoldDialogAmount );
 		return 1;
 	}
 
-	LDEC( getNPCMenu )
+	LDEC( NPCMenu )
 	{
 		lua_pushlightuserdata( lua, *d2NPCMenu );
 		return 1;
 	}
 
-	LDEC( getNPCMenuAmount )
+	LDEC( NPCMenuAmount )
 	{
 		lua_pushnumber( lua, *d2NPCMenuAmount );
 		return 1;
 	}
 
-	LDEC( getTradeLayout )
+	LDEC( tradeLayout )
 	{
 		lua_pushlightuserdata( lua, *d2TradeLayout );
 		return 1;
 	}
 
-	LDEC( getStashLayout )
+	LDEC( stashLayout )
 	{
 		lua_pushlightuserdata( lua, *d2StashLayout );
 		return 1;
 	}
 
-	LDEC( getStoreLayout )
+	LDEC( storeLayout )
 	{
 		lua_pushlightuserdata( lua, *d2StoreLayout );
 		return 1;
 	}
 
-	LDEC( getCubeLayout )
+	LDEC( cubeLayout )
 	{
 		lua_pushlightuserdata( lua, *d2CubeLayout );
 		return 1;
 	}
 
-	LDEC( getInventoryLayout )
+	LDEC( inventoryLayout )
 	{
 		lua_pushlightuserdata( lua, *d2InventoryLayout );
 		return 1;
 	}
 
-	LDEC( getMercenaryLayout )
+	LDEC( mercenaryLayout )
 	{
 		lua_pushlightuserdata( lua, *d2MercenaryLayout );
 		return 1;
 	}
 
-	LDEC( getRegularCursorType )
+	LDEC( regularCursorType )
 	{
 		lua_pushnumber( lua, *d2RegularCursorType );
 		return 1;
 	}
 
-	LDEC( getShopCursorType )
+	LDEC( shopCursorType )
 	{
 		lua_pushnumber( lua, *d2ShopCursorType );
 		return 1;
 	}
 
-	LDEC( getPing )
+	LDEC( ping )
 	{
 		lua_pushnumber( lua, *d2Ping );
 		return 1;
 	}
 
-	LDEC( getSkip )
+	LDEC( skip )
 	{
 		lua_pushnumber( lua, *d2Skip );
+		return 1;
 	}
 
-	LDEC( getFPS )
+	LDEC( FPS )
 	{
 		lua_pushnumber( lua, *d2FPS );
 		return 1;
 	}
 
-	LDEC( getDivisor )
+	LDEC( divisor )
 	{
 		lua_pushnumber( lua, *d2Divisor );
 		return 1;
 	}
 
-	LDEC( getOverheadTrigger )
+	LDEC( overheadTrigger )
 	{
 		lua_pushnumber( lua, *d2OverheadTrigger );
 		return 1;
 	}
 
-	LDEC( getRecentInteractId )
+	LDEC( recentInteractId )
 	{
 		lua_pushnumber( lua, *d2RecentInteractId );
 		return 1;
 	}
 
-	LDEC( getItemPriceList )
+	LDEC( itemPriceList )
 	{
 		lua_pushnumber( lua, *d2ItemPriceList );
 		return 1;
 	}
 
-	LDEC( getTransactionDialog )
+	LDEC( transactionDialog )
 	{
 		lua_pushlightuserdata( lua, *d2TransactionDialog );
 		return 1;
 	}
 
-	LDEC( getTransactionDialogs )
+	LDEC( transactionDialogs )
 	{
 		lua_pushnumber( lua, *d2TransactionDialogs );
 		return 1;
 	}
 
-	LDEC( getTransactionDialogs_2 )
+	LDEC( transactionDialogs_2 )
 	{
 		lua_pushnumber( lua, *d2TransactionDialogs_2 );
 		return 1;
 	}
 
-	LDEC( getTransactionDialogsInfo )
+	LDEC( transactionDialogsInfo )
 	{
 		lua_pushlightuserdata( lua, *d2TransactionDialogsInfo );
 		return 1;
 	}
 
-	LDEC( getGameInfo )
+	LDEC( gameInfo )
 	{
 		lua_pushlightuserdata( lua, *d2GameInfo );
 		return 1;
 	}
 
-	LDEC( getWaypointTable )
+	LDEC( waypointTable )
 	{
 		lua_pushnumber( lua, *d2WaypointTable );
 		return 1;
 	}
 
-	LDEC( getPlayerUnit )
+	LDEC( playerUnit )
 	{
 		lua_pushlightuserdata( lua, *d2PlayerUnit );
 		return 1;
 	}
 
-	LDEC( getSelectedInventoryItem )
+	LDEC( selectedInventoryItem )
 	{
 		lua_pushlightuserdata( lua, *d2SelectedInventoryItem );
 		return 1;
 	}
 
-	LDEC( getPlayerUnitList )
+	LDEC( playerUnitList )
 	{
 		lua_pushlightuserdata( lua, *d2PlayerUnitList );
 		return 1;
 	}
 
-	LDEC( getWeaponSwitch )
+	LDEC( weaponSwitch )
 	{
 		lua_pushboolean( lua, *d2WeaponSwitch );
 		return 1;
 	}
 
-	LDEC( getTradeAccepted )
+	LDEC( tradeAccepted )
 	{
 		lua_pushboolean( lua, *d2TradeAccepted );
 		return 1;
 	}
 
-	LDEC( getTradeBlock )
+	LDEC( tradeBlock )
 	{
 		lua_pushboolean( lua, *d2TradeBlock );
 		return 1;
 	}
 
-	LDEC( getRecentTradeId )
+	LDEC( recentTradeId )
 	{
 		lua_pushnumber( lua, *d2RecentTradeId );
 		return 1;
 	}
 
-	LDEC( getExpansionCharacterFlag )
+	LDEC( expansionCharacterFlag )
 	{
 		lua_pushboolean( lua, *d2ExpansionCharacterFlag );
 		return 1;
 	}
 
-	LDEC( getMapId )
+	LDEC( mapId )
 	{
 		lua_pushnumber( lua, *d2MapId );
 		return 1;
 	}
 
-	LDEC( getAlwaysRun )
+	LDEC( alwaysRun )
 	{
 		lua_pushboolean( lua, *d2AlwaysRun );
 		return 1;
 	}
 
-	LDEC( getNoPickup )
+	LDEC( noPickup )
 	{
 		lua_pushboolean( lua, *d2NoPickup );
 		return 1;
 	}
 
-	LDEC( getChatMessage )
+	LDEC( chatMessage )
 	{
 		char buffer[1024] = {};
 		WideCharToMultiByte( CP_UTF8, WC_COMPOSITECHECK, *d2ChatMessage, -1, buffer, 1024, NULL, NULL );
@@ -1984,78 +2204,78 @@ namespace lua_interface
 		return 1;
 	}
 
-	LDEC( getOrificeId )
+	LDEC( orificeId )
 	{
 		lua_pushnumber( lua, *d2OrificeId );
 		return 1;
 	}
 
-	LDEC( getCursorItemMode )
+	LDEC( cursorItemMode )
 	{
 		lua_pushnumber( lua, *d2CursorItemMode );
 		return 1;
 	}
 
-	LDEC( getSGPTDataTable )
+	LDEC( SGPTDataTable )
 	{
 		lua_pushnumber( lua, *d2SGPTDataTable );
 		return 1;
 	}
 
-	LDEC( getChatBoxMessage )
+	LDEC( chatBoxMessage )
 	{
 		lua_pushstring( lua, *d2ChatBoxMessage );
 		return 1;
 	}
 
-	LDEC( getGameListControl )
+	LDEC( gameListControl )
 	{
 		lua_pushlightuserdata( lua, *d2GameListControl );
 		return 1;
 	}
 
-	LDEC( getBattleNetData )
+	LDEC( battleNetData )
 	{
 		lua_pushlightuserdata( lua, *d2BattleNetData );
 		return 1;
 	}
 
-	LDEC( getFirstControl )
+	LDEC( firstControl )
 	{
 		lua_pushlightuserdata( lua, *d2FirstControl );
 		return 1;
 	}
 
-	LDEC( getFocusedControl )
+	LDEC( focusedControl )
 	{
 		lua_pushlightuserdata( lua, *d2FocusedControl );
 		return 1;
 	}
 
-	LDEC( getChatInputBox )
+	LDEC( chatInputBox )
 	{
 		return 0;
 	}
 
-	LDEC( getClassicKey )
+	LDEC( classicKey )
 	{
 		lua_pushstring( lua, *d2ClassicKey );
 		return 1;
 	}
 
-	LDEC( getExpansionKey )
+	LDEC( expansionKey )
 	{
 		lua_pushstring( lua, *d2ExpansionKey );
 		return 1;
 	}
 
-	LDEC( getKeyOwner )
+	LDEC( keyOwner )
 	{
 		lua_pushstring( lua, *d2KeyOwner );
 		return 1;
 	}
 
-	LDEC( getWindowHandlers )
+	LDEC( windowHandlers )
 	{
 		return 0;
 	}
