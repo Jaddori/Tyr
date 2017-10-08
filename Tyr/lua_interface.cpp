@@ -2,6 +2,8 @@
 
 namespace lua_interface
 {
+	static const char* NIL_STRING = "nil";
+
 	void bind( lua_State* lua )
 	{
 		LREG( getQuestInfo );
@@ -649,6 +651,9 @@ namespace lua_interface
 		if( nargs == 2 )
 		{
 			const char* str = lua_tostring( lua, 1 );
+			if( str == NULL )
+				str = NIL_STRING;
+
 			int color = (int)lua_tointeger( lua, 2 );
 
 			wchar_t message[1024] = {};
@@ -668,6 +673,9 @@ namespace lua_interface
 		if( nargs == 2 )
 		{
 			const char* str = lua_tostring( lua, 1 );
+			if( str == NULL )
+				str = NIL_STRING;
+
 			int color = (int)lua_tointeger( lua, 2 );
 
 			wchar_t message[1024] = {};
@@ -1217,6 +1225,9 @@ namespace lua_interface
 		if( nargs == 2 )
 		{
 			const char* message = lua_tostring( lua, 1 );
+			if( message == NULL )
+				message = NIL_STRING;
+
 			DWORD trigger = (DWORD)lua_tointeger( lua, 2 );
 
 			d2OverheadMessage_t* retval = d2GenerateOverheadMessage( 0,(CHAR*)message, trigger );
@@ -1579,6 +1590,9 @@ namespace lua_interface
 		if( nargs == 2 )
 		{
 			const char* text = lua_tostring( lua, 1 );
+			if( text == NULL )
+				text = NIL_STRING;
+
 			DWORD color = (DWORD)lua_tointeger( lua, 2 );
 
 			d2PrintChannelText( 0, text, color );
@@ -1631,6 +1645,8 @@ namespace lua_interface
 		{
 			d2Control_t* box = (d2Control_t*)lua_touserdata( lua, 1 );
 			const char* buf = lua_tostring( lua, 2 );
+			if( buf == NULL )
+				buf = NIL_STRING;
 
 			wchar_t text[1024] = {};
 			mbstowcs( text, buf, 1024 );
@@ -1687,6 +1703,8 @@ namespace lua_interface
 		if( nargs >= 2 )
 		{
 			const char* buf = lua_tostring( lua, 1 );
+			if( buf == NULL )
+				buf = NIL_STRING;
 
 			lua_rawgeti( lua, 2, 1 );
 			int x = (int)lua_tointeger( lua, -1 );
@@ -2214,11 +2232,18 @@ namespace lua_interface
 
 	LDEC( chatMessage )
 	{
-		char buffer[1024] = {};
-		wcstombs( buffer, *d2ChatMessage, 1024 );
+		int result = 0;
 
-		lua_pushstring( lua, buffer );
-		return 1;
+		if( d2ChatMessage )
+		{
+			char buffer[1024] = {};
+			wcstombs( buffer, d2ChatMessage, 1024 );
+
+			lua_pushstring( lua, buffer );
+			result = 1;
+		}
+
+		return result;
 	}
 
 	LDEC( orificeId )

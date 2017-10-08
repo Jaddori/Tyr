@@ -212,7 +212,7 @@ DWORD*								d2MapId = NULL;
 DWORD*								d2AlwaysRun = NULL;
 DWORD*								d2NoPickup = NULL;
 
-wchar_t**							d2ChatMessage = NULL;
+wchar_t*							d2ChatMessage = NULL;
 DWORD*								d2OrificeId = NULL;
 DWORD*								d2CursorItemMode = NULL;
 
@@ -450,7 +450,7 @@ void initializeInterface(DWORD baseAddress )
 	VAR( d2AlwaysRun, DWORD );
 	VAR( d2NoPickup, DWORD );
 
-	VAR( d2ChatMessage, wchar_t* );
+	VAR( d2ChatMessage, wchar_t );
 	VAR( d2OrificeId, DWORD );
 	VAR( d2CursorItemMode, DWORD );
 

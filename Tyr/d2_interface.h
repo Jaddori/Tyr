@@ -585,7 +585,7 @@ extern DWORD*								d2MapId;
 extern DWORD*								d2AlwaysRun;
 extern DWORD*								d2NoPickup;
 
-extern wchar_t**							d2ChatMessage;
+extern wchar_t*								d2ChatMessage;
 extern DWORD*								d2OrificeId;
 extern DWORD*								d2CursorItemMode;
 

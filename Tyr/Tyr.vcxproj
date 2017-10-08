@@ -192,6 +192,7 @@
     <ClInclude Include="..\include\Lua\lvm.h" />
     <ClInclude Include="..\include\Lua\lzio.h" />
     <ClInclude Include="d2_constants.h" />
+    <ClInclude Include="d2_events.h" />
     <ClInclude Include="d2_interface.h" />
     <ClInclude Include="d2_structures.h" />
     <ClInclude Include="lua_binds.h" />
