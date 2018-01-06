@@ -4,6 +4,9 @@
 #include "lua_rendering.h"
 #include "lua_interface.h"
 #include "lua_filesystem.h"
+#include "lua_unit.h"
+#include "lua_player.h"
+#include "lua_monster.h"
 
 struct LuaBinds
 {

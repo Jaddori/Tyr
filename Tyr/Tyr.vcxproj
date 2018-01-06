@@ -161,7 +161,10 @@
     <ClCompile Include="lua_binds.cpp" />
     <ClCompile Include="lua_interface.cpp" />
     <ClCompile Include="lua_filesystem.cpp" />
+    <ClCompile Include="lua_monster.cpp" />
+    <ClCompile Include="lua_player.cpp" />
     <ClCompile Include="lua_rendering.cpp" />
+    <ClCompile Include="lua_unit.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="reroute.cpp" />
   </ItemGroup>
@@ -198,8 +201,12 @@
     <ClInclude Include="lua_binds.h" />
     <ClInclude Include="lua_interface.h" />
     <ClInclude Include="lua_filesystem.h" />
+    <ClInclude Include="lua_monster.h" />
+    <ClInclude Include="lua_player.h" />
     <ClInclude Include="lua_rendering.h" />
+    <ClInclude Include="lua_unit.h" />
     <ClInclude Include="reroute.h" />
+    <ClInclude Include="utilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

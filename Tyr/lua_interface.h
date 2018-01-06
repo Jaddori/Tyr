@@ -10,6 +10,8 @@ namespace lua_interface
 {
 	void bind( lua_State* lua );
 
+	int lua_MessageBox( lua_State* lua );
+
 	LDEC( getQuestInfo );
 	LDEC( submitItem );
 	LDEC( transmute );

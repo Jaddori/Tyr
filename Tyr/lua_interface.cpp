@@ -6,6 +6,8 @@ namespace lua_interface
 
 	void bind( lua_State* lua )
 	{
+		lua_register( lua, "MessageBox", lua_MessageBox );
+
 		LREG( getQuestInfo );
 		LREG( submitItem );
 		LREG( transmute );
@@ -229,6 +231,18 @@ namespace lua_interface
 		LREG( expansionKey );
 		LREG( keyOwner );
 		LREG( windowHandlers );
+	}
+
+	int lua_MessageBox( lua_State* lua )
+	{
+		if( lua_gettop( lua ) > 0 )
+		{
+			const char* str = lua_tostring( lua, 1 );
+
+			MessageBoxA( NULL, str, "Tyr", MB_OK );
+		}
+
+		return 0;
 	}
 
 	LDEC( getQuestInfo )
@@ -1328,23 +1342,44 @@ namespace lua_interface
 		int nargs = lua_gettop( lua );
 		if( nargs >= 1 )
 		{
-			lua_rawgeti( lua, 1, 1 );
-			long x = (int)lua_tointeger( lua, -1 );
-			lua_rawgeti( lua, 1, 2 );
-			long y = (int)lua_tointeger( lua, -1 );
+			int curArg = 1;
+
+			long x = 0, y = 0;
+			if( lua_istable( lua, curArg ) )
+			{
+				lua_rawgeti( lua, curArg, 1 );
+				x = (long)lua_tointeger( lua, -1 );
+				lua_rawgeti( lua, curArg, 2 );
+				y = (long)lua_tointeger( lua, -1 );
+
+				curArg++;
+			}
+			else if( lua_isnumber( lua, curArg ) && lua_isnumber( lua, curArg+1 ) )
+			{
+				x = (long)lua_tointeger( lua, curArg );
+				y = (long)lua_tointeger( lua, curArg+1 );
+
+				curArg += 2;
+			}
+			else
+				return 0;
 
 			d2MapToAbsScreen( &x, &y );
+			x -= d2GetMouseXOffset();
+			y -= d2GetMouseYOffset();
 
-			if( nargs == 1 || !lua_istable( lua, 2 ) )
+			int tableIndex = curArg;
+			if( nargs < curArg || !lua_istable( lua, curArg ) )
 			{
 				result = 1;
 				lua_newtable( lua );
+				tableIndex = -2;
 			}
 
 			lua_pushnumber( lua, x );
-			lua_rawseti( lua, -2, 1 );
+			lua_rawseti( lua, tableIndex, 1 );
 			lua_pushnumber( lua, y );
-			lua_rawseti( lua, -2, 2 );
+			lua_rawseti( lua, tableIndex, 2 );
 		}
 
 		return result;
@@ -1362,6 +1397,8 @@ namespace lua_interface
 			lua_rawgeti( lua, 1, 2 );
 			long y = (int)lua_tointeger( lua, -1 );
 
+			x -= d2GetMouseXOffset();
+			y -= d2GetMouseYOffset();
 			d2AbsScreenToMap( &x, &y );
 
 			if( nargs == 1 || !lua_istable( lua, 2 ) )
@@ -1537,19 +1574,50 @@ namespace lua_interface
 		int nargs = lua_gettop( lua );
 		if( nargs >= 2 )
 		{
-			lua_rawgeti( lua, 1, 1 );
-			int x1 = (int)lua_tointeger( lua, -1 );
-			lua_rawgeti( lua, 1, 2 );
-			int y1 = (int)lua_tointeger( lua, -1 );
+			lua_assert( !lua_isnil( lua, 1 ) && !lua_isnil( lua, 2 ) );
 
-			lua_rawgeti( lua, 2, 1 );
-			int x2 = (int)lua_tointeger( lua, -1 );
-			lua_rawgeti( lua, 2, 2 );
-			int y2 = (int)lua_tointeger( lua, -1 );
+			int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+
+			int curArg = 1;
+			if( lua_istable( lua, curArg ) )
+			{
+				lua_rawgeti( lua, curArg, 1 );
+				x1 = (int)lua_tointeger( lua, -1 );
+				lua_rawgeti( lua, curArg, 2 );
+				y1 = (int)lua_tointeger( lua, -1 );
+
+				curArg++;
+			}
+			else if( lua_isnumber( lua, curArg ) && lua_isnumber( lua, curArg+1 ) )
+			{
+				x1 = (int)lua_tointeger( lua, curArg );
+				y1 = (int)lua_tointeger( lua, curArg+1 );
+
+				curArg += 2;
+			}
+			else
+				return 0;
+
+			if( lua_istable( lua, curArg ) )
+			{
+				lua_rawgeti( lua, curArg, 1 );
+				x2 = (int)lua_tointeger( lua, -1 );
+				lua_rawgeti( lua, curArg, 2 );
+				y2 = (int)lua_tointeger( lua, -1 );
+
+				curArg++;
+			}
+			else if( lua_isnumber( lua, curArg ) && lua_isnumber( lua, curArg+1 ) )
+			{
+				x2 = (int)lua_tonumber( lua, curArg );
+				y2 = (int)lua_tointeger( lua, curArg+1 );
+
+				curArg += 2;
+			}
 
 			DWORD color = 0xFF;
-			if( nargs == 3 )
-				color = (DWORD)lua_tointeger( lua, 3 );
+			if( nargs == curArg )
+				color = (DWORD)lua_tointeger( lua, curArg );
 			
 			d2DrawLine( x1, y1, x2, y2, color, 0 );
 		}

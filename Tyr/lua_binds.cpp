@@ -10,6 +10,9 @@ int lua_bind( LuaBinds* binds )
 	lua_rendering::bind( binds->lua );
 	lua_interface::bind( binds->lua );
 	lua_filesystem::bind( binds->lua );
+	lua_unit::bind( binds->lua );
+	lua_player::bind( binds->lua );
+	lua_monster::bind( binds->lua );
 
 	// run main script
 	if( luaL_loadfile( binds->lua, "./scripts/main.lua" ) == 0 )
