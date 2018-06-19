@@ -10,4 +10,5 @@ namespace lua_player
 
 	int getPlayer( lua_State* lua );
 	int getPlayerName( lua_State* lua );
+	int getName( lua_State* lua );
 }

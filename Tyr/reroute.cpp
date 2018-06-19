@@ -1,10 +1,10 @@
 #include "reroute.h"
 
-void reroute( LPVOID addr, LPVOID func, SIZE_T size )
+void reroute( BYTE inst, LPVOID addr, LPVOID func, SIZE_T size )
 {
 	const int MAX_POSSIBLE_SIZE = 16;
 
-	BYTE code[MAX_POSSIBLE_SIZE] = { JMP };
+	BYTE code[MAX_POSSIBLE_SIZE] = { inst };
 	memset( code+1, NOP, MAX_POSSIBLE_SIZE-1 ); // fill code with NOP instructions
 
 	DWORD functionOffset = (DWORD)func - ( (DWORD)addr + 5 );

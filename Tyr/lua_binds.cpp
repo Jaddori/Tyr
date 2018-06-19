@@ -13,6 +13,9 @@ int lua_bind( LuaBinds* binds )
 	lua_unit::bind( binds->lua );
 	lua_player::bind( binds->lua );
 	lua_monster::bind( binds->lua );
+	lua_game::bind( binds->lua );
+	lua_menu::bind( binds->lua );
+	lua_input::bind( binds->lua );
 
 	// run main script
 	if( luaL_loadfile( binds->lua, "./scripts/main.lua" ) == 0 )
@@ -51,6 +54,22 @@ int lua_bind( LuaBinds* binds )
 			if( lua_isfunction( binds->lua, -1 ) )
 			{
 				binds->renderFunctionReference = luaL_ref( binds->lua, LUA_REGISTRYINDEX );
+			}
+			else
+				binds->initialized = 0;
+
+			lua_getglobal( binds->lua, "update_oog" );
+			if( lua_isfunction( binds->lua, -1 ) )
+			{
+				binds->updateOOGFunctionReference = luaL_ref( binds->lua, LUA_REGISTRYINDEX );
+			}
+			else
+				binds->initialized = 0;
+
+			lua_getglobal( binds->lua, "render_oog" );
+			if( lua_isfunction( binds->lua, -1 ) )
+			{
+				binds->renderOOGFunctionReference = luaL_ref( binds->lua, LUA_REGISTRYINDEX );
 			}
 			else
 				binds->initialized = 0;
@@ -97,4 +116,14 @@ void lua_update( LuaBinds* binds )
 void lua_render( LuaBinds* binds )
 {
 	runLuaFunction( binds, binds->renderFunctionReference );
+}
+
+void lua_update_oog( LuaBinds* binds )
+{
+	runLuaFunction( binds, binds->updateOOGFunctionReference );
+}
+
+void lua_render_oog( LuaBinds* binds )
+{
+	runLuaFunction( binds, binds->renderOOGFunctionReference );
 }

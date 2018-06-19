@@ -7,6 +7,9 @@
 #include "lua_unit.h"
 #include "lua_player.h"
 #include "lua_monster.h"
+#include "lua_game.h"
+#include "lua_menu.h"
+#include "lua_input.h"
 
 struct LuaBinds
 {
@@ -15,6 +18,8 @@ struct LuaBinds
 	int stopFunctionReference;
 	int updateFunctionReference;
 	int renderFunctionReference;
+	int updateOOGFunctionReference;
+	int renderOOGFunctionReference;
 	int initialized;
 };
 
@@ -23,3 +28,5 @@ void lua_start( LuaBinds* binds );
 void lua_stop( LuaBinds* binds );
 void lua_update( LuaBinds* binds );
 void lua_render( LuaBinds* binds );
+void lua_update_oog( LuaBinds* binds );
+void lua_render_oog( LuaBinds* binds );

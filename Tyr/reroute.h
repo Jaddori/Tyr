@@ -8,4 +8,4 @@
 #define CALL	0xE8
 #define RET		0xC3
 
-void reroute( LPVOID addr, LPVOID func, SIZE_T size = 5 );
+void reroute( BYTE inst, LPVOID addr, LPVOID func, SIZE_T size = 5 );

@@ -145,6 +145,21 @@
     <ClCompile Include="lua_unit.cpp">
       <Filter>Source Files\Lua</Filter>
     </ClCompile>
+    <ClCompile Include="lua_map.cpp">
+      <Filter>Source Files\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="lua_game.cpp">
+      <Filter>Source Files\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="d2_helpers.cpp">
+      <Filter>Source Files\Diablo II</Filter>
+    </ClCompile>
+    <ClCompile Include="lua_menu.cpp">
+      <Filter>Source Files\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="lua_input.cpp">
+      <Filter>Source Files\Lua</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="reroute.h">
@@ -260,6 +275,21 @@
     </ClInclude>
     <ClInclude Include="utilities.h">
       <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_map.h">
+      <Filter>Source Files\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_game.h">
+      <Filter>Source Files\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="d2_helpers.h">
+      <Filter>Source Files\Diablo II</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_menu.h">
+      <Filter>Source Files\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_input.h">
+      <Filter>Source Files\Lua</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

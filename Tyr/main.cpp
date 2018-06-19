@@ -29,10 +29,17 @@ void DrawIntercept(void)
 	lua_render( &g_binds );
 }
 
+void DrawOOGIntercept(void)
+{
+	lua_update_oog( &g_binds );
+	lua_render_oog( &g_binds );
+}
+
 void Startup()
 {
 	DWORD baseAddress = (DWORD)GetModuleHandle( NULL );
-	reroute( (LPVOID)(baseAddress+0x53B30), DrawIntercept );
+	reroute( JMP, (LPVOID)(baseAddress+0x53B30), DrawIntercept );
+	reroute( CALL, (LPVOID)(baseAddress+0xF9A0D), DrawOOGIntercept );
 
 	initializeInterface( baseAddress );
 

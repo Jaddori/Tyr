@@ -164,14 +164,14 @@ struct d2Control_t
 	{
 		struct // Textboxes
 		{
-			wchar_t textw[256];
+			wchar_t boxText[256];
 			DWORD cursorPosition;
 			DWORD isCloaked;
 		};
 		struct // Buttons
 		{
 			DWORD _12[2];
-			wchar_t textw[256];
+			wchar_t buttonText[256];
 		};
 	};
 };
