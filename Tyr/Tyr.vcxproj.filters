@@ -160,6 +160,12 @@
     <ClCompile Include="lua_input.cpp">
       <Filter>Source Files\Lua</Filter>
     </ClCompile>
+    <ClCompile Include="d2_act_map.cpp">
+      <Filter>Source Files\Diablo II</Filter>
+    </ClCompile>
+    <ClCompile Include="d2_level_map.cpp">
+      <Filter>Source Files\Diablo II</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="reroute.h">
@@ -290,6 +296,15 @@
     </ClInclude>
     <ClInclude Include="lua_input.h">
       <Filter>Source Files\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="d2_map.h">
+      <Filter>Source Files\Diablo II</Filter>
+    </ClInclude>
+    <ClInclude Include="d2_act_map.h">
+      <Filter>Source Files\Diablo II</Filter>
+    </ClInclude>
+    <ClInclude Include="d2_level_map.h">
+      <Filter>Source Files\Diablo II</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

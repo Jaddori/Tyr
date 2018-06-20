@@ -10,6 +10,7 @@
 #include "lua_game.h"
 #include "lua_menu.h"
 #include "lua_input.h"
+#include "lua_map.h"
 
 struct LuaBinds
 {

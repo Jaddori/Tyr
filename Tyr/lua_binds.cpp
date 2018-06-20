@@ -16,6 +16,7 @@ int lua_bind( LuaBinds* binds )
 	lua_game::bind( binds->lua );
 	lua_menu::bind( binds->lua );
 	lua_input::bind( binds->lua );
+	lua_map::bind( binds->lua );
 
 	// run main script
 	if( luaL_loadfile( binds->lua, "./scripts/main.lua" ) == 0 )

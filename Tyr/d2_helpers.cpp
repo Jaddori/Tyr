@@ -266,3 +266,143 @@ bool clickControl( d2Control_t* control, int x, int y )
 
 	return result;
 }
+
+const char* getUnitName(d2UnitAny_t* pUnit, char* szTmp, size_t bufSize)
+{
+	if(!pUnit)
+	{
+		strcpy_s(szTmp, bufSize, "Unknown");
+		return szTmp;
+	}
+	if(pUnit->type == UNIT_MONSTER) {
+		wchar_t* wName = L"TODO";//d2GetUnitName(pUnit);
+		WideCharToMultiByte(CP_ACP, 0, wName, -1, szTmp, bufSize, 0, 0);
+		return szTmp;
+	}
+	if(pUnit->type == UNIT_PLAYER && pUnit->playerData)
+	{
+		//	return pUnit->pPlayerData->szName;
+		strcpy_s(szTmp, bufSize, pUnit->playerData->name);
+		return szTmp;
+	}
+	if(pUnit->type == UNIT_ITEM)
+	{
+		wchar_t wBuffer[256] = L"";
+		d2GetItemName(pUnit, wBuffer, sizeof(wBuffer));
+		char* szBuffer = unicodeToAnsi(wBuffer);
+		if(strchr(szBuffer, '\n'))
+			*strchr(szBuffer,'\n') = 0x00;
+
+		strcpy_s(szTmp, bufSize, szBuffer);
+		delete[] szBuffer;
+		return szTmp;
+	}
+	if(pUnit->type == UNIT_OBJECT || pUnit->type == UNIT_TILE)
+	{
+		if(pUnit->objectData && pUnit->objectData->text)
+		{
+			strcpy_s(szTmp, bufSize, pUnit->objectData->text->name);
+			return szTmp;
+		}
+	}
+
+	strcpy_s(szTmp, bufSize, "Unknown");
+	return szTmp;
+}
+
+// szBuf must be a 4-character string
+void getItemCode(d2UnitAny_t* pUnit, char* szBuf)
+{
+	if(pUnit->type == UNIT_ITEM)
+	{
+		d2ItemText_t* pTxt = d2GetItemText(pUnit->textFileNumber);
+		if(pTxt)
+		{
+			memcpy(szBuf, pTxt->code, 3);
+			szBuf[3] = 0x00;
+		}
+	}
+}
+
+DWORD getTileLevelNo(d2Room2_t* lpRoom2, DWORD dwTileNo)
+{
+	for(d2RoomTile_t* pRoomTile = lpRoom2->roomTiles; pRoomTile; pRoomTile = pRoomTile->next)
+	{
+		if(*(pRoomTile->number) == dwTileNo)
+			return pRoomTile->room2->level->levelNumber;
+	}
+
+	return NULL;
+}
+
+double getDistance(long x1, long y1, long x2, long y2, DistanceType type)
+{
+	double dist = 0;
+	switch(type)
+	{
+		case Euclidean:
+		{
+			double dx = (double)(x2 - x1);
+			double dy = (double)(y2 - y1);
+			//dx = pow(dx, 2);
+			//dy = pow(dy, 2);
+			dx *= dx;
+			dy *= dy;
+			dist = sqrt(dx + dy); 
+		}
+		break;
+		case Chebyshev:
+		{
+			long dx = (x2 - x1);
+			long dy = (y2 - y1);
+			dx = abs(dx);
+			dy = abs(dy);
+			dist = max(dx, dy); 
+		}
+		break;
+		case Manhattan:
+		{
+			long dx = (x2 - x1);
+			long dy = (y2 - y1);
+			dx = abs(dx);
+			dy = abs(dy);
+			dist = (dx + dy);
+		}
+		break;
+		default: 
+			dist = -1; 
+			break;
+	}
+	return dist;
+}
+
+d2Level_t* getLevel( DWORD levelNumber )
+{
+	if ( !gameReady() )
+		return nullptr;
+
+	d2Level_t* pLevel = d2GetPlayerUnit()->act->misc->levelFirst;
+
+	while( pLevel )
+	{
+		if( pLevel->levelNumber == levelNumber )
+		{
+			if ( !pLevel->room2First )
+				d2InitLevel( pLevel );
+
+			if ( !pLevel->room2First )
+				break;
+
+			return pLevel;
+		}
+
+		pLevel = pLevel->next;
+	}
+
+	return pLevel;
+}
+
+bool gameReady()
+{
+	return ( clientState() == CLIENT_STATE_IN_GAME );
+}

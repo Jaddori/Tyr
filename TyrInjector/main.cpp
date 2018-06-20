@@ -24,7 +24,7 @@ int main( int argc, char* argv[] )
 			return -1;
 		}
 
-		Sleep( 1000 );
+		Sleep( 500 );
 
 		printf( "Loading hook DLL.\n" );
 		HMODULE hookDLL = LoadLibrary( "Tyr.dll" );

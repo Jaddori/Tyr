@@ -5,6 +5,7 @@ namespace lua_menu
 	void bind( lua_State* lua )
 	{
 		lua_register( lua, "selectCharacter", selectCharacter );
+		lua_register( lua, "findControl", findControl );
 		lua_register( lua, "findButton", findButton );
 		lua_register( lua, "clickControl", clickControl );
 		lua_register( lua, "printAllControls", printAllControls );
@@ -70,6 +71,25 @@ namespace lua_menu
 
 			lua_pushboolean( lua, success );
 			result = 1;
+		}
+
+		return result;
+	}
+
+	int findControl( lua_State* lua )
+	{
+		int result = 0;
+
+		if( lua_gettop( lua ) >= 1 && lua_isstring( lua, 1 ) )
+		{
+			const char* text = lua_tostring( lua, 1 );
+
+			d2Control_t* control = ::findControl( -1, text, -1, -1, -1, -1, -1 );
+			if( control )
+			{
+				lua_pushlightuserdata( lua, control );
+				result = 1;
+			}
 		}
 
 		return result;

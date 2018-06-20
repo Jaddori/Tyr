@@ -157,8 +157,10 @@
     <ClCompile Include="..\include\Lua\lundump.c" />
     <ClCompile Include="..\include\Lua\lvm.c" />
     <ClCompile Include="..\include\Lua\lzio.c" />
+    <ClCompile Include="d2_act_map.cpp" />
     <ClCompile Include="d2_helpers.cpp" />
     <ClCompile Include="d2_interface.cpp" />
+    <ClCompile Include="d2_level_map.cpp" />
     <ClCompile Include="lua_binds.cpp" />
     <ClCompile Include="lua_game.cpp" />
     <ClCompile Include="lua_input.cpp" />
@@ -199,10 +201,13 @@
     <ClInclude Include="..\include\Lua\lundump.h" />
     <ClInclude Include="..\include\Lua\lvm.h" />
     <ClInclude Include="..\include\Lua\lzio.h" />
+    <ClInclude Include="d2_act_map.h" />
     <ClInclude Include="d2_constants.h" />
     <ClInclude Include="d2_events.h" />
     <ClInclude Include="d2_helpers.h" />
     <ClInclude Include="d2_interface.h" />
+    <ClInclude Include="d2_level_map.h" />
+    <ClInclude Include="d2_map.h" />
     <ClInclude Include="d2_structures.h" />
     <ClInclude Include="lua_binds.h" />
     <ClInclude Include="lua_game.h" />
