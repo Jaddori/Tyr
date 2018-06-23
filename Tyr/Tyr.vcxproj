@@ -84,7 +84,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\libs\Lua</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -175,6 +175,7 @@
     <ClCompile Include="lua_unit.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="reroute.cpp" />
+    <ClCompile Include="server.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Lua\lapi.h" />
@@ -229,6 +230,7 @@
     <ClInclude Include="lua_rendering.h" />
     <ClInclude Include="lua_unit.h" />
     <ClInclude Include="reroute.h" />
+    <ClInclude Include="server.h" />
     <ClInclude Include="utilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

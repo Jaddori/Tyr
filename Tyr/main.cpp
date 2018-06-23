@@ -1,7 +1,9 @@
+#include <WinSock2.h>
 #include <Windows.h>
 #include <stdio.h>
 #include "reroute.h"
 #include "lua_binds.h"
+#include "server.h"
 
 HMODULE g_module = NULL;
 LuaBinds g_binds = {};
@@ -45,6 +47,9 @@ void Startup()
 
 	lua_bind( &g_binds );
 	lua_start( &g_binds );
+
+	Server server;
+	server.start();
 }
 
 void Shutdown()

@@ -20,6 +20,9 @@
     <Filter Include="Source Files\Diablo II\Path">
       <UniqueIdentifier>{eed9e762-0123-4401-83a9-0d1022a7b38c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Communication">
+      <UniqueIdentifier>{9c12d04b-481b-452a-8ca4-7d75c6b4bb3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -171,6 +174,9 @@
     </ClCompile>
     <ClCompile Include="lua_path.cpp">
       <Filter>Source Files\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="server.cpp">
+      <Filter>Source Files\Communication</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -332,6 +338,9 @@
     </ClInclude>
     <ClInclude Include="lua_path.h">
       <Filter>Source Files\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="server.h">
+      <Filter>Source Files\Communication</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
