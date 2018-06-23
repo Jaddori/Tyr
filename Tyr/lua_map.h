@@ -5,6 +5,7 @@
 #include "d2_structures.h"
 #include "d2_constants.h"
 #include "d2_act_map.h"
+#include <unordered_map>
 
 namespace lua_map
 {
@@ -13,5 +14,8 @@ namespace lua_map
 	int getCurrentLevel( lua_State* lua );
 	int getLevelNumber( lua_State* lua );
 	int getExits( lua_State* lua );
+	//int getConnectedLevels( lua_State* lua );
 	int dumpActMap( lua_State* lua );
+	int precacheMap( lua_State* lua );
+	//int precacheConnectedMaps( lua_State* lua );
 }
