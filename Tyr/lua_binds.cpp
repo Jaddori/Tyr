@@ -6,6 +6,8 @@ int lua_bind( LuaBinds* binds )
 	binds->lua = luaL_newstate();
 	luaL_openlibs( binds->lua );
 
+	lua_register( binds->lua, "sleep", lua_sleep );
+
 	// bind subsystem here:
 	lua_rendering::bind( binds->lua );
 	lua_interface::bind( binds->lua );
@@ -17,6 +19,7 @@ int lua_bind( LuaBinds* binds )
 	lua_menu::bind( binds->lua );
 	lua_input::bind( binds->lua );
 	lua_map::bind( binds->lua );
+	lua_path::bind( binds->lua );
 
 	// run main script
 	if( luaL_loadfile( binds->lua, "./scripts/main.lua" ) == 0 )
@@ -127,4 +130,17 @@ void lua_update_oog( LuaBinds* binds )
 void lua_render_oog( LuaBinds* binds )
 {
 	runLuaFunction( binds, binds->renderOOGFunctionReference );
+}
+
+int lua_sleep( lua_State* lua )
+{
+	int result = 0;
+
+	if( lua_gettop( lua ) >= 1 )
+	{
+		int ms = (int)lua_tonumber( lua, 1 );
+		Sleep( ms );
+	}
+
+	return result;
 }

@@ -17,6 +17,9 @@
     <Filter Include="Lua">
       <UniqueIdentifier>{35fa1677-cbae-4503-9df5-c49176c1faae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Diablo II\Path">
+      <UniqueIdentifier>{eed9e762-0123-4401-83a9-0d1022a7b38c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -166,6 +169,9 @@
     <ClCompile Include="d2_level_map.cpp">
       <Filter>Source Files\Diablo II</Filter>
     </ClCompile>
+    <ClCompile Include="lua_path.cpp">
+      <Filter>Source Files\Lua</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="reroute.h">
@@ -305,6 +311,27 @@
     </ClInclude>
     <ClInclude Include="d2_level_map.h">
       <Filter>Source Files\Diablo II</Filter>
+    </ClInclude>
+    <ClInclude Include="d2_path.h">
+      <Filter>Source Files\Diablo II\Path</Filter>
+    </ClInclude>
+    <ClInclude Include="d2_astar_path.h">
+      <Filter>Source Files\Diablo II\Path</Filter>
+    </ClInclude>
+    <ClInclude Include="d2_no_path_reducer.h">
+      <Filter>Source Files\Diablo II\Path</Filter>
+    </ClInclude>
+    <ClInclude Include="d2_path_reducer.h">
+      <Filter>Source Files\Diablo II\Path</Filter>
+    </ClInclude>
+    <ClInclude Include="d2_teleport_path_reducer.h">
+      <Filter>Source Files\Diablo II\Path</Filter>
+    </ClInclude>
+    <ClInclude Include="d2_walk_path_reducer.h">
+      <Filter>Source Files\Diablo II\Path</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_path.h">
+      <Filter>Source Files\Lua</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

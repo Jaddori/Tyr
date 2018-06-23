@@ -25,6 +25,7 @@ bool stringToBool( const char* str );
 void stringReplace( char* str, const char find, const char replace, size_t buflen );
 
 void sendMouseClick( int x, int y, int clickType );
+bool clickMap( int x, int y, int clickType, bool shift, d2UnitAny_t* unit );
 
 int clientState();
 d2Control_t* findControl( int type, int localeID, int disabled, int posX, int posY, int sizeX, int sizeY );

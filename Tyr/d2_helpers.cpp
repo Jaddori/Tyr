@@ -406,3 +406,60 @@ bool gameReady()
 {
 	return ( clientState() == CLIENT_STATE_IN_GAME );
 }
+
+bool clickMap( int _x, int _y, int clickType, bool shift, d2UnitAny_t* unit )
+{
+	if( clientState() != CLIENT_STATE_IN_GAME )
+		return false;
+
+	long x = _x;
+	long y = _y;
+
+	if(unit)
+	{
+		x = d2GetUnitX(unit);
+		y = d2GetUnitY(unit);
+	}
+
+	d2MapToAbsScreen(&x, &y);
+
+	//x -= *d2ViewportX;
+	//y -= *d2ViewportY;
+	x -= d2GetMouseXOffset();
+	y -= d2GetMouseYOffset();
+
+	long oldx = 0;
+	long oldy = 0;
+	oldx = *d2MouseX;
+	oldy = *d2MouseY;
+	*d2MouseX = 0;
+	*d2MouseY = 0;
+
+	if( unit && unit != d2GetPlayerUnit() )
+	{
+		//Vars.dwSelectedUnitId = pUnit->dwUnitId;
+		//Vars.dwSelectedUnitType = pUnit->dwType;
+
+		//Vars.bClickAction = TRUE;
+
+		d2ClickMap( clickType, x, y, shift ? 0x0C : (*d2AlwaysRun ? 0x08 : 0) );
+		//d2SetSelectedUnit(NULL);
+
+		//Vars.bClickAction = FALSE;
+		//Vars.dwSelectedUnitId = NULL;
+		//Vars.dwSelectedUnitType = NULL;
+	}
+	else
+	{
+		//Vars.dwSelectedUnitId = NULL;
+		//Vars.dwSelectedUnitType = NULL;
+
+		//Vars.bClickAction = TRUE;
+		d2ClickMap( clickType, x, y, shift ? 0x0C : (*d2AlwaysRun ? 0x08 : 0) );
+		//Vars.bClickAction = FALSE;
+	}
+
+	*d2MouseX = oldx;
+	*d2MouseY = oldy;
+	return TRUE;
+}

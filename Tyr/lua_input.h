@@ -8,4 +8,5 @@ namespace lua_input
 	void bind( lua_State* lua );
 
 	int sendMouseClick( lua_State* lua );
+	int clickMap( lua_State* lua );
 }

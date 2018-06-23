@@ -169,6 +169,7 @@
     <ClCompile Include="lua_map.cpp" />
     <ClCompile Include="lua_menu.cpp" />
     <ClCompile Include="lua_monster.cpp" />
+    <ClCompile Include="lua_path.cpp" />
     <ClCompile Include="lua_player.cpp" />
     <ClCompile Include="lua_rendering.cpp" />
     <ClCompile Include="lua_unit.cpp" />
@@ -202,13 +203,19 @@
     <ClInclude Include="..\include\Lua\lvm.h" />
     <ClInclude Include="..\include\Lua\lzio.h" />
     <ClInclude Include="d2_act_map.h" />
+    <ClInclude Include="d2_astar_path.h" />
     <ClInclude Include="d2_constants.h" />
     <ClInclude Include="d2_events.h" />
     <ClInclude Include="d2_helpers.h" />
     <ClInclude Include="d2_interface.h" />
     <ClInclude Include="d2_level_map.h" />
     <ClInclude Include="d2_map.h" />
+    <ClInclude Include="d2_no_path_reducer.h" />
+    <ClInclude Include="d2_path.h" />
+    <ClInclude Include="d2_path_reducer.h" />
     <ClInclude Include="d2_structures.h" />
+    <ClInclude Include="d2_teleport_path_reducer.h" />
+    <ClInclude Include="d2_walk_path_reducer.h" />
     <ClInclude Include="lua_binds.h" />
     <ClInclude Include="lua_game.h" />
     <ClInclude Include="lua_input.h" />
@@ -217,6 +224,7 @@
     <ClInclude Include="lua_map.h" />
     <ClInclude Include="lua_menu.h" />
     <ClInclude Include="lua_monster.h" />
+    <ClInclude Include="lua_path.h" />
     <ClInclude Include="lua_player.h" />
     <ClInclude Include="lua_rendering.h" />
     <ClInclude Include="lua_unit.h" />
