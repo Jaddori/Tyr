@@ -157,6 +157,7 @@
     <ClCompile Include="..\include\Lua\lundump.c" />
     <ClCompile Include="..\include\Lua\lvm.c" />
     <ClCompile Include="..\include\Lua\lzio.c" />
+    <ClCompile Include="backlog.cpp" />
     <ClCompile Include="d2_act_map.cpp" />
     <ClCompile Include="d2_helpers.cpp" />
     <ClCompile Include="d2_interface.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="..\include\Lua\lundump.h" />
     <ClInclude Include="..\include\Lua\lvm.h" />
     <ClInclude Include="..\include\Lua\lzio.h" />
+    <ClInclude Include="backlog.h" />
     <ClInclude Include="d2_act_map.h" />
     <ClInclude Include="d2_astar_path.h" />
     <ClInclude Include="d2_constants.h" />

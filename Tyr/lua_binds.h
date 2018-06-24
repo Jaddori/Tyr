@@ -12,6 +12,7 @@
 #include "lua_input.h"
 #include "lua_map.h"
 #include "lua_path.h"
+#include "backlog.h"
 
 struct LuaBinds
 {
@@ -34,3 +35,4 @@ void lua_update_oog( LuaBinds* binds );
 void lua_render_oog( LuaBinds* binds );
 
 int lua_sleep( lua_State* lua );
+int lua_backlog( lua_State* lua );

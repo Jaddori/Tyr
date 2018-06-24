@@ -1,4 +1,7 @@
 #include "lua_binds.h"
+#include "backlog.h"
+
+extern Backlog g_backlog;
 
 int lua_bind( LuaBinds* binds )
 {
@@ -7,6 +10,7 @@ int lua_bind( LuaBinds* binds )
 	luaL_openlibs( binds->lua );
 
 	lua_register( binds->lua, "sleep", lua_sleep );
+	lua_register( binds->lua, "backlog", lua_backlog );
 
 	// bind subsystem here:
 	lua_rendering::bind( binds->lua );
@@ -140,6 +144,19 @@ int lua_sleep( lua_State* lua )
 	{
 		int ms = (int)lua_tonumber( lua, 1 );
 		Sleep( ms );
+	}
+
+	return result;
+}
+
+int lua_backlog( lua_State* lua )
+{
+	int result = 0;
+
+	if( lua_gettop( lua ) >= 1 )
+	{
+		const char* message = lua_tostring( lua, 1 );
+		g_backlog.log( message );
 	}
 
 	return result;

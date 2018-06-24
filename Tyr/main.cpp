@@ -4,9 +4,12 @@
 #include "reroute.h"
 #include "lua_binds.h"
 #include "server.h"
+#include "backlog.h"
 
 HMODULE g_module = NULL;
 LuaBinds g_binds = {};
+HANDLE g_serverThread;
+Backlog g_backlog;
 
 INT APIENTRY DllMain( HINSTANCE handle, DWORD reason, LPVOID reserved )
 {
@@ -37,6 +40,19 @@ void DrawOOGIntercept(void)
 	lua_render_oog( &g_binds );
 }
 
+DWORD WINAPI ServerRoutine( LPVOID args )
+{
+	DWORD result = 0;
+
+	Server server;
+	server.setBacklog( &g_backlog );
+	server.start();
+	server.update();
+	server.stop();
+
+	return result;
+}
+
 void Startup()
 {
 	DWORD baseAddress = (DWORD)GetModuleHandle( NULL );
@@ -48,8 +64,7 @@ void Startup()
 	lua_bind( &g_binds );
 	lua_start( &g_binds );
 
-	Server server;
-	server.start();
+	g_serverThread = CreateThread( NULL, 0, ServerRoutine, NULL, 0, NULL );
 }
 
 void Shutdown()

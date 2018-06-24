@@ -30,6 +30,8 @@
 		{
 			this.tab_main = new System.Windows.Forms.TabControl();
 			this.tab_connection = new System.Windows.Forms.TabPage();
+			this.connect_txt_port = new System.Windows.Forms.TextBox();
+			this.connect_lbl_port = new System.Windows.Forms.Label();
 			this.connect_txt_password = new System.Windows.Forms.TextBox();
 			this.connect_btn_connect = new System.Windows.Forms.Button();
 			this.connect_lbl_password = new System.Windows.Forms.Label();
@@ -38,8 +40,6 @@
 			this.tab_progress = new System.Windows.Forms.TabPage();
 			this.tab_console = new System.Windows.Forms.TabPage();
 			this.console_txt_console = new System.Windows.Forms.TextBox();
-			this.connect_lbl_port = new System.Windows.Forms.Label();
-			this.connect_txt_port = new System.Windows.Forms.TextBox();
 			this.tab_main.SuspendLayout();
 			this.tab_connection.SuspendLayout();
 			this.tab_console.SuspendLayout();
@@ -73,6 +73,23 @@
 			this.tab_connection.TabIndex = 0;
 			this.tab_connection.Text = "Connect";
 			this.tab_connection.UseVisualStyleBackColor = true;
+			// 
+			// connect_txt_port
+			// 
+			this.connect_txt_port.Location = new System.Drawing.Point(191, 19);
+			this.connect_txt_port.Name = "connect_txt_port";
+			this.connect_txt_port.Size = new System.Drawing.Size(77, 20);
+			this.connect_txt_port.TabIndex = 6;
+			this.connect_txt_port.Text = "15015";
+			// 
+			// connect_lbl_port
+			// 
+			this.connect_lbl_port.AutoSize = true;
+			this.connect_lbl_port.Location = new System.Drawing.Point(190, 3);
+			this.connect_lbl_port.Name = "connect_lbl_port";
+			this.connect_lbl_port.Size = new System.Drawing.Size(29, 13);
+			this.connect_lbl_port.TabIndex = 5;
+			this.connect_lbl_port.Text = "Port:";
 			// 
 			// connect_txt_password
 			// 
@@ -152,25 +169,9 @@
 			this.console_txt_console.Location = new System.Drawing.Point(3, 3);
 			this.console_txt_console.Multiline = true;
 			this.console_txt_console.Name = "console_txt_console";
+			this.console_txt_console.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.console_txt_console.Size = new System.Drawing.Size(270, 230);
 			this.console_txt_console.TabIndex = 0;
-			// 
-			// connect_lbl_port
-			// 
-			this.connect_lbl_port.AutoSize = true;
-			this.connect_lbl_port.Location = new System.Drawing.Point(190, 3);
-			this.connect_lbl_port.Name = "connect_lbl_port";
-			this.connect_lbl_port.Size = new System.Drawing.Size(29, 13);
-			this.connect_lbl_port.TabIndex = 5;
-			this.connect_lbl_port.Text = "Port:";
-			// 
-			// connect_txt_port
-			// 
-			this.connect_txt_port.Location = new System.Drawing.Point(191, 19);
-			this.connect_txt_port.Name = "connect_txt_port";
-			this.connect_txt_port.Size = new System.Drawing.Size(77, 20);
-			this.connect_txt_port.TabIndex = 6;
-			this.connect_txt_port.Text = "15015";
 			// 
 			// MainForm
 			// 

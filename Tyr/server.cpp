@@ -41,17 +41,6 @@ bool Server::start()
 						if( clientSocket != SOCKET_ERROR )
 						{
 							closesocket( listenSocket );
-
-							char buf[32] = {};
-							int recvbyte = recv( clientSocket, buf, 32, 0 );
-
-							send( clientSocket, buf, recvbyte, 0 );
-
-							shutdown( clientSocket, SD_SEND );
-
-							char message[64] = {};
-							_snprintf( message, 64, "Client said: %s", buf );
-							MessageBoxA( NULL, message, "Tyr Server", MB_OK ); 
 						}
 						else
 						{
@@ -98,4 +87,39 @@ bool Server::start()
 
 void Server::stop()
 {
+}
+
+void Server::update()
+{
+	while( backlog->getRunning() )
+	{
+		LogMessage logMessage = {};
+		while( backlog->read( messagesRead, &logMessage ) )
+		{
+			sendMessage( &logMessage );
+			messagesRead++;
+		}
+
+		Sleep( MESSAGE_DELAY );
+	}
+}
+
+void Server::setBacklog( Backlog* _backlog )
+{
+	backlog = _backlog;
+}
+
+void Server::sendMessage( LogMessage* message )
+{
+	//char buffer[MAX_BUF_LEN] = {};
+	//int len = message->message.size();
+	//if( len < MAX_BUF_LEN )
+	//{
+	//	memcpy( buffer, message->message.data(), len );
+	//	buffer[len] = 0;
+	//
+	//	send( clientSocket, buffer, len, 0 );
+	//}
+
+	send( clientSocket, message->data, message->size, 0 );
 }
